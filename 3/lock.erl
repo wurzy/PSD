@@ -1,4 +1,4 @@
--module(lock1_0).
+-module(lock).
 -export([create/0, release/1, acquire/2]).
 
 create()->
@@ -15,6 +15,8 @@ acquire(Pid, Mode) ->
     Pid ! {Mode,self()},
     receive
         invalid -> invalid;
+        ok_write -> ok_write;
+        ok_read -> ok_read;
         _ -> ok
     end.
 
@@ -40,10 +42,22 @@ reading(Readers) ->
             reading(Readers -- [From]); % se for um release, o leitor é libertado da lista.
         {read,From} -> 
             From ! ok_read,
-            reading([From|Readers]); % se for um read, o leitor é adicionado a lista. Starvation de writers.
+            reading([From|Readers]); % se for um read, o leitor é adicionado a lista.
+        {write, From} ->
+            reading(Readers,From);
         {_,From} ->
             From ! invalid,
             reading(Readers)
+    end.
+
+reading([],From) ->
+    From ! ok_write,
+    writing(From);
+
+reading(Readers,From) ->
+    receive
+        {release,FromSomeoneElse} -> reading(Readers--[FromSomeoneElse],From); % exaustar os leitores.
+        _ -> reading(Readers,From)
     end.
 
 writing(From) ->
