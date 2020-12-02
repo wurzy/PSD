@@ -1,5 +1,5 @@
 -module(loginmanager).
--export([start/0, create_account/2, close_account/2, login/2]). % acrescentar ao api o start para abstrair
+-export([start/0, create_account/2, close_account/2, login/2, logout/2, online/0]). % acrescentar ao api o start para abstrair
 
 % Vai dar jeito um Map<User,Passwd&BoolOnline>
 
@@ -40,6 +40,12 @@ close_account(User,Password) ->
 login(User,Password) ->
     rpc({login,User,Password}).
 
+logout(User,Password) ->
+    rpc({logout,User,Password}).
+
+online() ->
+    rpc(online).
+
 loop(Accounts) ->
     receive
         {{create_account,User,Password},From} -> 
@@ -68,6 +74,17 @@ loop(Accounts) ->
                 _ -> % se for qualquer outra coisa nao interessa, erro ou pw errada
                     From ! {invalid, ?MODULE},
                     loop(Accounts)
-            end               
-
+            end;
+        {{logout,User,Password},From} ->
+            case maps:find(User,Accounts) of 
+                {ok, {Password,true}} -> % se existe e se a password está correta e se estava online
+                    From ! {ok, ?MODULE},
+                    loop(maps:update(User,{Password,false},Accounts));
+                _ -> 
+                    From ! {invalid, ?MODULE},
+                    loop(Accounts)
+            end;
+        {online,From} -> 
+            From ! {maps:keys(Accounts), ?MODULE},
+            loop(Accounts)
     end.
