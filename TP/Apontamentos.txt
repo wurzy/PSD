@@ -1,0 +1,13 @@
+----USER-----
+Users nao saem do distrito;
+
+Registar user: 
+- nome, pw, distrito
+- data atual
+
+Autenticaçao: 
+- nome,pw 
+
+Informar o serviço da localizaçao atual
+
+Servidores distritais: 
