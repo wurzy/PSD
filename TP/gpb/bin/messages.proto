@@ -1,0 +1,45 @@
+syntax = "proto2";
+
+package Protos;
+
+// General
+
+message Reply {
+    required bool result = 1;
+    required string message = 2;
+}
+
+// Session
+
+message Message {
+    required Type type = 1;
+    optional Register registerData = 2;
+    optional Login loginData = 3;
+    optional Logout logoutData = 4;
+    optional Reply replyData = 5;
+}
+
+enum Type {
+    REGISTER = 0;
+    LOGIN = 1;
+    LOGOUT = 2;
+    REPLY = 3;
+    LOCATION = 4;
+    SICK = 5;
+}
+
+message Register {
+    required string username = 1;
+    required string password = 2;
+    required string district = 3;
+}
+
+message Login {
+    required string username = 1;
+    required string password = 2;
+}
+
+message Logout {
+    required string username = 1;
+    required string password = 2;
+}

@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+// General
+
+message Reply {
+    requried bool result = 1;
+    requried string message = 2;
+}
+
+// Session
+
+message Register {
+    requried string username = 1;
+    requried string password = 2;
+    requried string district = 3;
+}
+
+message Login {
+    requried string username = 1;
+    requried string password = 2;
+}
+
+message Logout {
+    requried string username = 1;
+    requried string password = 2;
+}
