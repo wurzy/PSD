@@ -1,3 +1,5 @@
+package Client;
+
 import java.util.Scanner;
 
 public class Menu {
@@ -88,10 +90,8 @@ public class Menu {
     public int readInt(String req){
         System.out.println(req);
         int choice;
-        System.out.println("Insira o ID: ");
         while((choice = readIntAux()) == -1) {
-            System.out.println("Insira ID válido!");
-            System.out.print("Insira o ID: ");
+            System.out.println("Insira um inteiro válido!");
         }
         return choice;
     }

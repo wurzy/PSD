@@ -1,4 +1,7 @@
-import java.awt.*;
+package Client;
+import Protos.Messages.*;
+import com.google.protobuf.InvalidProtocolBufferException;
+
 import java.net.Socket;
 
 public class ClientWriter implements Runnable{
@@ -95,7 +98,16 @@ public class ClientWriter implements Runnable{
         this.district = menu.readString("Distrito: ");
         this.coordx = menu.readInt("Coordenada X: ");
         this.coordy = menu.readInt("Coordenada Y: ");
-
+        Register r = Register.newBuilder().setUsername(user).setPassword(password).setDistrict(district).setCoordx(coordx).setCoordy(coordy).build();
+        Message m = Message.newBuilder().setType(Type.REGISTER).setRegisterData(r).build();
+        System.out.println(m);
+        byte[] array = m.toByteArray();
+        try {
+            Message m2 = Message.parseFrom(array);
+            System.out.println(m2);
+        } catch (InvalidProtocolBufferException e) {
+            System.out.println(e);
+        }
         System.out.println(user + ", " + password + ", " + district + ": (" + coordx + "," + coordy + ")");
     }
 
