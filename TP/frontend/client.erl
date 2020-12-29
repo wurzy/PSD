@@ -6,7 +6,7 @@ register(Username,Password,District) ->
     {ok, Sock} = gen_tcp:connect("localhost", 1234, [binary, {packet, 0}]),
     gen_tcp:send(Sock, messages:encode_msg(
                 #{type=>'REGISTER', 
-                  registerData => #{
+                  register => #{
                         username=>Username, 
                         password=>Password, 
                         district=>District}}, 'Message')),
@@ -21,7 +21,7 @@ login(Username,Password) ->
     {ok, Sock} = gen_tcp:connect("localhost", 1234, [binary, {packet, 0}]),
     gen_tcp:send(Sock, messages:encode_msg(
                 #{type=>'LOGIN', 
-                  loginData => #{
+                  login => #{
                         username=>Username, 
                         password=>Password}}, 'Message')),
     receive
@@ -35,7 +35,7 @@ logout(Username) ->
     {ok, Sock} = gen_tcp:connect("localhost", 1234, [binary, {packet, 0}]),
     gen_tcp:send(Sock, messages:encode_msg(
                 #{type=>'LOGOUT',
-                  logoutData => #{
+                  logout => #{
                         username=>Username}}, 'Message')),
     receive
         {tcp, _, Bin} ->

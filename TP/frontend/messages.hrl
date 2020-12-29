@@ -7,21 +7,14 @@
 
 -define(messages_gpb_version, "4.16.0").
 
--ifndef('REPLY_PB_H').
--define('REPLY_PB_H', true).
--record('Reply',
-        {result                 :: boolean() | 0 | 1 | undefined, % = 1, required
-         message                :: iodata() | undefined % = 2, required
-        }).
--endif.
-
 -ifndef('MESSAGE_PB_H').
 -define('MESSAGE_PB_H', true).
 -record('Message',
         {type                   :: 'REGISTER' | 'LOGIN' | 'LOGOUT' | 'REPLY' | 'LOCATION' | 'SICK' | integer() | undefined, % = 1, required, enum Type
-         registerData           :: messages:'Register'() | undefined, % = 2, optional
-         loginData              :: messages:'Login'() | undefined, % = 3, optional
-         replyData              :: messages:'Reply'() | undefined % = 5, optional
+         register               :: messages:'Register'() | undefined, % = 2, optional
+         login                  :: messages:'Login'() | undefined, % = 3, optional
+         reply                  :: messages:'Reply'() | undefined, % = 4, optional
+         location               :: messages:'Location'() | undefined % = 5, optional
         }).
 -endif.
 
@@ -39,6 +32,22 @@
 -record('Login',
         {username               :: iodata() | undefined, % = 1, required
          password               :: iodata() | undefined % = 2, required
+        }).
+-endif.
+
+-ifndef('REPLY_PB_H').
+-define('REPLY_PB_H', true).
+-record('Reply',
+        {result                 :: boolean() | 0 | 1 | undefined, % = 1, required
+         message                :: iodata() | undefined % = 2, required
+        }).
+-endif.
+
+-ifndef('LOCATION_PB_H').
+-define('LOCATION_PB_H', true).
+-record('Location',
+        {coordx                 :: integer() | undefined, % = 1, required, 32 bits
+         coordy                 :: integer() | undefined % = 2, required, 32 bits
         }).
 -endif.
 

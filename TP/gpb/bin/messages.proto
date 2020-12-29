@@ -2,20 +2,13 @@ syntax = "proto2";
 
 package Protos;
 
-// General
-
-message Reply {
-    required bool result = 1;
-    required string message = 2;
-}
-
-// Session
 
 message Message {
     required Type type = 1;
-    optional Register registerData = 2;
-    optional Login loginData = 3;
-    optional Reply replyData = 5;
+    optional Register register = 2;
+    optional Login login = 3;
+    optional Reply reply = 4;
+    optional Location location = 5;
 }
 
 enum Type {
@@ -31,11 +24,19 @@ message Register {
     required string username = 1;
     required string password = 2;
     required string district = 3;
-    required int32 coordx = 4;
-    required int32 coordy = 5;
 }
 
 message Login {
     required string username = 1;
     required string password = 2;
+}
+
+message Reply {
+    required bool result = 1;
+    required string message = 2;
+}
+
+message Location {
+    required int32 coordx = 1;
+    required int32 coordy = 2;
 }

@@ -11,10 +11,10 @@ authentication(Socket) ->
         {tcp, Socket, Bin} ->
             Msg = messages:decode_msg(Bin,'Message'),
             case maps:get(type,Msg) of
-                'REGISTER' -> registerHandler(Socket, maps:get(registerData,Msg));
-                'LOGIN' -> loginHandler(Socket, maps:get(loginData,Msg));
+                'REGISTER' -> registerHandler(Socket, maps:get(register,Msg));
+                'LOGIN' -> loginHandler(Socket, maps:get(login,Msg));
                 _ ->
-                    Reply = messages:encode_msg(#{type=>'REPLY', replyData => 
+                    Reply = messages:encode_msg(#{type=>'REPLY', reply => 
                                                 #{result=>false, message=>"Invalid request, please signup or login first."}}, 'Message'),
                     gen_tcp:send(Socket,Reply),
                     authentication(Socket)
