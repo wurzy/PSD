@@ -31,6 +31,8 @@ message Register {
     required string username = 1;
     required string password = 2;
     required string district = 3;
+    required int32 coordx = 4;
+    required int32 coordy = 5;
 }
 
 message Login {
