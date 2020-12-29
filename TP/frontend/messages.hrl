@@ -21,7 +21,6 @@
         {type                   :: 'REGISTER' | 'LOGIN' | 'LOGOUT' | 'REPLY' | 'LOCATION' | 'SICK' | integer() | undefined, % = 1, required, enum Type
          registerData           :: messages:'Register'() | undefined, % = 2, optional
          loginData              :: messages:'Login'() | undefined, % = 3, optional
-         logoutData             :: messages:'Logout'() | undefined, % = 4, optional
          replyData              :: messages:'Reply'() | undefined % = 5, optional
         }).
 -endif.
@@ -38,14 +37,6 @@
 -ifndef('LOGIN_PB_H').
 -define('LOGIN_PB_H', true).
 -record('Login',
-        {username               :: iodata() | undefined, % = 1, required
-         password               :: iodata() | undefined % = 2, required
-        }).
--endif.
-
--ifndef('LOGOUT_PB_H').
--define('LOGOUT_PB_H', true).
--record('Logout',
         {username               :: iodata() | undefined, % = 1, required
          password               :: iodata() | undefined % = 2, required
         }).

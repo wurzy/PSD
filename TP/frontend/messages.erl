@@ -60,7 +60,6 @@
       #{type                    => 'REGISTER' | 'LOGIN' | 'LOGOUT' | 'REPLY' | 'LOCATION' | 'SICK' | integer(), % = 1, required, enum Type
         registerData            => 'Register'(),    % = 2, optional
         loginData               => 'Login'(),       % = 3, optional
-        logoutData              => 'Logout'(),      % = 4, optional
         replyData               => 'Reply'()        % = 5, optional
        }.
 
@@ -75,17 +74,12 @@
         password                => iodata()         % = 2, required
        }.
 
--type 'Logout'() ::
-      #{username                => iodata(),        % = 1, required
-        password                => iodata()         % = 2, required
-       }.
+-export_type(['Reply'/0, 'Message'/0, 'Register'/0, 'Login'/0]).
 
--export_type(['Reply'/0, 'Message'/0, 'Register'/0, 'Login'/0, 'Logout'/0]).
-
--spec encode_msg('Reply'() | 'Message'() | 'Register'() | 'Login'() | 'Logout'(), atom()) -> binary().
+-spec encode_msg('Reply'() | 'Message'() | 'Register'() | 'Login'(), atom()) -> binary().
 encode_msg(Msg, MsgName) when is_atom(MsgName) -> encode_msg(Msg, MsgName, []).
 
--spec encode_msg('Reply'() | 'Message'() | 'Register'() | 'Login'() | 'Logout'(), atom(), list()) -> binary().
+-spec encode_msg('Reply'() | 'Message'() | 'Register'() | 'Login'(), atom(), list()) -> binary().
 encode_msg(Msg, MsgName, Opts) ->
     case proplists:get_bool(verify, Opts) of
         true -> verify_msg(Msg, MsgName, Opts);
@@ -96,8 +90,7 @@ encode_msg(Msg, MsgName, Opts) ->
         'Reply' -> encode_msg_Reply(id(Msg, TrUserData), TrUserData);
         'Message' -> encode_msg_Message(id(Msg, TrUserData), TrUserData);
         'Register' -> encode_msg_Register(id(Msg, TrUserData), TrUserData);
-        'Login' -> encode_msg_Login(id(Msg, TrUserData), TrUserData);
-        'Logout' -> encode_msg_Logout(id(Msg, TrUserData), TrUserData)
+        'Login' -> encode_msg_Login(id(Msg, TrUserData), TrUserData)
     end.
 
 
@@ -121,13 +114,9 @@ encode_msg_Message(#{type := F1} = M, Bin, TrUserData) ->
              #{loginData := F3} -> begin TrF3 = id(F3, TrUserData), e_mfield_Message_loginData(TrF3, <<B2/binary, 26>>, TrUserData) end;
              _ -> B2
          end,
-    B4 = case M of
-             #{logoutData := F4} -> begin TrF4 = id(F4, TrUserData), e_mfield_Message_logoutData(TrF4, <<B3/binary, 34>>, TrUserData) end;
-             _ -> B3
-         end,
     case M of
-        #{replyData := F5} -> begin TrF5 = id(F5, TrUserData), e_mfield_Message_replyData(TrF5, <<B4/binary, 42>>, TrUserData) end;
-        _ -> B4
+        #{replyData := F4} -> begin TrF4 = id(F4, TrUserData), e_mfield_Message_replyData(TrF4, <<B3/binary, 42>>, TrUserData) end;
+        _ -> B3
     end.
 
 encode_msg_Register(Msg, TrUserData) -> encode_msg_Register(Msg, <<>>, TrUserData).
@@ -145,13 +134,6 @@ encode_msg_Login(#{username := F1, password := F2}, Bin, TrUserData) ->
     B1 = begin TrF1 = id(F1, TrUserData), e_type_string(TrF1, <<Bin/binary, 10>>, TrUserData) end,
     begin TrF2 = id(F2, TrUserData), e_type_string(TrF2, <<B1/binary, 18>>, TrUserData) end.
 
-encode_msg_Logout(Msg, TrUserData) -> encode_msg_Logout(Msg, <<>>, TrUserData).
-
-
-encode_msg_Logout(#{username := F1, password := F2}, Bin, TrUserData) ->
-    B1 = begin TrF1 = id(F1, TrUserData), e_type_string(TrF1, <<Bin/binary, 10>>, TrUserData) end,
-    begin TrF2 = id(F2, TrUserData), e_type_string(TrF2, <<B1/binary, 18>>, TrUserData) end.
-
 e_mfield_Message_registerData(Msg, Bin, TrUserData) ->
     SubBin = encode_msg_Register(Msg, <<>>, TrUserData),
     Bin2 = e_varint(byte_size(SubBin), Bin),
@@ -159,11 +141,6 @@ e_mfield_Message_registerData(Msg, Bin, TrUserData) ->
 
 e_mfield_Message_loginData(Msg, Bin, TrUserData) ->
     SubBin = encode_msg_Login(Msg, <<>>, TrUserData),
-    Bin2 = e_varint(byte_size(SubBin), Bin),
-    <<Bin2/binary, SubBin/binary>>.
-
-e_mfield_Message_logoutData(Msg, Bin, TrUserData) ->
-    SubBin = encode_msg_Logout(Msg, <<>>, TrUserData),
     Bin2 = e_varint(byte_size(SubBin), Bin),
     <<Bin2/binary, SubBin/binary>>.
 
@@ -298,8 +275,7 @@ decode_msg_1_catch(Bin, MsgName, TrUserData) ->
 decode_msg_2_doit('Reply', Bin, TrUserData) -> id(decode_msg_Reply(Bin, TrUserData), TrUserData);
 decode_msg_2_doit('Message', Bin, TrUserData) -> id(decode_msg_Message(Bin, TrUserData), TrUserData);
 decode_msg_2_doit('Register', Bin, TrUserData) -> id(decode_msg_Register(Bin, TrUserData), TrUserData);
-decode_msg_2_doit('Login', Bin, TrUserData) -> id(decode_msg_Login(Bin, TrUserData), TrUserData);
-decode_msg_2_doit('Logout', Bin, TrUserData) -> id(decode_msg_Logout(Bin, TrUserData), TrUserData).
+decode_msg_2_doit('Login', Bin, TrUserData) -> id(decode_msg_Login(Bin, TrUserData), TrUserData).
 
 
 
@@ -354,14 +330,13 @@ skip_32_Reply(<<_:32, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> dfp_r
 
 skip_64_Reply(<<_:64, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> dfp_read_field_def_Reply(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData).
 
-decode_msg_Message(Bin, TrUserData) -> dfp_read_field_def_Message(Bin, 0, 0, 0, id('$undef', TrUserData), id('$undef', TrUserData), id('$undef', TrUserData), id('$undef', TrUserData), id('$undef', TrUserData), TrUserData).
+decode_msg_Message(Bin, TrUserData) -> dfp_read_field_def_Message(Bin, 0, 0, 0, id('$undef', TrUserData), id('$undef', TrUserData), id('$undef', TrUserData), id('$undef', TrUserData), TrUserData).
 
-dfp_read_field_def_Message(<<8, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) -> d_field_Message_type(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-dfp_read_field_def_Message(<<18, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) -> d_field_Message_registerData(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-dfp_read_field_def_Message(<<26, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) -> d_field_Message_loginData(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-dfp_read_field_def_Message(<<34, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) -> d_field_Message_logoutData(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-dfp_read_field_def_Message(<<42, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) -> d_field_Message_replyData(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-dfp_read_field_def_Message(<<>>, 0, 0, _, F@_1, F@_2, F@_3, F@_4, F@_5, _) ->
+dfp_read_field_def_Message(<<8, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, TrUserData) -> d_field_Message_type(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, TrUserData);
+dfp_read_field_def_Message(<<18, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, TrUserData) -> d_field_Message_registerData(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, TrUserData);
+dfp_read_field_def_Message(<<26, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, TrUserData) -> d_field_Message_loginData(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, TrUserData);
+dfp_read_field_def_Message(<<42, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, TrUserData) -> d_field_Message_replyData(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, TrUserData);
+dfp_read_field_def_Message(<<>>, 0, 0, _, F@_1, F@_2, F@_3, F@_4, _) ->
     S1 = #{type => F@_1},
     S2 = if F@_2 == '$undef' -> S1;
             true -> S1#{registerData => F@_2}
@@ -369,33 +344,29 @@ dfp_read_field_def_Message(<<>>, 0, 0, _, F@_1, F@_2, F@_3, F@_4, F@_5, _) ->
     S3 = if F@_3 == '$undef' -> S2;
             true -> S2#{loginData => F@_3}
          end,
-    S4 = if F@_4 == '$undef' -> S3;
-            true -> S3#{logoutData => F@_4}
-         end,
-    if F@_5 == '$undef' -> S4;
-       true -> S4#{replyData => F@_5}
+    if F@_4 == '$undef' -> S3;
+       true -> S3#{replyData => F@_4}
     end;
-dfp_read_field_def_Message(Other, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) -> dg_read_field_def_Message(Other, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData).
+dfp_read_field_def_Message(Other, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, TrUserData) -> dg_read_field_def_Message(Other, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, TrUserData).
 
-dg_read_field_def_Message(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) when N < 32 - 7 -> dg_read_field_def_Message(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-dg_read_field_def_Message(<<0:1, X:7, Rest/binary>>, N, Acc, _, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) ->
+dg_read_field_def_Message(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, TrUserData) when N < 32 - 7 -> dg_read_field_def_Message(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, TrUserData);
+dg_read_field_def_Message(<<0:1, X:7, Rest/binary>>, N, Acc, _, F@_1, F@_2, F@_3, F@_4, TrUserData) ->
     Key = X bsl N + Acc,
     case Key of
-        8 -> d_field_Message_type(Rest, 0, 0, 0, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-        18 -> d_field_Message_registerData(Rest, 0, 0, 0, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-        26 -> d_field_Message_loginData(Rest, 0, 0, 0, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-        34 -> d_field_Message_logoutData(Rest, 0, 0, 0, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-        42 -> d_field_Message_replyData(Rest, 0, 0, 0, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
+        8 -> d_field_Message_type(Rest, 0, 0, 0, F@_1, F@_2, F@_3, F@_4, TrUserData);
+        18 -> d_field_Message_registerData(Rest, 0, 0, 0, F@_1, F@_2, F@_3, F@_4, TrUserData);
+        26 -> d_field_Message_loginData(Rest, 0, 0, 0, F@_1, F@_2, F@_3, F@_4, TrUserData);
+        42 -> d_field_Message_replyData(Rest, 0, 0, 0, F@_1, F@_2, F@_3, F@_4, TrUserData);
         _ ->
             case Key band 7 of
-                0 -> skip_varint_Message(Rest, 0, 0, Key bsr 3, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-                1 -> skip_64_Message(Rest, 0, 0, Key bsr 3, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-                2 -> skip_length_delimited_Message(Rest, 0, 0, Key bsr 3, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-                3 -> skip_group_Message(Rest, 0, 0, Key bsr 3, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-                5 -> skip_32_Message(Rest, 0, 0, Key bsr 3, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData)
+                0 -> skip_varint_Message(Rest, 0, 0, Key bsr 3, F@_1, F@_2, F@_3, F@_4, TrUserData);
+                1 -> skip_64_Message(Rest, 0, 0, Key bsr 3, F@_1, F@_2, F@_3, F@_4, TrUserData);
+                2 -> skip_length_delimited_Message(Rest, 0, 0, Key bsr 3, F@_1, F@_2, F@_3, F@_4, TrUserData);
+                3 -> skip_group_Message(Rest, 0, 0, Key bsr 3, F@_1, F@_2, F@_3, F@_4, TrUserData);
+                5 -> skip_32_Message(Rest, 0, 0, Key bsr 3, F@_1, F@_2, F@_3, F@_4, TrUserData)
             end
     end;
-dg_read_field_def_Message(<<>>, 0, 0, _, F@_1, F@_2, F@_3, F@_4, F@_5, _) ->
+dg_read_field_def_Message(<<>>, 0, 0, _, F@_1, F@_2, F@_3, F@_4, _) ->
     S1 = #{type => F@_1},
     S2 = if F@_2 == '$undef' -> S1;
             true -> S1#{registerData => F@_2}
@@ -403,20 +374,17 @@ dg_read_field_def_Message(<<>>, 0, 0, _, F@_1, F@_2, F@_3, F@_4, F@_5, _) ->
     S3 = if F@_3 == '$undef' -> S2;
             true -> S2#{loginData => F@_3}
          end,
-    S4 = if F@_4 == '$undef' -> S3;
-            true -> S3#{logoutData => F@_4}
-         end,
-    if F@_5 == '$undef' -> S4;
-       true -> S4#{replyData => F@_5}
+    if F@_4 == '$undef' -> S3;
+       true -> S3#{replyData => F@_4}
     end.
 
-d_field_Message_type(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) when N < 57 -> d_field_Message_type(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-d_field_Message_type(<<0:1, X:7, Rest/binary>>, N, Acc, F, _, F@_2, F@_3, F@_4, F@_5, TrUserData) ->
+d_field_Message_type(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, TrUserData) when N < 57 -> d_field_Message_type(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, TrUserData);
+d_field_Message_type(<<0:1, X:7, Rest/binary>>, N, Acc, F, _, F@_2, F@_3, F@_4, TrUserData) ->
     {NewFValue, RestF} = {id(d_enum_Type(begin <<Res:32/signed-native>> = <<(X bsl N + Acc):32/unsigned-native>>, id(Res, TrUserData) end), TrUserData), Rest},
-    dfp_read_field_def_Message(RestF, 0, 0, F, NewFValue, F@_2, F@_3, F@_4, F@_5, TrUserData).
+    dfp_read_field_def_Message(RestF, 0, 0, F, NewFValue, F@_2, F@_3, F@_4, TrUserData).
 
-d_field_Message_registerData(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) when N < 57 -> d_field_Message_registerData(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-d_field_Message_registerData(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, Prev, F@_3, F@_4, F@_5, TrUserData) ->
+d_field_Message_registerData(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, TrUserData) when N < 57 -> d_field_Message_registerData(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, TrUserData);
+d_field_Message_registerData(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, Prev, F@_3, F@_4, TrUserData) ->
     {NewFValue, RestF} = begin Len = X bsl N + Acc, <<Bs:Len/binary, Rest2/binary>> = Rest, {id(decode_msg_Register(Bs, TrUserData), TrUserData), Rest2} end,
     dfp_read_field_def_Message(RestF,
                                0,
@@ -428,11 +396,10 @@ d_field_Message_registerData(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, Prev, F
                                end,
                                F@_3,
                                F@_4,
-                               F@_5,
                                TrUserData).
 
-d_field_Message_loginData(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) when N < 57 -> d_field_Message_loginData(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-d_field_Message_loginData(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, Prev, F@_4, F@_5, TrUserData) ->
+d_field_Message_loginData(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, TrUserData) when N < 57 -> d_field_Message_loginData(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, TrUserData);
+d_field_Message_loginData(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, Prev, F@_4, TrUserData) ->
     {NewFValue, RestF} = begin Len = X bsl N + Acc, <<Bs:Len/binary, Rest2/binary>> = Rest, {id(decode_msg_Login(Bs, TrUserData), TrUserData), Rest2} end,
     dfp_read_field_def_Message(RestF,
                                0,
@@ -444,27 +411,10 @@ d_field_Message_loginData(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, Prev
                                   true -> merge_msg_Login(Prev, NewFValue, TrUserData)
                                end,
                                F@_4,
-                               F@_5,
                                TrUserData).
 
-d_field_Message_logoutData(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) when N < 57 -> d_field_Message_logoutData(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-d_field_Message_logoutData(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, Prev, F@_5, TrUserData) ->
-    {NewFValue, RestF} = begin Len = X bsl N + Acc, <<Bs:Len/binary, Rest2/binary>> = Rest, {id(decode_msg_Logout(Bs, TrUserData), TrUserData), Rest2} end,
-    dfp_read_field_def_Message(RestF,
-                               0,
-                               0,
-                               F,
-                               F@_1,
-                               F@_2,
-                               F@_3,
-                               if Prev == '$undef' -> NewFValue;
-                                  true -> merge_msg_Logout(Prev, NewFValue, TrUserData)
-                               end,
-                               F@_5,
-                               TrUserData).
-
-d_field_Message_replyData(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) when N < 57 -> d_field_Message_replyData(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-d_field_Message_replyData(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, Prev, TrUserData) ->
+d_field_Message_replyData(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, TrUserData) when N < 57 -> d_field_Message_replyData(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, TrUserData);
+d_field_Message_replyData(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, Prev, TrUserData) ->
     {NewFValue, RestF} = begin Len = X bsl N + Acc, <<Bs:Len/binary, Rest2/binary>> = Rest, {id(decode_msg_Reply(Bs, TrUserData), TrUserData), Rest2} end,
     dfp_read_field_def_Message(RestF,
                                0,
@@ -473,28 +423,27 @@ d_field_Message_replyData(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3
                                F@_1,
                                F@_2,
                                F@_3,
-                               F@_4,
                                if Prev == '$undef' -> NewFValue;
                                   true -> merge_msg_Reply(Prev, NewFValue, TrUserData)
                                end,
                                TrUserData).
 
-skip_varint_Message(<<1:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) -> skip_varint_Message(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-skip_varint_Message(<<0:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) -> dfp_read_field_def_Message(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData).
+skip_varint_Message(<<1:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, TrUserData) -> skip_varint_Message(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, TrUserData);
+skip_varint_Message(<<0:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, TrUserData) -> dfp_read_field_def_Message(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, TrUserData).
 
-skip_length_delimited_Message(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) when N < 57 -> skip_length_delimited_Message(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-skip_length_delimited_Message(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) ->
+skip_length_delimited_Message(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, TrUserData) when N < 57 -> skip_length_delimited_Message(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, TrUserData);
+skip_length_delimited_Message(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, TrUserData) ->
     Length = X bsl N + Acc,
     <<_:Length/binary, Rest2/binary>> = Rest,
-    dfp_read_field_def_Message(Rest2, 0, 0, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData).
+    dfp_read_field_def_Message(Rest2, 0, 0, F, F@_1, F@_2, F@_3, F@_4, TrUserData).
 
-skip_group_Message(Bin, _, Z2, FNum, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) ->
+skip_group_Message(Bin, _, Z2, FNum, F@_1, F@_2, F@_3, F@_4, TrUserData) ->
     {_, Rest} = read_group(Bin, FNum),
-    dfp_read_field_def_Message(Rest, 0, Z2, FNum, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData).
+    dfp_read_field_def_Message(Rest, 0, Z2, FNum, F@_1, F@_2, F@_3, F@_4, TrUserData).
 
-skip_32_Message(<<_:32, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) -> dfp_read_field_def_Message(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData).
+skip_32_Message(<<_:32, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, TrUserData) -> dfp_read_field_def_Message(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, TrUserData).
 
-skip_64_Message(<<_:64, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) -> dfp_read_field_def_Message(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData).
+skip_64_Message(<<_:64, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, TrUserData) -> dfp_read_field_def_Message(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, TrUserData).
 
 decode_msg_Register(Bin, TrUserData) -> dfp_read_field_def_Register(Bin, 0, 0, 0, id('$undef', TrUserData), id('$undef', TrUserData), id('$undef', TrUserData), TrUserData).
 
@@ -605,57 +554,6 @@ skip_32_Login(<<_:32, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> dfp_r
 
 skip_64_Login(<<_:64, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> dfp_read_field_def_Login(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData).
 
-decode_msg_Logout(Bin, TrUserData) -> dfp_read_field_def_Logout(Bin, 0, 0, 0, id('$undef', TrUserData), id('$undef', TrUserData), TrUserData).
-
-dfp_read_field_def_Logout(<<10, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> d_field_Logout_username(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData);
-dfp_read_field_def_Logout(<<18, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> d_field_Logout_password(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData);
-dfp_read_field_def_Logout(<<>>, 0, 0, _, F@_1, F@_2, _) -> #{username => F@_1, password => F@_2};
-dfp_read_field_def_Logout(Other, Z1, Z2, F, F@_1, F@_2, TrUserData) -> dg_read_field_def_Logout(Other, Z1, Z2, F, F@_1, F@_2, TrUserData).
-
-dg_read_field_def_Logout(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, TrUserData) when N < 32 - 7 -> dg_read_field_def_Logout(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, TrUserData);
-dg_read_field_def_Logout(<<0:1, X:7, Rest/binary>>, N, Acc, _, F@_1, F@_2, TrUserData) ->
-    Key = X bsl N + Acc,
-    case Key of
-        10 -> d_field_Logout_username(Rest, 0, 0, 0, F@_1, F@_2, TrUserData);
-        18 -> d_field_Logout_password(Rest, 0, 0, 0, F@_1, F@_2, TrUserData);
-        _ ->
-            case Key band 7 of
-                0 -> skip_varint_Logout(Rest, 0, 0, Key bsr 3, F@_1, F@_2, TrUserData);
-                1 -> skip_64_Logout(Rest, 0, 0, Key bsr 3, F@_1, F@_2, TrUserData);
-                2 -> skip_length_delimited_Logout(Rest, 0, 0, Key bsr 3, F@_1, F@_2, TrUserData);
-                3 -> skip_group_Logout(Rest, 0, 0, Key bsr 3, F@_1, F@_2, TrUserData);
-                5 -> skip_32_Logout(Rest, 0, 0, Key bsr 3, F@_1, F@_2, TrUserData)
-            end
-    end;
-dg_read_field_def_Logout(<<>>, 0, 0, _, F@_1, F@_2, _) -> #{username => F@_1, password => F@_2}.
-
-d_field_Logout_username(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, TrUserData) when N < 57 -> d_field_Logout_username(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, TrUserData);
-d_field_Logout_username(<<0:1, X:7, Rest/binary>>, N, Acc, F, _, F@_2, TrUserData) ->
-    {NewFValue, RestF} = begin Len = X bsl N + Acc, <<Utf8:Len/binary, Rest2/binary>> = Rest, {id(unicode:characters_to_list(Utf8, unicode), TrUserData), Rest2} end,
-    dfp_read_field_def_Logout(RestF, 0, 0, F, NewFValue, F@_2, TrUserData).
-
-d_field_Logout_password(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, TrUserData) when N < 57 -> d_field_Logout_password(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, TrUserData);
-d_field_Logout_password(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, _, TrUserData) ->
-    {NewFValue, RestF} = begin Len = X bsl N + Acc, <<Utf8:Len/binary, Rest2/binary>> = Rest, {id(unicode:characters_to_list(Utf8, unicode), TrUserData), Rest2} end,
-    dfp_read_field_def_Logout(RestF, 0, 0, F, F@_1, NewFValue, TrUserData).
-
-skip_varint_Logout(<<1:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> skip_varint_Logout(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData);
-skip_varint_Logout(<<0:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> dfp_read_field_def_Logout(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData).
-
-skip_length_delimited_Logout(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, TrUserData) when N < 57 -> skip_length_delimited_Logout(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, TrUserData);
-skip_length_delimited_Logout(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, TrUserData) ->
-    Length = X bsl N + Acc,
-    <<_:Length/binary, Rest2/binary>> = Rest,
-    dfp_read_field_def_Logout(Rest2, 0, 0, F, F@_1, F@_2, TrUserData).
-
-skip_group_Logout(Bin, _, Z2, FNum, F@_1, F@_2, TrUserData) ->
-    {_, Rest} = read_group(Bin, FNum),
-    dfp_read_field_def_Logout(Rest, 0, Z2, FNum, F@_1, F@_2, TrUserData).
-
-skip_32_Logout(<<_:32, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> dfp_read_field_def_Logout(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData).
-
-skip_64_Logout(<<_:64, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> dfp_read_field_def_Logout(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData).
-
 d_enum_Type(0) -> 'REGISTER';
 d_enum_Type(1) -> 'LOGIN';
 d_enum_Type(2) -> 'LOGOUT';
@@ -730,8 +628,7 @@ merge_msgs(Prev, New, MsgName, Opts) ->
         'Reply' -> merge_msg_Reply(Prev, New, TrUserData);
         'Message' -> merge_msg_Message(Prev, New, TrUserData);
         'Register' -> merge_msg_Register(Prev, New, TrUserData);
-        'Login' -> merge_msg_Login(Prev, New, TrUserData);
-        'Logout' -> merge_msg_Logout(Prev, New, TrUserData)
+        'Login' -> merge_msg_Login(Prev, New, TrUserData)
     end.
 
 -compile({nowarn_unused_function,merge_msg_Reply/3}).
@@ -752,17 +649,11 @@ merge_msg_Message(#{} = PMsg, #{type := NFtype} = NMsg, TrUserData) ->
              {#{loginData := PFloginData}, _} -> S2#{loginData => PFloginData};
              {_, _} -> S2
          end,
-    S4 = case {PMsg, NMsg} of
-             {#{logoutData := PFlogoutData}, #{logoutData := NFlogoutData}} -> S3#{logoutData => merge_msg_Logout(PFlogoutData, NFlogoutData, TrUserData)};
-             {_, #{logoutData := NFlogoutData}} -> S3#{logoutData => NFlogoutData};
-             {#{logoutData := PFlogoutData}, _} -> S3#{logoutData => PFlogoutData};
-             {_, _} -> S3
-         end,
     case {PMsg, NMsg} of
-        {#{replyData := PFreplyData}, #{replyData := NFreplyData}} -> S4#{replyData => merge_msg_Reply(PFreplyData, NFreplyData, TrUserData)};
-        {_, #{replyData := NFreplyData}} -> S4#{replyData => NFreplyData};
-        {#{replyData := PFreplyData}, _} -> S4#{replyData => PFreplyData};
-        {_, _} -> S4
+        {#{replyData := PFreplyData}, #{replyData := NFreplyData}} -> S3#{replyData => merge_msg_Reply(PFreplyData, NFreplyData, TrUserData)};
+        {_, #{replyData := NFreplyData}} -> S3#{replyData => NFreplyData};
+        {#{replyData := PFreplyData}, _} -> S3#{replyData => PFreplyData};
+        {_, _} -> S3
     end.
 
 -compile({nowarn_unused_function,merge_msg_Register/3}).
@@ -770,9 +661,6 @@ merge_msg_Register(#{}, #{username := NFusername, password := NFpassword, distri
 
 -compile({nowarn_unused_function,merge_msg_Login/3}).
 merge_msg_Login(#{}, #{username := NFusername, password := NFpassword}, _) -> #{username => NFusername, password => NFpassword}.
-
--compile({nowarn_unused_function,merge_msg_Logout/3}).
-merge_msg_Logout(#{}, #{username := NFusername, password := NFpassword}, _) -> #{username => NFusername, password => NFpassword}.
 
 
 verify_msg(Msg, MsgName) when is_atom(MsgName) -> verify_msg(Msg, MsgName, []).
@@ -784,7 +672,6 @@ verify_msg(Msg, MsgName, Opts) ->
         'Message' -> v_msg_Message(Msg, [MsgName], TrUserData);
         'Register' -> v_msg_Register(Msg, [MsgName], TrUserData);
         'Login' -> v_msg_Login(Msg, [MsgName], TrUserData);
-        'Logout' -> v_msg_Logout(Msg, [MsgName], TrUserData);
         _ -> mk_type_error(not_a_known_message, Msg, [])
     end.
 
@@ -816,17 +703,12 @@ v_msg_Message(#{type := F1} = M, Path, TrUserData) ->
         _ -> ok
     end,
     case M of
-        #{logoutData := F4} -> v_msg_Logout(F4, [logoutData | Path], TrUserData);
-        _ -> ok
-    end,
-    case M of
-        #{replyData := F5} -> v_msg_Reply(F5, [replyData | Path], TrUserData);
+        #{replyData := F4} -> v_msg_Reply(F4, [replyData | Path], TrUserData);
         _ -> ok
     end,
     lists:foreach(fun (type) -> ok;
                       (registerData) -> ok;
                       (loginData) -> ok;
-                      (logoutData) -> ok;
                       (replyData) -> ok;
                       (OtherKey) -> mk_type_error({extraneous_key, OtherKey}, M, Path)
                   end,
@@ -864,20 +746,6 @@ v_msg_Login(#{username := F1, password := F2} = M, Path, TrUserData) ->
     ok;
 v_msg_Login(M, Path, _TrUserData) when is_map(M) -> mk_type_error({missing_fields, [username, password] -- maps:keys(M), 'Login'}, M, Path);
 v_msg_Login(X, Path, _TrUserData) -> mk_type_error({expected_msg, 'Login'}, X, Path).
-
--compile({nowarn_unused_function,v_msg_Logout/3}).
--dialyzer({nowarn_function,v_msg_Logout/3}).
-v_msg_Logout(#{username := F1, password := F2} = M, Path, TrUserData) ->
-    v_type_string(F1, [username | Path], TrUserData),
-    v_type_string(F2, [password | Path], TrUserData),
-    lists:foreach(fun (username) -> ok;
-                      (password) -> ok;
-                      (OtherKey) -> mk_type_error({extraneous_key, OtherKey}, M, Path)
-                  end,
-                  maps:keys(M)),
-    ok;
-v_msg_Logout(M, Path, _TrUserData) when is_map(M) -> mk_type_error({missing_fields, [username, password] -- maps:keys(M), 'Logout'}, M, Path);
-v_msg_Logout(X, Path, _TrUserData) -> mk_type_error({expected_msg, 'Logout'}, X, Path).
 
 -compile({nowarn_unused_function,v_enum_Type/3}).
 -dialyzer({nowarn_function,v_enum_Type/3}).
@@ -953,23 +821,21 @@ get_msg_defs() ->
       [#{name => type, fnum => 1, rnum => 2, type => {enum, 'Type'}, occurrence => required, opts => []},
        #{name => registerData, fnum => 2, rnum => 3, type => {msg, 'Register'}, occurrence => optional, opts => []},
        #{name => loginData, fnum => 3, rnum => 4, type => {msg, 'Login'}, occurrence => optional, opts => []},
-       #{name => logoutData, fnum => 4, rnum => 5, type => {msg, 'Logout'}, occurrence => optional, opts => []},
-       #{name => replyData, fnum => 5, rnum => 6, type => {msg, 'Reply'}, occurrence => optional, opts => []}]},
+       #{name => replyData, fnum => 5, rnum => 5, type => {msg, 'Reply'}, occurrence => optional, opts => []}]},
      {{msg, 'Register'},
       [#{name => username, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []},
        #{name => password, fnum => 2, rnum => 3, type => string, occurrence => required, opts => []},
        #{name => district, fnum => 3, rnum => 4, type => string, occurrence => required, opts => []}]},
-     {{msg, 'Login'}, [#{name => username, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []}, #{name => password, fnum => 2, rnum => 3, type => string, occurrence => required, opts => []}]},
-     {{msg, 'Logout'}, [#{name => username, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []}, #{name => password, fnum => 2, rnum => 3, type => string, occurrence => required, opts => []}]}].
+     {{msg, 'Login'}, [#{name => username, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []}, #{name => password, fnum => 2, rnum => 3, type => string, occurrence => required, opts => []}]}].
 
 
-get_msg_names() -> ['Reply', 'Message', 'Register', 'Login', 'Logout'].
+get_msg_names() -> ['Reply', 'Message', 'Register', 'Login'].
 
 
 get_group_names() -> [].
 
 
-get_msg_or_group_names() -> ['Reply', 'Message', 'Register', 'Login', 'Logout'].
+get_msg_or_group_names() -> ['Reply', 'Message', 'Register', 'Login'].
 
 
 get_enum_names() -> ['Type'].
@@ -994,14 +860,12 @@ find_msg_def('Message') ->
     [#{name => type, fnum => 1, rnum => 2, type => {enum, 'Type'}, occurrence => required, opts => []},
      #{name => registerData, fnum => 2, rnum => 3, type => {msg, 'Register'}, occurrence => optional, opts => []},
      #{name => loginData, fnum => 3, rnum => 4, type => {msg, 'Login'}, occurrence => optional, opts => []},
-     #{name => logoutData, fnum => 4, rnum => 5, type => {msg, 'Logout'}, occurrence => optional, opts => []},
-     #{name => replyData, fnum => 5, rnum => 6, type => {msg, 'Reply'}, occurrence => optional, opts => []}];
+     #{name => replyData, fnum => 5, rnum => 5, type => {msg, 'Reply'}, occurrence => optional, opts => []}];
 find_msg_def('Register') ->
     [#{name => username, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []},
      #{name => password, fnum => 2, rnum => 3, type => string, occurrence => required, opts => []},
      #{name => district, fnum => 3, rnum => 4, type => string, occurrence => required, opts => []}];
 find_msg_def('Login') -> [#{name => username, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []}, #{name => password, fnum => 2, rnum => 3, type => string, occurrence => required, opts => []}];
-find_msg_def('Logout') -> [#{name => username, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []}, #{name => password, fnum => 2, rnum => 3, type => string, occurrence => required, opts => []}];
 find_msg_def(_) -> error.
 
 
@@ -1078,7 +942,6 @@ fqbin_to_msg_name(<<"Protos.Reply">>) -> 'Reply';
 fqbin_to_msg_name(<<"Protos.Message">>) -> 'Message';
 fqbin_to_msg_name(<<"Protos.Register">>) -> 'Register';
 fqbin_to_msg_name(<<"Protos.Login">>) -> 'Login';
-fqbin_to_msg_name(<<"Protos.Logout">>) -> 'Logout';
 fqbin_to_msg_name(E) -> error({gpb_error, {badmsg, E}}).
 
 
@@ -1086,7 +949,6 @@ msg_name_to_fqbin('Reply') -> <<"Protos.Reply">>;
 msg_name_to_fqbin('Message') -> <<"Protos.Message">>;
 msg_name_to_fqbin('Register') -> <<"Protos.Register">>;
 msg_name_to_fqbin('Login') -> <<"Protos.Login">>;
-msg_name_to_fqbin('Logout') -> <<"Protos.Logout">>;
 msg_name_to_fqbin(E) -> error({gpb_error, {badmsg, E}}).
 
 
@@ -1125,7 +987,7 @@ get_all_source_basenames() -> ["messages.proto"].
 get_all_proto_names() -> ["messages"].
 
 
-get_msg_containment("messages") -> ['Login', 'Logout', 'Message', 'Register', 'Reply'];
+get_msg_containment("messages") -> ['Login', 'Message', 'Register', 'Reply'];
 get_msg_containment(P) -> error({gpb_error, {badproto, P}}).
 
 
@@ -1146,7 +1008,6 @@ get_enum_containment(P) -> error({gpb_error, {badproto, P}}).
 
 
 get_proto_by_msg_name_as_fqbin(<<"Protos.Register">>) -> "messages";
-get_proto_by_msg_name_as_fqbin(<<"Protos.Logout">>) -> "messages";
 get_proto_by_msg_name_as_fqbin(<<"Protos.Message">>) -> "messages";
 get_proto_by_msg_name_as_fqbin(<<"Protos.Reply">>) -> "messages";
 get_proto_by_msg_name_as_fqbin(<<"Protos.Login">>) -> "messages";

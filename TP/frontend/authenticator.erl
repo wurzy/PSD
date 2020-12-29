@@ -1,63 +1,60 @@
 -module(authenticator).
 
-% API
 -export([authentication/1]).
 
+% ÁREA NÃO AUTENTICADA
+% Processa pedidos de registo e login
+
+% à espera de pedidos de autenticação do user
 authentication(Socket) ->
     receive
-        {tcp, _, Bin} ->
-            Msg = messages:decode_msg(Bin, 'Message'),
-            case maps:get(type, Msg) of
-                'REGISTER' ->
-                    Data = maps:get(registerData, Msg),
-                    registerHandler(Socket, Data);
-                'LOGIN' ->
-                    Data = maps:get(loginData, Msg),
-                    loginHandler(Socket, Data);
-                'LOGOUT' ->
-                    Data = maps:get(logoutData, Msg),
-                    logoutHandler(Socket, Data)
+        {tcp, Socket, Bin} ->
+            Msg = messages:decode_msg(Bin,'Message'),
+            case maps:get(type,Msg) of
+                'REGISTER' -> registerHandler(Socket, maps:get(registerData,Msg));
+                'LOGIN' -> loginHandler(Socket, maps:get(loginData,Msg));
+                _ ->
+                    Reply = messages:encode_msg(#{type=>'REPLY', replyData => 
+                                                #{result=>false, message=>"Invalid request, please signup or login first."}}, 'Message'),
+                    gen_tcp:send(Socket,Reply),
+                    authentication(Socket)
             end;
-        _ -> %{tcp_closed, _} e {tcp_error, _, _} || o que fazer aqui?
-            io:fwrite("invalid~n"),
-            invalid
+        _ -> %{tcp_closed, _} e {tcp_error, _, _} -> fim do processo do cliente antes de estar autenticado
+            bye
     end.
 
-registerHandler(Socket, {Username, Password, District}) ->
-    io:fwrite("Register request. ~p ~p ~p\n", [Username, Password, District]),
-    case client_manager:register(Username, Password, District) of
+
+% handlers de registo e login
+% se for bem sucedido, passa o controlo para o módulo client_manager (área autenticada)
+% caso contrário, dá mensagem de erro e continua à espera de pedidos
+
+registerHandler(Socket, Data) ->
+    Username = maps:get(username, Data),
+    Password = maps:get(password, Data),
+    District = maps:get(district, Data),
+    io:fwrite("Register request: ~p ~p ~p\n", [Username, Password, District]),
+    case account_manager:register(Username, Password, District) of
         ok ->
-            io:fwrite("Successfully registered. ~p ~p ~p\n", [Username, Password, District]),
-            Reply = messages:encode_msg(#{type=>'REPLY', replyData => #{result=>true, message=>"Successfully registered."}}, 'Message'),
-            gen_tcp:send(Socket,Reply);
+            io:fwrite("Successfully registered: ~p ~p ~p\n", [Username, Password, District]),
+            response_manager:sendAuthResponse(Socket,"Successfully registered."),
+            client_manager:loop(Socket,Username);
         _ ->
-            io:fwrite("Username already taken. ~p ~p ~p\n", [Username, Password, District]),
-            Reply = messages:encode_msg(#{type=>'REPLY', replyData => #{result=>false, message=>"Username already taken."}}, 'Message'),
-            gen_tcp:send(Socket,Reply)
+            io:fwrite("Username already taken: ~p\n", [Username]),
+            response_manager:sendAuthResponse(Socket,"Username already taken."),
+            authentication(Socket)
     end.
 
-loginHandler(Socket, {Username, Password}) ->
-    io:fwrite("Login request. ~p ~p\n", [Username, Password]),
-    case client_manager:login(Username, Password) of
+loginHandler(Socket, Data) ->
+    Username = maps:get(username, Data),
+    Password = maps:get(password, Data),
+    io:fwrite("Login request: ~p ~p\n", [Username, Password]),
+    case account_manager:login(Username, Password) of
         ok ->
             io:fwrite("Successfully logged in. ~p ~p\n", [Username, Password]),
-            Reply = messages:encode_msg(#{type=>'REPLY', replyData => #{result=>true, message=>"Successfully logged in."}}, 'Message'),
-            gen_tcp:send(Socket,Reply);
+            response_manager:sendAuthResponse(Socket,"Successfully logged in."),
+            client_manager:loop(Socket,Username);
         {error, ErrorMsg} ->
             io:fwrite("~p ~p\n", [ErrorMsg, Username]),
-            Reply = messages:encode_msg(#{type=>'REPLY', replyData => #{result=>false, message=>ErrorMsg}}, 'Message'),
-            gen_tcp:send(Socket,Reply)
+            response_manager:sendAuthResponse(Socket,ErrorMsg),
+            authentication(Socket)
     end.
-
-logoutHandler(Socket, {Username, Password}) ->
-    io:fwrite("Logout request. ~p ~p\n", [Username, Password]),
-    case client_manager:login(Username, Password) of
-        ok ->
-            io:fwrite("Successfully logged out. ~p ~p\n", [Username, Password]),
-            Reply = messages:encode_msg(#{type=>'REPLY', replyData => #{result=>true, message=>"Successfully logged out."}}, 'Message'),
-            gen_tcp:send(Socket,Reply);
-        {error, ErrorMsg} ->
-            io:fwrite("~p ~p\n", [ErrorMsg, Username]),
-            Reply = messages:encode_msg(#{type=>'REPLY', replyData => #{result=>false, message=>ErrorMsg}}, 'Message'),
-            gen_tcp:send(Socket,Reply)
-    end.    

@@ -15,7 +15,6 @@ message Message {
     required Type type = 1;
     optional Register registerData = 2;
     optional Login loginData = 3;
-    optional Logout logoutData = 4;
     optional Reply replyData = 5;
 }
 
@@ -35,11 +34,6 @@ message Register {
 }
 
 message Login {
-    required string username = 1;
-    required string password = 2;
-}
-
-message Logout {
     required string username = 1;
     required string password = 2;
 }
