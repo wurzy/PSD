@@ -98,8 +98,7 @@ public class ClientWriter implements Runnable{
         this.district = menu.readString("Distrito: ");
         this.coordx = menu.readInt("Coordenada X: ");
         this.coordy = menu.readInt("Coordenada Y: ");
-        Register r = Register.newBuilder().setUsername(user).setPassword(password).setDistrict(district).setCoordx(coordx).setCoordy(coordy).build();
-        Message m = Message.newBuilder().setType(Type.REGISTER).setRegisterData(r).build();
+        Message m = MessageBuilder.register(user,password,district,coordx,coordy);
         System.out.println(m);
         byte[] array = m.toByteArray();
         try {
