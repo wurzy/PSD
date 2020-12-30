@@ -102,8 +102,10 @@ public class ClientWriter implements Runnable{
         //this.coordx = menu.readInt("Coordenada X: ");
         //this.coordy = menu.readInt("Coordenada Y: ");
         Message m = MessageBuilder.register(user,password,district);
-        m.writeDelimitedTo(out);
-        m.writeDelimitedTo(out);
+        byte[] array = m.toByteArray();
+        out.write(array);
+        //m.writeDelimitedTo(out);
+        //m.writeDelimitedTo(out);
         out.flush();
     }
 
