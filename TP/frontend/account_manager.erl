@@ -64,5 +64,17 @@ loop(Accounts) ->
             end;
         {online,From} -> 
             From ! {maps:keys(Accounts), ?MODULE},
-            loop(Accounts)
+            loop(Accounts);
+        {{sick,Username},From} ->
+            case maps:find(Username,Accounts) of 
+                {ok, {Password,District,LoggedFlag,false}} -> 
+                    From ! {?MODULE, ok},
+                    loop(maps:update(Username,{Password,District,LoggedFlag,true},Accounts));
+                {ok, _} -> % à partida nunca acontece
+                    From ! {?MODULE, {error, "User already sick."}},
+                    loop(Accounts);
+                _ -> % à partida nunca acontece
+                    From ! {?MODULE, {error, "Username doesn't exist."}},
+                    loop(Accounts)
+            end
     end.
