@@ -15,7 +15,7 @@ public final class Messages {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   /**
-   * Protobuf enum {@code Protos.Type}
+   * Protos enum {@code Protos.Type}
    */
   public enum Type
       implements com.google.protobuf.ProtocolMessageEnum {
@@ -222,7 +222,7 @@ public final class Messages {
     Protos.Messages.LocationOrBuilder getLocationOrBuilder();
   }
   /**
-   * Protobuf type {@code Protos.Message}
+   * Protos type {@code Protos.Message}
    */
   public static final class Message extends
       com.google.protobuf.GeneratedMessageV3 implements
@@ -740,7 +740,7 @@ public final class Messages {
       return builder;
     }
     /**
-     * Protobuf type {@code Protos.Message}
+     * Protos type {@code Protos.Message}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
@@ -1619,7 +1619,7 @@ public final class Messages {
         getDistrictBytes();
   }
   /**
-   * Protobuf type {@code Protos.Register}
+   * Protos type {@code Protos.Register}
    */
   public static final class Register extends
       com.google.protobuf.GeneratedMessageV3 implements
@@ -2064,7 +2064,7 @@ public final class Messages {
       return builder;
     }
     /**
-     * Protobuf type {@code Protos.Register}
+     * Protos type {@code Protos.Register}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
@@ -2593,7 +2593,7 @@ public final class Messages {
         getPasswordBytes();
   }
   /**
-   * Protobuf type {@code Protos.Login}
+   * Protos type {@code Protos.Login}
    */
   public static final class Login extends
       com.google.protobuf.GeneratedMessageV3 implements
@@ -2964,7 +2964,7 @@ public final class Messages {
       return builder;
     }
     /**
-     * Protobuf type {@code Protos.Login}
+     * Protos type {@code Protos.Login}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
@@ -3389,7 +3389,7 @@ public final class Messages {
         getMessageBytes();
   }
   /**
-   * Protobuf type {@code Protos.Reply}
+   * Protos type {@code Protos.Reply}
    */
   public static final class Reply extends
       com.google.protobuf.GeneratedMessageV3 implements
@@ -3731,7 +3731,7 @@ public final class Messages {
       return builder;
     }
     /**
-     * Protobuf type {@code Protos.Reply}
+     * Protos type {@code Protos.Reply}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
@@ -4103,7 +4103,7 @@ public final class Messages {
     int getCoordy();
   }
   /**
-   * Protobuf type {@code Protos.Location}
+   * Protos type {@code Protos.Location}
    */
   public static final class Location extends
       com.google.protobuf.GeneratedMessageV3 implements
@@ -4414,7 +4414,7 @@ public final class Messages {
       return builder;
     }
     /**
-     * Protobuf type {@code Protos.Location}
+     * Protos type {@code Protos.Location}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements

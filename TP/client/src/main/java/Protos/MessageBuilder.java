@@ -1,7 +1,5 @@
-package Client;
-
+package Protos;
 import Protos.Messages.*;
-
 public class MessageBuilder {
 
     public static Message login(String user, String password){

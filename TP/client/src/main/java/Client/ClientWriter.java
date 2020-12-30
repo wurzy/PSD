@@ -1,7 +1,8 @@
 package Client;
+import Protos.MessageBuilder;
 import Protos.Messages.*;
-import com.google.protobuf.InvalidProtocolBufferException;
 
+import java.io.OutputStream;
 import java.net.Socket;
 
 public class ClientWriter implements Runnable{
@@ -9,10 +10,12 @@ public class ClientWriter implements Runnable{
     private String user, password, district;
     private int coordx,coordy;
     private Socket s;
+    private OutputStream out;
 
-    public ClientWriter(Socket s, Menu menu){
+    public ClientWriter(Socket s, Menu menu) throws Exception{
         this.menu = menu;
         this.s = s;
+        this.out = s.getOutputStream();
     }
 
     public String getUser() {
@@ -83,7 +86,7 @@ public class ClientWriter implements Runnable{
                     ;
                 break;
             default:
-                System.out.println("Erro no parsing...");
+                System.out.println("Erro no parsing/estado...");
                 break;
         }
     }
@@ -92,22 +95,16 @@ public class ClientWriter implements Runnable{
         System.out.println("Login");
     }
 
-    private void register() {
+    private void register() throws Exception{
         this.user = menu.readString("Nome de Utilizador: ");
         this.password = menu.readString("Palavra-passe: ");
         this.district = menu.readString("Distrito: ");
-        this.coordx = menu.readInt("Coordenada X: ");
-        this.coordy = menu.readInt("Coordenada Y: ");
-        Message m = MessageBuilder.register(user,password,district,coordx,coordy);
-        System.out.println(m);
-        byte[] array = m.toByteArray();
-        try {
-            Message m2 = Message.parseFrom(array);
-            System.out.println(m2);
-        } catch (InvalidProtocolBufferException e) {
-            System.out.println(e);
-        }
-        System.out.println(user + ", " + password + ", " + district + ": (" + coordx + "," + coordy + ")");
+        //this.coordx = menu.readInt("Coordenada X: ");
+        //this.coordy = menu.readInt("Coordenada Y: ");
+        Message m = MessageBuilder.register(user,password,district);
+        m.writeDelimitedTo(out);
+        m.writeDelimitedTo(out);
+        out.flush();
     }
 
     private void logout(){
