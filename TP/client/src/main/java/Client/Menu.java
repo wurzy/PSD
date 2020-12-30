@@ -31,7 +31,6 @@ public class Menu {
                         "| 2 - Registar                                   |\n" +
                         "| 0 - Sair                                       |\n" +
                         "+------------------------------------------------+\n");
-                System.out.print("Opção: ");
                 break;
             case LOGGED:
                 System.out.println("+----------------- MENU CLIENTE ------------------+\n" +
@@ -42,6 +41,7 @@ public class Menu {
                         "+ ------------------------------------------------+\n");
                 break;
         }
+        System.out.print("Opção: ");
     }
 
     public Integer choice() {

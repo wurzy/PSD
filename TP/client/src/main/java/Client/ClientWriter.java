@@ -2,55 +2,22 @@ package Client;
 import Protos.MessageBuilder;
 import Protos.Messages.*;
 
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.Arrays;
 
 public class ClientWriter implements Runnable{
     private Menu menu;
-    private String user, password, district;
-    private int coordx,coordy;
     private Socket s;
     private OutputStream out;
+    private InputStream in;
 
     public ClientWriter(Socket s, Menu menu) throws Exception{
         this.menu = menu;
         this.s = s;
         this.out = s.getOutputStream();
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getDistrict() {
-        return district;
-    }
-
-    public int getCoordX() {
-        return coordx;
-    }
-
-    public int getCoordY() {
-        return coordy;
-    }
-
-    public Socket getSocket() {
-        return s;
-    }
-
-    public void initState(String user, String password, String district){
-        this.user = user;
-        this.password = password;
-        this.district = district;
-    }
-
-    public void setLocation(int x, int y) {
-        this.coordx = x;
-        this.coordy = y;
+        this.in = s.getInputStream();
     }
 
     public void run() {
@@ -79,11 +46,11 @@ public class ClientWriter implements Runnable{
                 if (choice == 0)
                     logout();
                 else if (choice == 1)
-                    ;
+                    sick();
                 else if (choice == 2)
-                    ;
+                    location();
                 else if (choice == 3)
-                    ;
+                    numberOfPeople();
                 break;
             default:
                 System.out.println("Erro no parsing/estado...");
@@ -91,24 +58,67 @@ public class ClientWriter implements Runnable{
         }
     }
 
-    private void login(){
-        System.out.println("Login");
+    private void login() throws Exception{
+        String user = menu.readString("Nome de Utilizador: ");
+        String password = menu.readString("Palavra-passe: ");
+        MessageBuilder.send(MessageBuilder.login(user,password),out);
+
+        Message rep = getReply();
+        System.out.println(rep.getReply().getMessage());
+
+        menu.setState(rep.getReply().getResult() ? Menu.State.LOGGED : Menu.State.NOTLOGGED);
+        menu.show();
     }
 
     private void register() throws Exception{
-        this.user = menu.readString("Nome de Utilizador: ");
-        this.password = menu.readString("Palavra-passe: ");
-        this.district = menu.readString("Distrito: ");
-        //this.coordx = menu.readInt("Coordenada X: ");
-        //this.coordy = menu.readInt("Coordenada Y: ");
-        Message m = MessageBuilder.register(user,password,district);
-        byte[] array = m.toByteArray();
-        out.write(array);
-        out.flush();
+        String user = menu.readString("Nome de Utilizador: ");
+        String password = menu.readString("Palavra-passe: ");
+        String district = menu.readString("Distrito: ");
+        MessageBuilder.send(MessageBuilder.register(user,password,district),out);
+
+        Message rep = getReply();
+        confirm(rep);
+
+        menu.setState(Menu.State.NOTLOGGED);
+        menu.show();
     }
 
-    private void logout(){
+    private void logout() throws Exception{
+        MessageBuilder.send(MessageBuilder.logout(),out);
+
+        Message rep = getReply();
+        System.out.println(rep.getReply().getMessage());
+
         menu.setState(Menu.State.NOTLOGGED);
+        menu.show();
+    }
+
+    private void sick() throws Exception{
+        MessageBuilder.send(MessageBuilder.sick(),out);
+
+        Message rep = getReply();
+        System.out.println(rep.getReply().getMessage());
+
+        menu.setState(Menu.State.NOTLOGGED);
+        menu.show();
+    }
+
+    private void location() throws Exception{
+        int coordx = menu.readInt("Coordenada X: ");
+        int coordy = menu.readInt("Coordenada Y: ");
+
+        MessageBuilder.send(MessageBuilder.location(coordx,coordy),out);
+
+        Message rep = getReply();
+        System.out.println(rep.getReply().getMessage());
+
+        menu.setState(Menu.State.LOGGED);
+        menu.show();
+    }
+
+    private void numberOfPeople() throws Exception{
+
+        menu.setState(Menu.State.LOGGED);
         menu.show();
     }
 
@@ -120,5 +130,25 @@ public class ClientWriter implements Runnable{
         catch(Exception e){
             System.out.println(e.getMessage());
         }
+    }
+
+    private void confirm(Message rep){
+        System.out.println("*** " + rep.getReply().getMessage() + " ***");
+        menu.readString("Premir Enter para continuar ");
+    }
+
+    private Message getReply(){
+        Message m = null;
+        byte[] buf = new byte[4096], norm;
+        int n;
+        try{
+            n = in.read(buf);
+            norm = Arrays.copyOf(buf,n);
+            m = Message.parseFrom(norm);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return m;
     }
 }

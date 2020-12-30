@@ -18,13 +18,27 @@ public class ClientReader implements Runnable{
 
     public void run(){
         Message m;
+        byte[] buf = new byte[4096], norm;
+        int n;
         try{
-            while((m = Message.parseDelimitedFrom(in))!=null){
-                System.out.println("Recebi uma mensagem: " + m);
+            while((n=in.read(buf))>0){
+                norm = normalizeMessage(buf,n);
+                m = Message.parseFrom(norm);
+                System.out.println(m);
             }
         }
         catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    private byte[] normalizeMessage(byte[] buf, int n){
+        byte[] norm = new byte[n];
+
+        for(int i = 0; i < n; i++){
+            norm[i] = buf[i];
+        }
+
+        return norm;
     }
 }

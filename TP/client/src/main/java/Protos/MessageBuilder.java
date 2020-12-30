@@ -1,6 +1,14 @@
 package Protos;
 import Protos.Messages.*;
+
+import java.io.OutputStream;
+
 public class MessageBuilder {
+
+    public static void send(Message m, OutputStream out) throws Exception{
+        out.write(m.toByteArray());
+        out.flush();
+    }
 
     public static Message login(String user, String password){
         Login li = Login.newBuilder().setUsername(user).setPassword(password).build();
@@ -23,5 +31,9 @@ public class MessageBuilder {
 
     public static Message sick(){
         return Message.newBuilder().setType(Type.SICK).build();
+    }
+
+    public static Message numberOfPeople() {
+        return null;
     }
 }
