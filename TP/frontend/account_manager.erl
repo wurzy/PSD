@@ -37,9 +37,12 @@ loop(Accounts) ->
             end;
         {{login,Username,Password},From} -> 
             case maps:find(Username,Accounts) of 
-                {ok, {Password,District,false,SickFlag}} -> 
-                    From ! {?MODULE, ok},
-                    loop(maps:update(Username,{Password,District,true,SickFlag},Accounts));
+                {ok, {Password,District,false,false}} -> 
+                    From ! {?MODULE, {ok, District}},
+                    loop(maps:update(Username,{Password,District,true,false},Accounts));
+                {ok, {Password,_,false,true}} -> 
+                    From ! {?MODULE, {error, "Can't login while quarantined."}},
+                    loop(Accounts);
                 {ok, {Password,_,true,_}} -> 
                     From ! {?MODULE, {error, "User already logged in."}},
                     loop(Accounts);
@@ -55,26 +58,29 @@ loop(Accounts) ->
                 {ok, {Password,District,true,SickFlag}} -> 
                     From ! {?MODULE, ok},
                     loop(maps:update(Username,{Password,District,false,SickFlag},Accounts));
-                {ok, _} -> % à partida nunca acontece
-                    From ! {?MODULE, {error, "User not logged in."}},
-                    loop(Accounts);
+                %{ok, _} -> % à partida nunca acontece
+                %    From ! {?MODULE, {error, "User not logged in."}},
+                %    loop(Accounts);
                 _ -> % à partida nunca acontece
-                    From ! {?MODULE, {error, "Username doesn't exist."}},
+                    From ! {?MODULE, {error, "Error logging out."}},
+                    loop(Accounts)
+            end;
+        {{sick,Username},From} ->
+            case maps:find(Username,Accounts) of 
+                {ok, {Password,District,true,false}} -> 
+                    From ! {?MODULE, ok},
+                    loop(maps:update(Username,{Password,District,false,true},Accounts));
+                %{ok, {_,_,false,_}} -> % à partida nunca acontece
+                %    From ! {?MODULE, {error, "User not logged in."}},
+                %    loop(Accounts);
+                %{ok, {_,_,_,true}} -> % à partida nunca acontece
+                %    From ! {?MODULE, {error, "User already sick."}},
+                %    loop(Accounts);
+                _ -> % à partida nunca acontece
+                    From ! {?MODULE, {error, "Error flagging client as sick."}},
                     loop(Accounts)
             end;
         {online,From} -> 
             From ! {maps:keys(Accounts), ?MODULE},
-            loop(Accounts);
-        {{sick,Username},From} ->
-            case maps:find(Username,Accounts) of 
-                {ok, {Password,District,LoggedFlag,false}} -> 
-                    From ! {?MODULE, ok},
-                    loop(maps:update(Username,{Password,District,LoggedFlag,true},Accounts));
-                {ok, _} -> % à partida nunca acontece
-                    From ! {?MODULE, {error, "User already sick."}},
-                    loop(Accounts);
-                _ -> % à partida nunca acontece
-                    From ! {?MODULE, {error, "Username doesn't exist."}},
-                    loop(Accounts)
-            end
+            loop(Accounts)
     end.
