@@ -18,6 +18,7 @@ enum Type {
     REPLY = 3;
     LOCATION = 4;
     SICK = 5;
+    NR_PEOPLE = 6;
 }
 
 message Register {

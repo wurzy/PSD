@@ -1,7 +1,7 @@
 -module(response_manager).
 
--export([sendAuthResponse/2]).
+-export([sendResponse/3]).
 
-sendAuthResponse(Socket,Msg) ->
-    Reply = messages:encode_msg(#{type=>'REPLY', reply => #{result=>true, message=>Msg}}, 'Message'),
+sendResponse(Socket,Result,Msg) ->
+    Reply = messages:encode_msg(#{type=>'REPLY', reply => #{result=>Result, message=>Msg}}, 'Message'),
     gen_tcp:send(Socket,Reply).
