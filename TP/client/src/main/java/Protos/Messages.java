@@ -43,6 +43,10 @@ public final class Messages {
      * <code>SICK = 5;</code>
      */
     SICK(5),
+    /**
+     * <code>NR_PEOPLE = 6;</code>
+     */
+    NR_PEOPLE(6),
     ;
 
     /**
@@ -69,6 +73,10 @@ public final class Messages {
      * <code>SICK = 5;</code>
      */
     public static final int SICK_VALUE = 5;
+    /**
+     * <code>NR_PEOPLE = 6;</code>
+     */
+    public static final int NR_PEOPLE_VALUE = 6;
 
 
     public final int getNumber() {
@@ -97,6 +105,7 @@ public final class Messages {
         case 3: return REPLY;
         case 4: return LOCATION;
         case 5: return SICK;
+        case 6: return NR_PEOPLE;
         default: return null;
       }
     }
@@ -4755,9 +4764,10 @@ public final class Messages {
       " \002(\t\022\020\n\010district\030\003 \002(\t\"+\n\005Login\022\020\n\010usern" +
       "ame\030\001 \002(\t\022\020\n\010password\030\002 \002(\t\"(\n\005Reply\022\016\n\006" +
       "result\030\001 \002(\010\022\017\n\007message\030\002 \002(\t\"*\n\010Locatio" +
-      "n\022\016\n\006coordx\030\001 \002(\005\022\016\n\006coordy\030\002 \002(\005*N\n\004Typ" +
+      "n\022\016\n\006coordx\030\001 \002(\005\022\016\n\006coordy\030\002 \002(\005*]\n\004Typ" +
       "e\022\014\n\010REGISTER\020\000\022\t\n\005LOGIN\020\001\022\n\n\006LOGOUT\020\002\022\t" +
-      "\n\005REPLY\020\003\022\014\n\010LOCATION\020\004\022\010\n\004SICK\020\005"
+      "\n\005REPLY\020\003\022\014\n\010LOCATION\020\004\022\010\n\004SICK\020\005\022\r\n\tNR_" +
+      "PEOPLE\020\006"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

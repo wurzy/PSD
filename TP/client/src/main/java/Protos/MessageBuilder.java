@@ -34,6 +34,6 @@ public class MessageBuilder {
     }
 
     public static Message numberOfPeople() {
-        return null;
+        return Message.newBuilder().setType(Type.NR_PEOPLE).build();
     }
 }
