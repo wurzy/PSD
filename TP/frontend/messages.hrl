@@ -10,7 +10,7 @@
 -ifndef('MESSAGE_PB_H').
 -define('MESSAGE_PB_H', true).
 -record('Message',
-        {type                   :: 'REGISTER' | 'LOGIN' | 'LOGOUT' | 'REPLY' | 'LOCATION' | 'SICK' | integer() | undefined, % = 1, required, enum Type
+        {type                   :: 'REGISTER' | 'LOGIN' | 'LOGOUT' | 'REPLY' | 'LOCATION' | 'SICK' | 'NR_PEOPLE' | integer() | undefined, % = 1, required, enum Type
          register               :: messages:'Register'() | undefined, % = 2, optional
          login                  :: messages:'Login'() | undefined, % = 3, optional
          reply                  :: messages:'Reply'() | undefined, % = 4, optional

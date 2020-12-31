@@ -1,4 +1,4 @@
--module(districts_manager).
+-module(country_manager).
 
 -export([start/0, registerUserInDistrict/2]).
 

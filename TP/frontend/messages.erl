@@ -47,12 +47,12 @@
 
 
 %% enumerated types
--type 'Type'() :: 'REGISTER' | 'LOGIN' | 'LOGOUT' | 'REPLY' | 'LOCATION' | 'SICK'.
+-type 'Type'() :: 'REGISTER' | 'LOGIN' | 'LOGOUT' | 'REPLY' | 'LOCATION' | 'SICK' | 'NR_PEOPLE'.
 -export_type(['Type'/0]).
 
 %% message types
 -type 'Message'() ::
-      #{type                    => 'REGISTER' | 'LOGIN' | 'LOGOUT' | 'REPLY' | 'LOCATION' | 'SICK' | integer(), % = 1, required, enum Type
+      #{type                    => 'REGISTER' | 'LOGIN' | 'LOGOUT' | 'REPLY' | 'LOCATION' | 'SICK' | 'NR_PEOPLE' | integer(), % = 1, required, enum Type
         register                => 'Register'(),    % = 2, optional
         login                   => 'Login'(),       % = 3, optional
         reply                   => 'Reply'(),       % = 4, optional
@@ -178,6 +178,7 @@ e_enum_Type('LOGOUT', Bin, _TrUserData) -> <<Bin/binary, 2>>;
 e_enum_Type('REPLY', Bin, _TrUserData) -> <<Bin/binary, 3>>;
 e_enum_Type('LOCATION', Bin, _TrUserData) -> <<Bin/binary, 4>>;
 e_enum_Type('SICK', Bin, _TrUserData) -> <<Bin/binary, 5>>;
+e_enum_Type('NR_PEOPLE', Bin, _TrUserData) -> <<Bin/binary, 6>>;
 e_enum_Type(V, Bin, _TrUserData) -> e_varint(V, Bin).
 
 -compile({nowarn_unused_function,e_type_sint/3}).
@@ -662,6 +663,7 @@ d_enum_Type(2) -> 'LOGOUT';
 d_enum_Type(3) -> 'REPLY';
 d_enum_Type(4) -> 'LOCATION';
 d_enum_Type(5) -> 'SICK';
+d_enum_Type(6) -> 'NR_PEOPLE';
 d_enum_Type(V) -> V.
 
 read_group(Bin, FieldNum) ->
@@ -887,6 +889,7 @@ v_enum_Type('LOGOUT', _Path, _TrUserData) -> ok;
 v_enum_Type('REPLY', _Path, _TrUserData) -> ok;
 v_enum_Type('LOCATION', _Path, _TrUserData) -> ok;
 v_enum_Type('SICK', _Path, _TrUserData) -> ok;
+v_enum_Type('NR_PEOPLE', _Path, _TrUserData) -> ok;
 v_enum_Type(V, _Path, _TrUserData) when -2147483648 =< V, V =< 2147483647, is_integer(V) -> ok;
 v_enum_Type(X, Path, _TrUserData) -> mk_type_error({invalid_enum, 'Type'}, X, Path).
 
@@ -953,7 +956,7 @@ cons(Elem, Acc, _TrUserData) -> [Elem | Acc].
 
 
 get_msg_defs() ->
-    [{{enum, 'Type'}, [{'REGISTER', 0}, {'LOGIN', 1}, {'LOGOUT', 2}, {'REPLY', 3}, {'LOCATION', 4}, {'SICK', 5}]},
+    [{{enum, 'Type'}, [{'REGISTER', 0}, {'LOGIN', 1}, {'LOGOUT', 2}, {'REPLY', 3}, {'LOCATION', 4}, {'SICK', 5}, {'NR_PEOPLE', 6}]},
      {{msg, 'Message'},
       [#{name => type, fnum => 1, rnum => 2, type => {enum, 'Type'}, occurrence => required, opts => []},
        #{name => register, fnum => 2, rnum => 3, type => {msg, 'Register'}, occurrence => optional, opts => []},
@@ -1011,7 +1014,7 @@ find_msg_def('Location') -> [#{name => coordx, fnum => 1, rnum => 2, type => int
 find_msg_def(_) -> error.
 
 
-find_enum_def('Type') -> [{'REGISTER', 0}, {'LOGIN', 1}, {'LOGOUT', 2}, {'REPLY', 3}, {'LOCATION', 4}, {'SICK', 5}];
+find_enum_def('Type') -> [{'REGISTER', 0}, {'LOGIN', 1}, {'LOGOUT', 2}, {'REPLY', 3}, {'LOCATION', 4}, {'SICK', 5}, {'NR_PEOPLE', 6}];
 find_enum_def(_) -> error.
 
 
@@ -1026,7 +1029,8 @@ enum_symbol_by_value_Type(1) -> 'LOGIN';
 enum_symbol_by_value_Type(2) -> 'LOGOUT';
 enum_symbol_by_value_Type(3) -> 'REPLY';
 enum_symbol_by_value_Type(4) -> 'LOCATION';
-enum_symbol_by_value_Type(5) -> 'SICK'.
+enum_symbol_by_value_Type(5) -> 'SICK';
+enum_symbol_by_value_Type(6) -> 'NR_PEOPLE'.
 
 
 enum_value_by_symbol_Type('REGISTER') -> 0;
@@ -1034,7 +1038,8 @@ enum_value_by_symbol_Type('LOGIN') -> 1;
 enum_value_by_symbol_Type('LOGOUT') -> 2;
 enum_value_by_symbol_Type('REPLY') -> 3;
 enum_value_by_symbol_Type('LOCATION') -> 4;
-enum_value_by_symbol_Type('SICK') -> 5.
+enum_value_by_symbol_Type('SICK') -> 5;
+enum_value_by_symbol_Type('NR_PEOPLE') -> 6.
 
 
 get_service_names() -> [].

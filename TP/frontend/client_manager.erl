@@ -30,10 +30,10 @@ updateUserLocation(Socket, Username, District, Location) ->
     end.
 
 getNrPeopleInLocation(Socket, Username, District, Location) ->
-    Name = string:lowercase(District),
+    DistrictName = string:lowercase(District),
     X = maps:get(coordx,Location),
     Y = maps:get(coordy,Location),
-    Name ! {{nr_people,X,Y},self()},
+    DistrictName ! {{nr_people,X,Y},self()},
     receive
         {ok, Nr_People} ->
             Msg = "~p people in location (~p,~p) of district ~p.\n", [Nr_People,X,Y,District],
