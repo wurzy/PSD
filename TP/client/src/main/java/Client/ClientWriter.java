@@ -132,7 +132,7 @@ public class ClientWriter implements Runnable{
     }
 
     private void numberOfPeople() throws Exception{
-
+        /* TODO */
         menu.setState(Menu.State.LOGGED);
         menu.show();
     }
