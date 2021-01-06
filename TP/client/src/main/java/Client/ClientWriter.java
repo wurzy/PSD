@@ -67,12 +67,12 @@ public class ClientWriter implements Runnable{
     private void login() throws Exception{
         String user = menu.readString("Nome de Utilizador: ");
         String password = menu.readString("Palavra-passe: ");
+        System.out.println(MessageBuilder.login(user,password));
         MessageBuilder.send(MessageBuilder.login(user,password),out);
 
         Message rep = getReply();
         System.out.println(rep.getReply().getMessage());
 
-        menu.setState(rep.getReply().getResult() ? Menu.State.LOGGED : Menu.State.NOTLOGGED);
         if(rep.getReply().getResult()){
             menu.setState(Menu.State.LOGGED);
             this.locationPing = new Thread(new Randomizer(new Point(rand.nextInt(grid),rand.nextInt(grid)),grid)); // random start position on a N*N grid
@@ -132,8 +132,15 @@ public class ClientWriter implements Runnable{
     }
 
     private void numberOfPeople() throws Exception{
-        /* TODO */
-        menu.setState(Menu.State.LOGGED);
+        int coordx = menu.readInt("Coordenada X: ");
+        int coordy = menu.readInt("Coordenada Y: ");
+
+        MessageBuilder.send(MessageBuilder.numberOfPeople(coordx,coordy),out);
+
+        Message rep = getReply();
+        System.out.println(rep.getReply().getMessage());
+
+        menu.setState(Menu.State.NOTLOGGED);
         menu.show();
     }
 

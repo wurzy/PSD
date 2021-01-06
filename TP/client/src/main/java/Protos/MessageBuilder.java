@@ -33,7 +33,8 @@ public class MessageBuilder {
         return Message.newBuilder().setType(Type.SICK).build();
     }
 
-    public static Message numberOfPeople() {
-        return Message.newBuilder().setType(Type.NR_PEOPLE).build();
+    public static Message numberOfPeople(int coordx, int coordy) {
+        Location loc = Location.newBuilder().setCoordx(coordx).setCoordy(coordy).build();
+        return Message.newBuilder().setType(Type.NR_PEOPLE).setLocation(loc).build();
     }
 }

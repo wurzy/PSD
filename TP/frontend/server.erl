@@ -4,6 +4,7 @@
 % começa a correr o servidor da frontend
 start_server(Port) ->
     account_manager:start(),
+    country_manager:start(),
     {ok, LSock} = gen_tcp:listen(Port, [binary, {active, once}, {packet, 0}, {reuseaddr, true}]),
     spawn(fun() -> acceptor(LSock) end),
     ok.

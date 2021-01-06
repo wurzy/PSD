@@ -5,7 +5,7 @@
 start() -> 
     register(?MODULE, spawn(fun() -> loop([]) end)).
 
-rpc(Request) -> 
+rpc(Request) ->
     ?MODULE ! {Request,self()},
     receive
         {?MODULE, Result} -> Result
@@ -19,16 +19,16 @@ registerUserInDistrict(District,Username) ->
 
 % Districts -> List(DistrictName)
 loop(Districts) ->
+    io:fwrite("Districts list: ~p\n", [Districts]),
     receive
         {{user_in_district, District, Username}, From} ->
-            Name = string:lowercase(District),
-            case lists:member(Name,Districts) of
+            case lists:member(District,Districts) of
                 false ->
-                    district_manager:start(Name,Username),
+                    district_manager:start(District,Username),
                     From ! {?MODULE, ok},
-                    loop(Districts ++ Name);
+                    loop(Districts ++ [District]);
                 true ->
-                    Name ! {{new_user,Username},self()},
+                    District ! {{new_user,Username},self()},
                     receive
                         ok -> From ! {?MODULE, ok};
                         {error, username_taken} -> From ! {?MODULE, {error, username_taken}} % nunca deve acontecer

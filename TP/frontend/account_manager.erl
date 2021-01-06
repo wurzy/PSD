@@ -1,5 +1,5 @@
 -module(account_manager).
--export([start/0, register/3, login/2, logout/1, online/0]).
+-export([start/0, register/3, login/2, logout/1, sick/1, online/0]).
 
 start() -> 
     register(?MODULE, spawn(fun() -> loop(#{}) end)). 
@@ -18,6 +18,9 @@ login(Username,Password) ->
 
 logout(Username) ->
     rpc({logout,Username}).
+
+sick(Username) ->
+    rpc({sick,Username}).
 
 online() ->
     rpc(online).

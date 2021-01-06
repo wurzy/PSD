@@ -9,6 +9,7 @@
 authentication(Socket) ->
     receive
         {tcp, Socket, Bin} ->
+            inet:setopts(Socket, [{active, once}]),
             Msg = messages:decode_msg(Bin,'Message'),
             io:fwrite("Message: ~p\n", [Msg]),
             case maps:get(type,Msg) of
@@ -30,7 +31,7 @@ authentication(Socket) ->
 registerHandler(Socket, Data) ->
     Username = maps:get(username, Data),
     Password = maps:get(password, Data),
-    District = maps:get(district, Data),
+    District = erlang:list_to_atom(string:lowercase(maps:get(district, Data))),
     io:fwrite("Register request: ~p ~p ~p\n", [Username, Password, District]),
     case account_manager:register(Username, Password, District) of
         ok ->
