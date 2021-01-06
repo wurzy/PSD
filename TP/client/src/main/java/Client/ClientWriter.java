@@ -6,18 +6,24 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.Arrays;
+import java.util.Random;
 
 public class ClientWriter implements Runnable{
+    private int grid;
+    private Thread locationPing;
     private Menu menu;
     private Socket s;
     private OutputStream out;
     private InputStream in;
 
-    public ClientWriter(Socket s, Menu menu) throws Exception{
+    public ClientWriter(Socket s, Menu menu, int grid) throws Exception{
         this.menu = menu;
         this.s = s;
         this.out = s.getOutputStream();
         this.in = s.getInputStream();
+        this.grid = grid;
+        Random r = new Random();
+        this.locationPing = new Thread(new Randomizer(new Point(r.nextInt(grid),r.nextInt(grid)),grid)); // random start position on a N*N grid
     }
 
     public void run() {
@@ -68,6 +74,7 @@ public class ClientWriter implements Runnable{
 
         menu.setState(rep.getReply().getResult() ? Menu.State.LOGGED : Menu.State.NOTLOGGED);
         menu.show();
+        locationPing.start();
     }
 
     private void register() throws Exception{

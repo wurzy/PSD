@@ -17,10 +17,6 @@ class Point {
     }
 }
 
-/**
- * Class that randomizes a path from a start position, using a N*N grid.
- * @author Válter Carvalho
- */
 public class Randomizer implements Runnable{
     private int grid;
     private Point current;
@@ -36,7 +32,7 @@ public class Randomizer implements Runnable{
         try {
             while(true) {
                 Point p = next();
-                System.out.println(p);
+                System.out.println("New ping: " + p);
                 Thread.sleep(5000);
             }
         } catch (InterruptedException e) {
