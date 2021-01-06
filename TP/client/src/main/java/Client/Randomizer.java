@@ -35,9 +35,7 @@ public class Randomizer implements Runnable{
                 System.out.println("New ping: " + p);
                 Thread.sleep(5000);
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        } catch (InterruptedException ignore){}
     }
 
     private Point next(){

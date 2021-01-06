@@ -10,6 +10,7 @@ import java.util.Random;
 
 public class ClientWriter implements Runnable{
     private int grid;
+    private Random rand;
     private Thread locationPing;
     private Menu menu;
     private Socket s;
@@ -22,8 +23,7 @@ public class ClientWriter implements Runnable{
         this.out = s.getOutputStream();
         this.in = s.getInputStream();
         this.grid = grid;
-        Random r = new Random();
-        this.locationPing = new Thread(new Randomizer(new Point(r.nextInt(grid),r.nextInt(grid)),grid)); // random start position on a N*N grid
+        this.rand = new Random();
     }
 
     public void run() {
@@ -73,8 +73,15 @@ public class ClientWriter implements Runnable{
         System.out.println(rep.getReply().getMessage());
 
         menu.setState(rep.getReply().getResult() ? Menu.State.LOGGED : Menu.State.NOTLOGGED);
+        if(rep.getReply().getResult()){
+            menu.setState(Menu.State.LOGGED);
+            this.locationPing = new Thread(new Randomizer(new Point(rand.nextInt(grid),rand.nextInt(grid)),grid)); // random start position on a N*N grid
+            locationPing.start();
+        }
+        else {
+            menu.setState(Menu.State.NOTLOGGED);
+        }
         menu.show();
-        locationPing.start();
     }
 
     private void register() throws Exception{
@@ -91,6 +98,7 @@ public class ClientWriter implements Runnable{
     }
 
     private void logout() throws Exception{
+        locationPing.interrupt();
         MessageBuilder.send(MessageBuilder.logout(),out);
 
         Message rep = getReply();
@@ -131,7 +139,9 @@ public class ClientWriter implements Runnable{
 
     private void leave(){
         System.out.println("A sair...");
+        if(!locationPing.isInterrupted()) locationPing.interrupt();
         try {
+
             s.close();
         }
         catch(Exception e){
