@@ -35,8 +35,8 @@ public class Menu {
             case LOGGED:
                 System.out.println("+----------------- MENU CLIENTE ------------------+\n" +
                         "| 1 - Comunicar Infeção                           |\n" +
-                        "| 2 - Alterar Localização                         |\n" +
-                        "| 3 - Nº Pessoas numa Localização                 |\n" +
+                        "| 2 - Nº Pessoas numa Localização                 |\n" +
+                        "| 3 - Ler Notificações                            |\n" +
                         "| 0 - Logout                                      |\n" +
                         "+ ------------------------------------------------+\n");
                 break;

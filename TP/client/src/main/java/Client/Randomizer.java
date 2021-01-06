@@ -1,5 +1,8 @@
 package Client;
 
+import Protos.MessageBuilder;
+
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -21,21 +24,25 @@ public class Randomizer implements Runnable{
     private int grid;
     private Point current;
     private Random rand;
+    private OutputStream out;
 
-    public Randomizer(Point start, int grid){
+    public Randomizer(Point start, int grid, OutputStream out){
         this.grid = grid;
         this.current = start;
         this.rand = new Random();
+        this.out = out;
     }
 
     public void run(){
         try {
             while(true) {
                 Point p = next();
-                System.out.println("New ping: " + p);
+                MessageBuilder.send(MessageBuilder.location(p.x,p.y),out);
                 Thread.sleep(5000);
             }
-        } catch (InterruptedException ignore){}
+        }
+        catch (InterruptedException ignore){}
+        catch (Exception e) {e.printStackTrace();}
     }
 
     private Point next(){

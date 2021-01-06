@@ -5,6 +5,7 @@ import Protos.Messages.*;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -12,7 +13,10 @@ public class ClientWriter implements Runnable{
     private int grid;
     private Random rand;
     private Thread locationPing;
+
     private Menu menu;
+    private ArrayList<String> notifications;
+
     private Socket s;
     private OutputStream out;
     private InputStream in;
@@ -54,9 +58,9 @@ public class ClientWriter implements Runnable{
                 else if (choice == 1)
                     sick();
                 else if (choice == 2)
-                    location();
-                else if (choice == 3)
                     numberOfPeople();
+                else if (choice == 3)
+                    notifications();
                 break;
             default:
                 System.out.println("Erro no parsing/estado...");
@@ -71,11 +75,11 @@ public class ClientWriter implements Runnable{
         MessageBuilder.send(MessageBuilder.login(user,password),out);
 
         Message rep = getReply();
-        System.out.println(rep.getReply().getMessage());
+        confirm(rep);
 
         if(rep.getReply().getResult()){
             menu.setState(Menu.State.LOGGED);
-            this.locationPing = new Thread(new Randomizer(new Point(rand.nextInt(grid),rand.nextInt(grid)),grid)); // random start position on a N*N grid
+            this.locationPing = new Thread(new Randomizer(new Point(rand.nextInt(grid),rand.nextInt(grid)),grid,out)); // random start position on a N*N grid
             locationPing.start();
         }
         else {
@@ -102,7 +106,7 @@ public class ClientWriter implements Runnable{
         MessageBuilder.send(MessageBuilder.logout(),out);
 
         Message rep = getReply();
-        System.out.println(rep.getReply().getMessage());
+        confirm(rep);
 
         menu.setState(Menu.State.NOTLOGGED);
         menu.show();
@@ -112,12 +116,13 @@ public class ClientWriter implements Runnable{
         MessageBuilder.send(MessageBuilder.sick(),out);
 
         Message rep = getReply();
-        System.out.println(rep.getReply().getMessage());
+        confirm(rep);
 
         menu.setState(Menu.State.NOTLOGGED);
         menu.show();
     }
 
+    /*
     private void location() throws Exception{
         int coordx = menu.readInt("Coordenada X: ");
         int coordy = menu.readInt("Coordenada Y: ");
@@ -130,7 +135,7 @@ public class ClientWriter implements Runnable{
         menu.setState(Menu.State.LOGGED);
         menu.show();
     }
-
+*/
     private void numberOfPeople() throws Exception{
         int coordx = menu.readInt("Coordenada X: ");
         int coordy = menu.readInt("Coordenada Y: ");
@@ -144,16 +149,20 @@ public class ClientWriter implements Runnable{
         menu.show();
     }
 
+    private void notifications(){
+
+    }
+
     private void leave(){
         System.out.println("A sair...");
         if(!locationPing.isInterrupted()) locationPing.interrupt();
         try {
-
             s.close();
         }
         catch(Exception e){
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
+        System.exit(0);
     }
 
     private void confirm(Message rep){
