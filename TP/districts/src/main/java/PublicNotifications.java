@@ -31,4 +31,8 @@ public class PublicNotifications implements Runnable{
         Date date = new Date(System.currentTimeMillis());
         return formatter.format(date) + msg;
     }
+
+    private void locationPing(String user, Point p){
+
+    }
 }
