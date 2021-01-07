@@ -1,6 +1,7 @@
 package Client;
 import Protos.MessageBuilder;
 import Protos.Messages.*;
+import org.zeromq.ZMQ;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -15,15 +16,18 @@ public class ClientWriter implements Runnable{
     private Thread locationPing;
 
     private Menu menu;
-    private ArrayList<String> notifications;
+    private Notifications notif;
+    private ZMQ.Socket sub;
 
     private Socket s;
     private OutputStream out;
     private InputStream in;
 
-    public ClientWriter(Socket s, Menu menu, int grid) throws Exception{
+    public ClientWriter(Socket s, ZMQ.Socket sub, Notifications notif, Menu menu, int grid) throws Exception{
         this.menu = menu;
         this.s = s;
+        this.sub = sub;
+        this.notif = notif;
         this.out = s.getOutputStream();
         this.in = s.getInputStream();
         this.grid = grid;
@@ -61,6 +65,10 @@ public class ClientWriter implements Runnable{
                     numberOfPeople();
                 else if (choice == 3)
                     notifications();
+                else if (choice == 4)
+                    subscribe();
+                else if (choice == 5)
+                    unsubscribe();
                 break;
             default:
                 System.out.println("Erro no parsing/estado...");
@@ -150,7 +158,39 @@ public class ClientWriter implements Runnable{
     }
 
     private void notifications(){
+        this.notif.print();
 
+        softConfirm();
+        menu.setState(Menu.State.LOGGED);
+        menu.show();
+    }
+
+    private void subscribe(){
+        String dist = menu.readString("Insira o distrito que pretende subscrever: ");
+        if(notif.maybeAdd(dist)) {
+            System.out.println("Adicionado o distrito " + dist + " às subscrições.");
+            sub.subscribe("[" + dist + "]");
+        }
+        else {
+            System.out.println("O distrito " + dist + " já está subscrito.");
+        }
+        softConfirm();
+        menu.setState(Menu.State.LOGGED);
+        menu.show();
+    }
+
+    private void unsubscribe(){
+        String dist = menu.readString("Insira o distrito que pretende remover: ");
+        if(notif.maybeRemove(dist)){
+            System.out.println("Removido o distrito " + dist + " das subscrições.");
+            sub.unsubscribe("[" + dist + "]");
+        }
+        else {
+            System.out.println("O distrito " + dist + " não está subscrito.");
+        }
+        softConfirm();
+        menu.setState(Menu.State.LOGGED);
+        menu.show();
     }
 
     private void leave(){
@@ -167,6 +207,10 @@ public class ClientWriter implements Runnable{
 
     private void confirm(Message rep){
         System.out.println("*** " + rep.getReply().getMessage() + " ***");
+        menu.readString("Premir Enter para continuar ");
+    }
+
+    private void softConfirm(){
         menu.readString("Premir Enter para continuar ");
     }
 
