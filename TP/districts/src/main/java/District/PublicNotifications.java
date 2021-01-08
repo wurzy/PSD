@@ -31,7 +31,7 @@ public class PublicNotifications implements Runnable{
     }
 
     private void publish(String msg){
-        System.out.println("Notificação pública: " + msg);
+        System.out.println("Enviando notificação pública: " + msg);
         pub.send("[" + district.getName() + "] " + addDate(msg));
     }
 
