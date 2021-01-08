@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="24c55760-3597-4ce4-a165-e85f5369ad98" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/District/PublicNotifications.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Broker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/District/Broker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/District.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/District/District.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DistrictServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/District/DistrictServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PublicNotifications.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/District/PublicNotifications.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/District/PublicNotifications.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -32,7 +26,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/District/District.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
+            <state relative-caret-position="-506">
               <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -64,12 +58,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/District/PublicNotifications.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="73" column="14" lean-forward="true" selection-start-line="73" selection-start-column="14" selection-end-line="73" selection-end-column="14" />
+            <state relative-caret-position="537">
+              <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1972#1973#0" expanded="true" />
-                <element signature="e#2032#2033#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -174,7 +166,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1610072656617" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1610072739918" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../protobuf-3.14.0/java/core/target/protobuf-java-3.14.0.jar!/" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -233,12 +225,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1610035323900</updated>
-      <workItem from="1610035326924" duration="19723000" />
+      <workItem from="1610035326924" duration="19806000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19723000" />
+    <option name="totallyTimeSpent" value="19806000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -326,9 +318,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/District/District.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/District/DistrictServer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/District/District.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-506">
           <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -344,24 +346,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/District/DistrictServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/District/PublicNotifications.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="73" column="14" lean-forward="true" selection-start-line="73" selection-start-column="14" selection-end-line="73" selection-end-column="14" />
+        <state relative-caret-position="537">
+          <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1972#1973#0" expanded="true" />
-            <element signature="e#2032#2033#0" expanded="true" />
           </folding>
         </state>
       </provider>

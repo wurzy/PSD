@@ -63,7 +63,8 @@ public class PublicNotifications implements Runnable{
         }
     }
 
-    private void warnSick(){
+    private void warnSick(String user){
+        district.setSick(user);
         publish("Alerta, foi detetado um utilizador infetado, total: " + district.getTotal());
     }
 
