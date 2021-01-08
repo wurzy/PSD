@@ -1,6 +1,0 @@
-- Register "user" "pass" "distr"
-{badarg,[{country_manager,rpc,1,[{file,"country_manager.erl"},{line,9}]},
-         {authenticator,registerHandler,2,
-                        [{file,"authenticator.erl"},{line,37}]}]}
-
-- Nenhuma mensagem ser login/register funciona para já.
