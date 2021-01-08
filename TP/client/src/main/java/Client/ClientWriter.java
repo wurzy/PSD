@@ -6,7 +6,6 @@ import org.zeromq.ZMQ;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -18,12 +17,14 @@ public class ClientWriter implements Runnable{
     private Menu menu;
     private Notifications notif;
     private ZMQ.Socket sub;
+    private int port; // for the private notifications
+    private ClientPrivateNotifier cpn;
 
     private Socket s;
     private OutputStream out;
     private InputStream in;
 
-    public ClientWriter(Socket s, ZMQ.Socket sub, Notifications notif, Menu menu, int grid) throws Exception{
+    public ClientWriter(Socket s, ZMQ.Socket sub, Notifications notif, Menu menu, int grid, int port, ClientPrivateNotifier cpn) throws Exception{
         this.menu = menu;
         this.s = s;
         this.sub = sub;
@@ -31,6 +32,8 @@ public class ClientWriter implements Runnable{
         this.out = s.getOutputStream();
         this.in = s.getInputStream();
         this.grid = grid;
+        this.port = port;
+        this.cpn = cpn;
         this.rand = new Random();
     }
 
@@ -88,6 +91,7 @@ public class ClientWriter implements Runnable{
         if(rep.getReply().getResult()){
             menu.setState(Menu.State.LOGGED);
             this.locationPing = new Thread(new Randomizer(new Point(rand.nextInt(grid),rand.nextInt(grid)),grid,out)); // random start position on a N*N grid
+            MessageBuilder.send(MessageBuilder.port(port),out);
             locationPing.start();
         }
         else {
@@ -166,13 +170,18 @@ public class ClientWriter implements Runnable{
     }
 
     private void subscribe(){
-        String dist = menu.readString("Insira o distrito que pretende subscrever: ");
-        if(notif.maybeAdd(dist)) {
-            System.out.println("Adicionado o distrito " + dist + " às subscrições.");
-            sub.subscribe("[" + dist + "]");
+        if(notif.canAdd()){
+            String dist = menu.readString("Insira o distrito que pretende subscrever: ");
+            if(notif.maybeAdd(dist)) {
+                System.out.println("Adicionado o distrito " + dist + " às subscrições.");
+                sub.subscribe("[" + dist + "]");
+            }
+            else {
+                System.out.println("O distrito " + dist + " já está subscrito.");
+            }
         }
         else {
-            System.out.println("O distrito " + dist + " já está subscrito.");
+            System.out.println("Não é possível subscrever a mais que 3 distritos.");
         }
         softConfirm();
         menu.setState(Menu.State.LOGGED);
@@ -180,6 +189,8 @@ public class ClientWriter implements Runnable{
     }
 
     private void unsubscribe(){
+        System.out.println("Distritos atuais: ");
+        notif.printOut();
         String dist = menu.readString("Insira o distrito que pretende remover: ");
         if(notif.maybeRemove(dist)){
             System.out.println("Removido o distrito " + dist + " das subscrições.");
@@ -198,6 +209,7 @@ public class ClientWriter implements Runnable{
         if(!locationPing.isInterrupted()) locationPing.interrupt();
         try {
             s.close();
+            cpn.stop();
         }
         catch(Exception e){
             e.printStackTrace();

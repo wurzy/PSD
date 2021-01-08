@@ -1,5 +1,7 @@
 package Client;
 
+import sun.reflect.generics.tree.Tree;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.TreeSet;
@@ -29,4 +31,14 @@ public class Notifications {
         return subscriptions.remove(district);
     }
 
+    public synchronized boolean canAdd(){
+        return this.subscriptions.size() == 3;
+    }
+
+    public synchronized void printOut(){
+        int i = 1;
+        for(String s: subscriptions){
+            System.out.println(i++ + " - " + s);
+        }
+    }
 }

@@ -37,4 +37,9 @@ public class MessageBuilder {
         Location loc = Location.newBuilder().setCoordx(coordx).setCoordy(coordy).build();
         return Message.newBuilder().setType(Type.NR_PEOPLE).setLocation(loc).build();
     }
+
+    public static Message port(int port){
+        PrivateNotificationsPort p = PrivateNotificationsPort.newBuilder().setPort(port).build();
+        return Message.newBuilder().setType(Type.PORT).setPrivNotif(p).build();
+    }
 }

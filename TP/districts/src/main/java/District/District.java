@@ -2,6 +2,7 @@ package District;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 class Point {
     int x;
@@ -10,6 +11,10 @@ class Point {
     Point(int x, int y){
         this.x = x;
         this.y = y;
+    }
+
+    public boolean equals(Point p){
+        return x == p.x && y == p.y;
     }
 
     public String toString(){
@@ -88,7 +93,40 @@ public class District{
         return x;
     }
 
+    public synchronized int getCurrentConcentration(Point p){
+        if (this.concentration.containsKey(p.toString())){
+            return this.concentration.get(p.toString());
+        }
+        return 0;
+    }
+
     public synchronized int getTotal(){
         return total;
+    }
+
+    public synchronized String getUsersToNotify(String user){
+        ArrayList<String> users = usersNear(user);
+        if (users == null) return null;
+        String mega = "";
+        for(String u : users){
+            mega = mega + u + ","; // user,user,user,user,
+        }
+        return mega.substring(0,mega.length()-1); // user,user,user,user
+    }
+
+    private synchronized ArrayList<String> usersNear(String user){
+        Point p = this.getCurrentLocation(user);
+        if (p == null) return null;
+        ArrayList<String> ret = new ArrayList<>();
+        for(Map.Entry<String,ArrayList<Point>> entry : this.userCoords.entrySet()){
+            if (!entry.getKey().equals(user)){
+                for(Point point : entry.getValue()){
+                    if(p.equals(point)){
+                        ret.add(entry.getKey());
+                    }
+                }
+            }
+        }
+        return ret;
     }
 }
