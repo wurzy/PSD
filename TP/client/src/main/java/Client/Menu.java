@@ -35,8 +35,10 @@ public class Menu {
             case LOGGED:
                 System.out.println("+----------------- MENU CLIENTE ------------------+\n" +
                         "| 1 - Comunicar Infeção                           |\n" +
-                        "| 2 - Alterar Localização                         |\n" +
-                        "| 3 - Nº Pessoas numa Localização                 |\n" +
+                        "| 2 - Nº Pessoas numa Localização                 |\n" +
+                        "| 3 - Ler Notificações                            |\n" +
+                        "| 4 - Subscrever Distrito                         |\n" +
+                        "| 5 - Retirar Subscrição                          |\n" +
                         "| 0 - Logout                                      |\n" +
                         "+ ------------------------------------------------+\n");
                 break;
@@ -66,7 +68,7 @@ public class Menu {
                     }
                     break;
                 case LOGGED:
-                    while(choice<0 || choice >3){
+                    while(choice<0 || choice >5){
                         System.out.println("Insira opção válida!");
                         System.out.print("Opção: ");
                         choice = Integer.parseInt(input.nextLine());
