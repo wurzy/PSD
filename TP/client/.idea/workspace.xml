@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bb5be85e-e654-444e-86a8-2797a42a1463" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../districts/src/main/java/District/PublicNotifications.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../districts/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/src/main/java/District.java" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/src/main/java/District.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/src/main/java/PublicNotifications.java" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/src/main/java/PublicNotifications.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/src/main/java/Broker.java" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/src/main/java/District/Broker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/src/main/java/District.java" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/src/main/java/District/District.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/src/main/java/DistrictServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/src/main/java/District/DistrictServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/src/main/java/PublicNotifications.java" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -28,11 +32,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Client/ClientWriter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2888">
-              <caret line="178" column="20" lean-forward="true" selection-start-line="178" selection-start-column="20" selection-end-line="178" selection-end-column="20" />
+            <state relative-caret-position="476">
+              <caret line="229" column="5" lean-forward="true" selection-start-line="216" selection-start-column="4" selection-end-line="229" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#6045#6046#0" expanded="true" />
@@ -79,7 +83,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Client/Menu.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="453">
@@ -252,7 +256,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1610062156427" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1610072656580" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../protobuf-3.14.0/java/core/target/protobuf-java-3.14.0.jar!/" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -356,12 +360,12 @@
       <workItem from="1609449539547" duration="403000" />
       <workItem from="1609930459201" duration="2564000" />
       <workItem from="1609957099977" duration="3103000" />
-      <workItem from="1610031627538" duration="8093000" />
+      <workItem from="1610031627538" duration="8830000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="58874000" />
+    <option name="totallyTimeSpent" value="59611000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -528,22 +532,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Client/Menu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="453">
+          <caret line="70" column="47" selection-start-line="70" selection-start-column="47" selection-end-line="70" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Client/ClientWriter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2888">
-          <caret line="178" column="20" lean-forward="true" selection-start-line="178" selection-start-column="20" selection-end-line="178" selection-end-column="20" />
+        <state relative-caret-position="476">
+          <caret line="229" column="5" lean-forward="true" selection-start-line="216" selection-start-column="4" selection-end-line="229" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#6045#6046#0" expanded="true" />
             <element signature="e#6108#6109#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Client/Menu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="453">
-          <caret line="70" column="47" selection-start-line="70" selection-start-column="47" selection-end-line="70" selection-end-column="47" />
         </state>
       </provider>
     </entry>

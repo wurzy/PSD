@@ -1,9 +1,11 @@
+package District;
+
 import org.zeromq.SocketType;
 import org.zeromq.ZMQ;
 
 public class DistrictServer {
     /**
-     * DistrictServer class for the district server
+     * District.DistrictServer class for the district server
      * @param args arg0 -> portPrivate, arg1 -> portPublic, arg2 -> broker , arg3 -> name
      */
     public static void main(String[] args){

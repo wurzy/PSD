@@ -1,3 +1,5 @@
+package District;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -20,13 +22,14 @@ public class District{
     private HashMap<String, ArrayList<Point>> userCoords;
     private HashMap<String, Boolean> userSick;
     private HashMap<String, Integer> concentration;
-
+    private int total;
 
     public District(String name){
         this.name = name;
         this.userCoords = new HashMap<>();
         this.userSick = new HashMap<>();
         this.concentration = new HashMap<>();
+        this.total = 0;
     }
 
     public String getName(){
@@ -40,12 +43,11 @@ public class District{
 
     public synchronized void setSick(String user){
         this.userSick.put(user,true);
+        total++;
     }
 
     public synchronized void addCoord(String user, Point p){
-        ArrayList<Point> novo = new ArrayList<>(this.userCoords.get(user));
-        novo.add(p);
-        this.userCoords.put(user,novo);
+        this.userCoords.get(user).add(p);
     }
 
     public synchronized boolean userExists(String user){
@@ -54,32 +56,39 @@ public class District{
 
     public synchronized Point getCurrentLocation(String user){
         ArrayList<Point> ps = this.userCoords.get(user);
+        if(ps.isEmpty()) return null;
         return ps.get(ps.size()-1);
     }
 
     // basta saber que incrementou
-    public synchronized void incrementConcentration(Point p){
+    public synchronized int incrementConcentration(Point p){
         String s = p.toString();
+        int x = 1;
         if(this.concentration.containsKey(s)){
-            int x = this.concentration.get(s);
-            this.concentration.put(s,x+1);
+            x = this.concentration.get(s);
+            this.concentration.put(s,++x);
         }
         else {
-            this.concentration.put(s,1);
+            this.concentration.put(s,x);
         }
+        return x;
     }
 
     // se esvaziou a localizaçao no distrito
-    public synchronized boolean decrementConcentration(Point p){
+    public synchronized int decrementConcentration(Point p){
         String s = p.toString();
+        int x = 0;
         if(this.concentration.containsKey(s)){
-            int x = this.concentration.get(s);
-            this.concentration.put(s,x-1);
-            return false;
+            x = this.concentration.get(s);
+            this.concentration.put(s,--x);
         }
         else {
-            this.concentration.put(s,0);
-            return true;
+            this.concentration.put(s,x);
         }
+        return x;
+    }
+
+    public synchronized int getTotal(){
+        return total;
     }
 }
