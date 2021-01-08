@@ -2,13 +2,16 @@ syntax = "proto2";
 
 package Protos;
 
-
 message Message {
     required Type type = 1;
     optional Register register = 2;
     optional Login login = 3;
     optional Reply reply = 4;
     optional Location location = 5;
+    optional LocationPing locationPing = 6;
+    optional SickPing sickPing = 7;
+    optional PrivateNotificationsPort privNotif = 8;
+    optional NotifyUsers notifyUsers = 9;
 }
 
 enum Type {
@@ -19,6 +22,8 @@ enum Type {
     LOCATION = 4;
     SICK = 5;
     NR_PEOPLE = 6;
+    LOCATION_PING = 7;
+    SICK_PING = 8;
 }
 
 message Register {
@@ -40,4 +45,22 @@ message Reply {
 message Location {
     required int32 coordx = 1;
     required int32 coordy = 2;
+}
+
+message PrivateNotificationsPort{
+    required int32 port;
+}
+
+message LocationPing{
+    required string username = 1;
+    required int32 coordx = 1;
+    required int32 coordy = 2;
+}
+
+message SickPing{
+    required string username = 1;
+}
+
+message NotifyUsers{
+    required string users = 1;
 }
