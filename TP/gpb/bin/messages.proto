@@ -53,8 +53,8 @@ message PrivateNotificationsPort{
 
 message LocationPing{
     required string username = 1;
-    required int32 coordx = 1;
-    required int32 coordy = 2;
+    required int32 coordx = 2;
+    required int32 coordy = 3;
 }
 
 message SickPing{
