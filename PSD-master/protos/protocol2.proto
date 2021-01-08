@@ -1,0 +1,29 @@
+syntax = "proto2";
+
+package exchange;
+
+option java_outer_classname = "Protocol";
+
+message Message {
+  optional string dest = 1;
+  optional string type = 2;
+  optional User user = 3;
+  optional Order order = 4;
+  optional Response response = 5;
+}
+
+message User {
+  optional string username = 1;
+  optional string password = 2;
+}
+
+message Order {
+	optional string company = 1;
+	optional int32 quantity = 2;
+	optional float price = 3;
+}
+
+message Response {
+  optional string result = 1;
+  optional string description = 2;
+}
