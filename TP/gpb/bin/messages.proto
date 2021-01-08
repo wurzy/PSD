@@ -48,7 +48,7 @@ message Location {
 }
 
 message PrivateNotificationsPort{
-    required int32 port;
+    required int32 port = 1;
 }
 
 message LocationPing{
