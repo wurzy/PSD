@@ -1,7 +1,12 @@
 package District;
 
+import Protos.MessageBuilder;
+import Protos.Messages.*;
 import org.zeromq.ZMQ;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -10,21 +15,34 @@ public class PublicNotifications implements Runnable{
     private ZMQ.Socket pub;
     private District district;
 
-    public PublicNotifications(ZMQ.Socket pub, District district) {
+    private InputStream in;
+    private OutputStream out;
+
+    public PublicNotifications(ZMQ.Socket pub, Socket priv, District district) throws Exception {
         this.pub = pub;
         this.district = district;
+        this.in = priv.getInputStream();
+        this.out = priv.getOutputStream();
     }
 
     public void run(){
         while(true){
-            //receber msg
-            //Message m = recvMessage();
-            //enviar msg
-            pub.send("[" + district.getName() + "] " + addDate("Enviei uma mensagem"));
-            System.out.println("[" + district.getName() + "] " + addDate("Enviei uma mensagem"));
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
+            Message m = recvMessage();
+            Type type = m.getType();
+            try{
+                if(type.equals(Type.LOCATION_PING)){
+                    LocationPing lp = m.getLocationPing();
+                    locationPing(lp.getUsername() , new Point(lp.getCoordx(),lp.getCoordy()));
+                }
+                else if(type.equals(Type.SICK_PING)){
+                    warnSick(m.getSickPing().getUsername());
+                }
+                else if (type.equals(Type.NR_PEOPLE_PING)){
+                    NrPeoplePing npp = m.getNrPeoplePing();
+                    nrPeople(npp.getUsername() , new Point(npp.getCoordx(),npp.getCoordy()));
+                }
+            }
+            catch(Exception e){
                 e.printStackTrace();
             }
         }
@@ -63,12 +81,18 @@ public class PublicNotifications implements Runnable{
         }
     }
 
-    private void warnSick(String user){
+    private void warnSick(String user) throws Exception{
         district.setSick(user);
+        String mega = district.getUsersToNotify(user);
+        MessageBuilder.send(MessageBuilder.notifyUsers(mega),out);
         publish("Alerta, foi detetado um utilizador infetado, total: " + district.getTotal());
     }
 
-    /*
+    private void nrPeople(String user, Point p) throws Exception{
+        int x = this.district.getCurrentConcentration(p);
+        MessageBuilder.send(MessageBuilder.nrPeople(user,x),out);
+    }
+
     private Message recvMessage(){
         Message m = null;
         byte[] buf = new byte[4096], norm;
@@ -83,5 +107,4 @@ public class PublicNotifications implements Runnable{
         }
         return m;
     }
-    */
 }
