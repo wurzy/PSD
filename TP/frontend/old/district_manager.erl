@@ -38,8 +38,4 @@ loop(Locations) ->
                             loop(maps:update(Username, UserLocs ++ [{X,Y}], Locations))
                     end
             end
-        %{{nr_people,X,Y},From} ->
-        %    Pred = fun(_,V) -> {X,Y} = lists:last(V) end,
-        %    From ! {ok, maps:size(maps:filter(Pred,Locations))},
-        %    loop(Locations)
     end.

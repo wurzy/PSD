@@ -8,9 +8,9 @@ message Message {
     optional Login login = 3;
     optional Reply reply = 4;
     optional Location location = 5;
-    optional LocationPing locationPing = 6;
+    optional Location locationPing = 6;
     optional SickPing sickPing = 7;
-    optional PrivateNotificationsPort privNotif = 8;
+    optional PrivateNotificationsPort port = 8;
     optional NotifyUsers notifyUsers = 9;
 }
 
@@ -22,8 +22,8 @@ enum Type {
     LOCATION = 4;
     SICK = 5;
     NR_PEOPLE = 6;
-    LOCATION_PING = 7;
-    SICK_PING = 8;
+    SICK_PING = 7;
+    PORT = 8;
 }
 
 message Register {
@@ -43,24 +43,19 @@ message Reply {
 }
 
 message Location {
+    optional string username = 1;
     required int32 coordx = 1;
     required int32 coordy = 2;
 }
 
-message PrivateNotificationsPort{
+message PrivateNotificationsPort {
     required int32 port = 1;
 }
 
-message LocationPing{
-    required string username = 1;
-    required int32 coordx = 2;
-    required int32 coordy = 3;
-}
-
-message SickPing{
+message SickPing {
     required string username = 1;
 }
 
-message NotifyUsers{
+message NotifyUsers {
     required string users = 1;
 }

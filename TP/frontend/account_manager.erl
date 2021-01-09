@@ -1,5 +1,5 @@
 -module(account_manager).
--export([start/0, register/3, login/2, logout/1, sick/1, online/0]).
+-export([start/0, register/3, login/2, logout/1, sick/1]).
 
 start() -> 
     register(?MODULE, spawn(fun() -> loop(#{}) end)). 
@@ -21,9 +21,6 @@ logout(Username) ->
 
 sick(Username) ->
     rpc({sick,Username}).
-
-online() ->
-    rpc(online).
 
 % Accounts = Map{Username => {Password, District, logged_flag, sick_flag}}
 loop(Accounts) ->
@@ -61,9 +58,6 @@ loop(Accounts) ->
                 {ok, {Password,District,true,SickFlag}} -> 
                     From ! {?MODULE, ok},
                     loop(maps:update(Username,{Password,District,false,SickFlag},Accounts));
-                %{ok, _} -> % à partida nunca acontece
-                %    From ! {?MODULE, {error, "User not logged in."}},
-                %    loop(Accounts);
                 _ -> % à partida nunca acontece
                     From ! {?MODULE, {error, "Error logging out."}},
                     loop(Accounts)
@@ -73,17 +67,9 @@ loop(Accounts) ->
                 {ok, {Password,District,true,false}} -> 
                     From ! {?MODULE, ok},
                     loop(maps:update(Username,{Password,District,false,true},Accounts));
-                %{ok, {_,_,false,_}} -> % à partida nunca acontece
-                %    From ! {?MODULE, {error, "User not logged in."}},
-                %    loop(Accounts);
-                %{ok, {_,_,_,true}} -> % à partida nunca acontece
-                %    From ! {?MODULE, {error, "User already sick."}},
                 %    loop(Accounts);
                 _ -> % à partida nunca acontece
                     From ! {?MODULE, {error, "Error flagging client as sick."}},
                     loop(Accounts)
-            end;
-        {online,From} -> 
-            From ! {maps:keys(Accounts), ?MODULE},
-            loop(Accounts)
+            end
     end.

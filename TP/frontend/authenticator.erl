@@ -33,21 +33,21 @@ registerHandler(Socket, Data) ->
     Password = maps:get(password, Data),
     District = erlang:list_to_atom(string:lowercase(maps:get(district, Data))),
     io:fwrite("Register request: ~p ~p ~p\n", [Username, Password, District]),
-    case account_manager:register(Username, Password, District) of
+    case district_manager:verifyDistrict(District) of
         ok ->
-            case country_manager:registerUserInDistrict(District,Username) of
+            case account_manager:register(Username, Password, District) of
                 ok ->
                     io:fwrite("Successfully registered: ~p ~p ~p\n", [Username, Password, District]),
                     response_manager:sendResponse(Socket,true,"Successfully registered."),
                     authentication(Socket);
-                _ -> % nunca deve acontecer
-                    io:fwrite("Error registering user in district: ~p ~p\n", [Username, District]),
-                    response_manager:sendResponse(Socket,false,"Error registering user in district."),
+                _ ->
+                    io:fwrite("Username already taken: ~p\n", [Username]),
+                    response_manager:sendResponse(Socket,false,"Username already taken."),
                     authentication(Socket)
             end;
-        _ ->
-            io:fwrite("Username already taken: ~p\n", [Username]),
-            response_manager:sendResponse(Socket,false,"Username already taken."),
+        invalid ->
+            io:fwrite("Invalid district: ~p\n", [Username]),
+            response_manager:sendResponse(Socket,false,"Invalid district."),
             authentication(Socket)
     end.
 
