@@ -3,10 +3,18 @@
   <component name="ChangeListManager">
     <list default="true" id="24c55760-3597-4ce4-a165-e85f5369ad98" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/main/java/Client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/main/java/Client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/District/District.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/District/District.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/District/DistrictServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/District/DistrictServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/main/java/Client/ClientWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/main/java/Client/ClientWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/main/java/Client/Notifications.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/main/java/Client/Notifications.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/District/PublicNotifications.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/District/PublicNotifications.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/District/PublicNotifications.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/District/PublicNotifications.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/account_manager.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/account_manager.beam" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/authenticator.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/authenticator.beam" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/client_manager.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/client_manager.beam" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/district_manager.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/district_manager.beam" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/priv_notification_manager.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/priv_notification_manager.beam" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/response_manager.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/response_manager.beam" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/server.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/server.beam" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -21,8 +29,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/District/PublicNotifications.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="328">
-              <caret line="72" column="92" selection-start-line="72" selection-start-column="92" selection-end-line="72" selection-end-column="92" />
+            <state relative-caret-position="259">
+              <caret line="75" column="85" selection-start-line="75" selection-start-column="85" selection-end-line="75" selection-end-column="85" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -157,7 +165,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1610574986399" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1610578018237" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -218,12 +226,12 @@
       <updated>1610035323900</updated>
       <workItem from="1610035326924" duration="19964000" />
       <workItem from="1610123290229" duration="5326000" />
-      <workItem from="1610555467800" duration="13349000" />
+      <workItem from="1610555467800" duration="16372000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38639000" />
+    <option name="totallyTimeSpent" value="41662000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -238,7 +246,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32998884" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.22408026" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.34448162" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -323,8 +331,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/District/PublicNotifications.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="72" column="92" selection-start-line="72" selection-start-column="92" selection-end-line="72" selection-end-column="92" />
+        <state relative-caret-position="259">
+          <caret line="75" column="85" selection-start-line="75" selection-start-column="85" selection-end-line="75" selection-end-column="85" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

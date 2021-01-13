@@ -73,7 +73,7 @@ public class PublicNotifications implements Runnable{
                     ? "Diminuição de concentração na localização " + p.toString() + " [TOTAL: " + previous + "]"
                     : "A localização " + last.toString() + " está vazia");
         }
-        publish("Aumento de concentração na localização " + p.toString() + " [TOTAL" + current + "]");
+        publish("Aumento de concentração na localização " + p.toString() + " [TOTAL: " + current + "]");
         district.addCoord(user,p);
     }
 

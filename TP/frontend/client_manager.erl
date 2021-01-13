@@ -51,7 +51,7 @@ getNrPeopleInLocation(Socket, Username, District, Location) ->
     io:fwrite("Count people in location request: ~p\n", [District]),
     case district_manager:countPeopleInLocation(District,X,Y) of
         {ok, Total} ->
-            Reply = "~p people in ~p (~p,~p)\n", [Total,District,X,Y],
+            Reply = io_lib:format("Total de pessoas em ~p (~p,~p): ~p", [District,X,Y,Total]),
             response_manager:sendResponse(Socket,true,Reply)
     end,
     loop(Socket,Username,District).

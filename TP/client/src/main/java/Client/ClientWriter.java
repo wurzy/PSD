@@ -82,7 +82,6 @@ public class ClientWriter implements Runnable{
     private void login() throws Exception{
         String user = menu.readString("Nome de Utilizador: ");
         String password = menu.readString("Palavra-passe: ");
-        System.out.println(MessageBuilder.login(user,password));
         MessageBuilder.send(MessageBuilder.login(user,password),out);
 
         Message rep = getReply();
@@ -103,7 +102,9 @@ public class ClientWriter implements Runnable{
     private void register() throws Exception{
         String user = menu.readString("Nome de Utilizador: ");
         String password = menu.readString("Palavra-passe: ");
-        String district = menu.readString("Distrito: ");
+        notif.printChoices();
+        String district = registerForceValid();
+
         MessageBuilder.send(MessageBuilder.register(user,password,district),out);
 
         Message rep = getReply();
@@ -111,6 +112,14 @@ public class ClientWriter implements Runnable{
 
         menu.setState(Menu.State.NOTLOGGED);
         menu.show();
+    }
+
+    private String registerForceValid(){
+        int district = -1;
+        while(district > 18 || district < 0){
+            district = menu.readInt("Distrito: ");
+        }
+        return String.valueOf(district);
     }
 
     private void logout() throws Exception{
@@ -134,20 +143,6 @@ public class ClientWriter implements Runnable{
         menu.show();
     }
 
-    /*
-    private void location() throws Exception{
-        int coordx = menu.readInt("Coordenada X: ");
-        int coordy = menu.readInt("Coordenada Y: ");
-
-        MessageBuilder.send(MessageBuilder.location(coordx,coordy),out);
-
-        Message rep = getReply();
-        System.out.println(rep.getReply().getMessage());
-
-        menu.setState(Menu.State.LOGGED);
-        menu.show();
-    }
-*/
     private void numberOfPeople() throws Exception{
         int coordx = menu.readInt("Coordenada X: ");
         int coordy = menu.readInt("Coordenada Y: ");
@@ -190,7 +185,7 @@ public class ClientWriter implements Runnable{
 
     private void unsubscribe(){
         System.out.println("Distritos atuais: ");
-        notif.printOut();
+        notif.printSubscribed();
         String dist = menu.readString("Insira o distrito que pretende remover: ");
         if(notif.maybeRemove(dist)){
             System.out.println("Removido o distrito " + dist + " das subscrições.");
