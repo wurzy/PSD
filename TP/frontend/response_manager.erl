@@ -9,7 +9,7 @@ sendResponse(Socket,Result,Msg) ->
 sendUserLocation(Socket,Username,Location) ->
     X = maps:get(coordx,Location),
     Y = maps:get(coordy,Location),
-    Msg = messages:encode_msg(#{type=>'LOCATION_PING', locationPing => #{username=>Username, coordx=>X, coordy=>Y}}, 'Message'),
+    Msg = messages:encode_msg(#{type=>'LOCATION_PING', location => #{username=>Username, coordx=>X, coordy=>Y}}, 'Message'),
     gen_tcp:send(Socket,Msg).
 
 sendSickPing(Socket,Username) ->

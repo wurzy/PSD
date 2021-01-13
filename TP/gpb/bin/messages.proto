@@ -8,12 +8,11 @@ message Message {
     optional Login login = 3;
     optional Reply reply = 4;
     optional Location location = 5;
-    optional Location locationPing = 6;
-    optional SickPing sickPing = 7;
-    optional PrivateNotificationsPort port = 8;
-    optional NotifyUsers notifyUsers = 9;
-    optional NrPeopleReply nrPeopleReply = 10;
-    optional Notification notification = 11;
+    optional SickPing sickPing = 6;
+    optional PrivateNotificationsPort port = 7;
+    optional NotifyUsers notifyUsers = 8;
+    optional NrPeopleReply nrPeopleReply = 9;
+    optional Notification notification = 10;
 }
 
 enum Type {

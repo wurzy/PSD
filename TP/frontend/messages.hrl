@@ -15,12 +15,11 @@
          login                  :: messages:'Login'() | undefined, % = 3, optional
          reply                  :: messages:'Reply'() | undefined, % = 4, optional
          location               :: messages:'Location'() | undefined, % = 5, optional
-         locationPing           :: messages:'Location'() | undefined, % = 6, optional
-         sickPing               :: messages:'SickPing'() | undefined, % = 7, optional
-         port                   :: messages:'PrivateNotificationsPort'() | undefined, % = 8, optional
-         notifyUsers            :: messages:'NotifyUsers'() | undefined, % = 9, optional
-         nrPeopleReply          :: messages:'NrPeopleReply'() | undefined, % = 10, optional
-         notification           :: messages:'Notification'() | undefined % = 11, optional
+         sickPing               :: messages:'SickPing'() | undefined, % = 6, optional
+         port                   :: messages:'PrivateNotificationsPort'() | undefined, % = 7, optional
+         notifyUsers            :: messages:'NotifyUsers'() | undefined, % = 8, optional
+         nrPeopleReply          :: messages:'NrPeopleReply'() | undefined, % = 9, optional
+         notification           :: messages:'Notification'() | undefined % = 10, optional
         }).
 -endif.
 
