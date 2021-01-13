@@ -6670,23 +6670,6 @@ public final class Messages {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string username = 1;</code>
-     * @return Whether the username field is set.
-     */
-    boolean hasUsername();
-    /**
-     * <code>required string username = 1;</code>
-     * @return The username.
-     */
-    java.lang.String getUsername();
-    /**
-     * <code>required string username = 1;</code>
-     * @return The bytes for username.
-     */
-    com.google.protobuf.ByteString
-        getUsernameBytes();
-
-    /**
      * <code>required int32 total = 2;</code>
      * @return Whether the total field is set.
      */
@@ -6710,7 +6693,6 @@ public final class Messages {
       super(builder);
     }
     private NrPeopleReply() {
-      username_ = "";
     }
 
     @java.lang.Override
@@ -6744,14 +6726,8 @@ public final class Messages {
             case 0:
               done = true;
               break;
-            case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000001;
-              username_ = bs;
-              break;
-            }
             case 16: {
-              bitField0_ |= 0x00000002;
+              bitField0_ |= 0x00000001;
               total_ = input.readInt32();
               break;
             }
@@ -6788,54 +6764,6 @@ public final class Messages {
     }
 
     private int bitField0_;
-    public static final int USERNAME_FIELD_NUMBER = 1;
-    private volatile java.lang.Object username_;
-    /**
-     * <code>required string username = 1;</code>
-     * @return Whether the username field is set.
-     */
-    @java.lang.Override
-    public boolean hasUsername() {
-      return ((bitField0_ & 0x00000001) != 0);
-    }
-    /**
-     * <code>required string username = 1;</code>
-     * @return The username.
-     */
-    @java.lang.Override
-    public java.lang.String getUsername() {
-      java.lang.Object ref = username_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          username_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>required string username = 1;</code>
-     * @return The bytes for username.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getUsernameBytes() {
-      java.lang.Object ref = username_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        username_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
     public static final int TOTAL_FIELD_NUMBER = 2;
     private int total_;
     /**
@@ -6844,7 +6772,7 @@ public final class Messages {
      */
     @java.lang.Override
     public boolean hasTotal() {
-      return ((bitField0_ & 0x00000002) != 0);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
      * <code>required int32 total = 2;</code>
@@ -6862,10 +6790,6 @@ public final class Messages {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasUsername()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       if (!hasTotal()) {
         memoizedIsInitialized = 0;
         return false;
@@ -6878,9 +6802,6 @@ public final class Messages {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (((bitField0_ & 0x00000001) != 0)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, username_);
-      }
-      if (((bitField0_ & 0x00000002) != 0)) {
         output.writeInt32(2, total_);
       }
       unknownFields.writeTo(output);
@@ -6893,9 +6814,6 @@ public final class Messages {
 
       size = 0;
       if (((bitField0_ & 0x00000001) != 0)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, username_);
-      }
-      if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(2, total_);
       }
@@ -6914,11 +6832,6 @@ public final class Messages {
       }
       Protos.Messages.NrPeopleReply other = (Protos.Messages.NrPeopleReply) obj;
 
-      if (hasUsername() != other.hasUsername()) return false;
-      if (hasUsername()) {
-        if (!getUsername()
-            .equals(other.getUsername())) return false;
-      }
       if (hasTotal() != other.hasTotal()) return false;
       if (hasTotal()) {
         if (getTotal()
@@ -6935,10 +6848,6 @@ public final class Messages {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasUsername()) {
-        hash = (37 * hash) + USERNAME_FIELD_NUMBER;
-        hash = (53 * hash) + getUsername().hashCode();
-      }
       if (hasTotal()) {
         hash = (37 * hash) + TOTAL_FIELD_NUMBER;
         hash = (53 * hash) + getTotal();
@@ -7076,10 +6985,8 @@ public final class Messages {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        username_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
         total_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
 
@@ -7109,12 +7016,8 @@ public final class Messages {
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          to_bitField0_ |= 0x00000001;
-        }
-        result.username_ = username_;
-        if (((from_bitField0_ & 0x00000002) != 0)) {
           result.total_ = total_;
-          to_bitField0_ |= 0x00000002;
+          to_bitField0_ |= 0x00000001;
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -7165,11 +7068,6 @@ public final class Messages {
 
       public Builder mergeFrom(Protos.Messages.NrPeopleReply other) {
         if (other == Protos.Messages.NrPeopleReply.getDefaultInstance()) return this;
-        if (other.hasUsername()) {
-          bitField0_ |= 0x00000001;
-          username_ = other.username_;
-          onChanged();
-        }
         if (other.hasTotal()) {
           setTotal(other.getTotal());
         }
@@ -7180,9 +7078,6 @@ public final class Messages {
 
       @java.lang.Override
       public final boolean isInitialized() {
-        if (!hasUsername()) {
-          return false;
-        }
         if (!hasTotal()) {
           return false;
         }
@@ -7209,90 +7104,6 @@ public final class Messages {
       }
       private int bitField0_;
 
-      private java.lang.Object username_ = "";
-      /**
-       * <code>required string username = 1;</code>
-       * @return Whether the username field is set.
-       */
-      public boolean hasUsername() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <code>required string username = 1;</code>
-       * @return The username.
-       */
-      public java.lang.String getUsername() {
-        java.lang.Object ref = username_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            username_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>required string username = 1;</code>
-       * @return The bytes for username.
-       */
-      public com.google.protobuf.ByteString
-          getUsernameBytes() {
-        java.lang.Object ref = username_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          username_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string username = 1;</code>
-       * @param value The username to set.
-       * @return This builder for chaining.
-       */
-      public Builder setUsername(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        username_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string username = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearUsername() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        username_ = getDefaultInstance().getUsername();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string username = 1;</code>
-       * @param value The bytes for username to set.
-       * @return This builder for chaining.
-       */
-      public Builder setUsernameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        username_ = value;
-        onChanged();
-        return this;
-      }
-
       private int total_ ;
       /**
        * <code>required int32 total = 2;</code>
@@ -7300,7 +7111,7 @@ public final class Messages {
        */
       @java.lang.Override
       public boolean hasTotal() {
-        return ((bitField0_ & 0x00000002) != 0);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>required int32 total = 2;</code>
@@ -7316,7 +7127,7 @@ public final class Messages {
        * @return This builder for chaining.
        */
       public Builder setTotal(int value) {
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000001;
         total_ = value;
         onChanged();
         return this;
@@ -7326,7 +7137,7 @@ public final class Messages {
        * @return This builder for chaining.
        */
       public Builder clearTotal() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000001);
         total_ = 0;
         onChanged();
         return this;
@@ -9215,16 +9026,15 @@ public final class Messages {
       "\002(\t\"(\n\005Reply\022\016\n\006result\030\001 \002(\010\022\017\n\007message\030" +
       "\002 \002(\t\"<\n\010Location\022\020\n\010username\030\001 \001(\t\022\016\n\006c" +
       "oordx\030\002 \002(\005\022\016\n\006coordy\030\003 \002(\005\"\034\n\010SickPing\022" +
-      "\020\n\010username\030\001 \002(\t\"0\n\rNrPeopleReply\022\020\n\010us" +
-      "ername\030\001 \002(\t\022\r\n\005total\030\002 \002(\005\"\034\n\013NotifyUse" +
-      "rs\022\r\n\005users\030\001 \002(\t\"$\n\014Notification\022\024\n\014not" +
-      "ification\030\001 \002(\t\"(\n\030PrivateNotificationsP" +
-      "ort\022\014\n\004port\030\001 \002(\005*\302\001\n\004Type\022\014\n\010REGISTER\020\000" +
-      "\022\t\n\005LOGIN\020\001\022\n\n\006LOGOUT\020\002\022\t\n\005REPLY\020\003\022\014\n\010LO" +
-      "CATION\020\004\022\010\n\004SICK\020\005\022\r\n\tNR_PEOPLE\020\006\022\021\n\rLOC" +
-      "ATION_PING\020\007\022\r\n\tSICK_PING\020\010\022\023\n\017NR_PEOPLE" +
-      "_REPLY\020\t\022\020\n\014NOTIFY_USERS\020\n\022\020\n\014NOTIFICATI" +
-      "ON\020\013\022\010\n\004PORT\020\014"
+      "\020\n\010username\030\001 \002(\t\"\036\n\rNrPeopleReply\022\r\n\005to" +
+      "tal\030\002 \002(\005\"\034\n\013NotifyUsers\022\r\n\005users\030\001 \002(\t\"" +
+      "$\n\014Notification\022\024\n\014notification\030\001 \002(\t\"(\n" +
+      "\030PrivateNotificationsPort\022\014\n\004port\030\001 \002(\005*" +
+      "\302\001\n\004Type\022\014\n\010REGISTER\020\000\022\t\n\005LOGIN\020\001\022\n\n\006LOG" +
+      "OUT\020\002\022\t\n\005REPLY\020\003\022\014\n\010LOCATION\020\004\022\010\n\004SICK\020\005" +
+      "\022\r\n\tNR_PEOPLE\020\006\022\021\n\rLOCATION_PING\020\007\022\r\n\tSI" +
+      "CK_PING\020\010\022\023\n\017NR_PEOPLE_REPLY\020\t\022\020\n\014NOTIFY" +
+      "_USERS\020\n\022\020\n\014NOTIFICATION\020\013\022\010\n\004PORT\020\014"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -9271,7 +9081,7 @@ public final class Messages {
     internal_static_Protos_NrPeopleReply_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Protos_NrPeopleReply_descriptor,
-        new java.lang.String[] { "Username", "Total", });
+        new java.lang.String[] { "Total", });
     internal_static_Protos_NotifyUsers_descriptor =
       getDescriptor().getMessageTypes().get(7);
     internal_static_Protos_NotifyUsers_fieldAccessorTable = new

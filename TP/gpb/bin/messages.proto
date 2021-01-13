@@ -58,7 +58,6 @@ message SickPing {
 }
 
 message NrPeopleReply {
-    required string username = 1;
     required int32 total = 2;
 }
 

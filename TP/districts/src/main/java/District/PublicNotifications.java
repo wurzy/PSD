@@ -92,9 +92,7 @@ public class PublicNotifications implements Runnable{
 
     private void nrPeople(String user, Point p) throws Exception{
         int x = this.district.getCurrentConcentration(p);
-        System.out.println("111111");
         MessageBuilder.send(MessageBuilder.nrPeople(user,x),out);
-        System.out.println("222222");
     }
 
     private Message recvMessage(){

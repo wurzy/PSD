@@ -6,7 +6,7 @@ start() ->
     Districts = #{
         %aveiro => {element(2,gen_tcp:connect("localhost", 8100, [binary, {packet, 0}])), #{}},
         %beja => {element(2,gen_tcp:connect("localhost", 8101, [binary, {packet, 0}])), #{}},
-        braga => {element(2,gen_tcp:connect("localhost", 8102, [binary, {active, true}, {packet, 0}])), #{}}
+        braga => {element(2,gen_tcp:connect("localhost", 8102, [binary, {packet, 0}, {active, false}, {reuseaddr, true}])), #{}}
         %bragança => {element(2,gen_tcp:connect("localhost", 8103, [binary, {packet, 0}])), #{}},
         %castelo_branco => {element(2,gen_tcp:connect("localhost", 8104, [binary, {packet, 0}])), #{}},
         %coimbra => {element(2,gen_tcp:connect("localhost", 8105, [binary, {packet, 0}])), #{}},
@@ -70,10 +70,13 @@ loop(Districts) ->
         {{nr_people, District, Location}, From} ->
             {DistSocket,_} = maps:get(District,Districts),
             response_manager:sendLocationToCountPeople(DistSocket,Location),
+            io:fwrite("Antes\n"),
             {ok, Bin} = gen_tcp:recv(DistSocket,0),
+            io:fwrite("Depois ~p\n", [Bin]),
             Msg = messages:decode_msg(Bin,'Message'),
-            Username = maps:get(username,Msg),
-            Total = maps:get(total,Msg),
+            NrPeopleReply = maps:get(nrPeopleReply, Msg),
+            Username = maps:get(username,NrPeopleReply),
+            Total = maps:get(total,NrPeopleReply),
             io:fwrite("Message nr people reply: ~p ~p\n", [Username, Total]),
             From ! {?MODULE, {ok, Total}},
             loop(Districts);

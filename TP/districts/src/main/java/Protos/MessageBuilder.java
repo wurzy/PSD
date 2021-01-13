@@ -9,8 +9,8 @@ public class MessageBuilder {
         out.flush();
     }
 
-    public static Message nrPeople(String user, int total){
-        NrPeopleReply nr = NrPeopleReply.newBuilder().setUsername(user).setTotal(total).build();
+    public static Message nrPeople(int total){
+        NrPeopleReply nr = NrPeopleReply.newBuilder().setTotal(total).build();
         return Message.newBuilder().setType(Type.NR_PEOPLE_REPLY).setNrPeopleReply(nr).build();
     }
 

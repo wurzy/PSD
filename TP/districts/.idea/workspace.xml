@@ -3,8 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="24c55760-3597-4ce4-a165-e85f5369ad98" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/main/java/Protos/Messages.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/main/java/Protos/Messages.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/District/PublicNotifications.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/District/PublicNotifications.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Protos/MessageBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Protos/MessageBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Protos/Messages.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Protos/Messages.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/district_manager.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/district_manager.beam" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/priv_notification_manager.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/priv_notification_manager.beam" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/response_manager.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/response_manager.beam" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -53,11 +59,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/District/PublicNotifications.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="96" column="34" selection-start-line="96" selection-start-column="34" selection-end-line="96" selection-end-column="34" />
+            <state relative-caret-position="283">
+              <caret line="95" selection-start-line="95" selection-end-line="95" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -65,11 +71,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Protos/MessageBuilder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+            <state relative-caret-position="299">
+              <caret line="13" column="36" lean-forward="true" selection-start-line="13" selection-start-column="36" selection-end-line="13" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -111,10 +117,10 @@
         <option value="$PROJECT_DIR$/src/main/java/District.java" />
         <option value="$PROJECT_DIR$/src/main/java/PublicNotifications.java" />
         <option value="$PROJECT_DIR$/src/main/java/District/PrivateNotifications.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Protos/MessageBuilder.java" />
         <option value="$PROJECT_DIR$/src/main/java/District/DistrictServer.java" />
         <option value="$PROJECT_DIR$/src/main/java/District/District.java" />
         <option value="$PROJECT_DIR$/src/main/java/District/PublicNotifications.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Protos/MessageBuilder.java" />
       </list>
     </option>
   </component>
@@ -195,7 +201,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1610566035142" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1610567220654" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -256,12 +262,12 @@
       <updated>1610035323900</updated>
       <workItem from="1610035326924" duration="19964000" />
       <workItem from="1610123290229" duration="5326000" />
-      <workItem from="1610555467800" duration="7924000" />
+      <workItem from="1610555467800" duration="9279000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33214000" />
+    <option name="totallyTimeSpent" value="34569000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -276,7 +282,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32998884" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2865106" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.30211818" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -323,16 +329,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Protos/MessageBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/District/District.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="279">
@@ -359,8 +355,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/District/PublicNotifications.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="96" column="34" selection-start-line="96" selection-start-column="34" selection-end-line="96" selection-end-column="34" />
+        <state relative-caret-position="283">
+          <caret line="95" selection-start-line="95" selection-end-line="95" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Protos/MessageBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="13" column="36" lean-forward="true" selection-start-line="13" selection-start-column="36" selection-end-line="13" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
