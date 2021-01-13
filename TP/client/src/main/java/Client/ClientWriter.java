@@ -155,9 +155,9 @@ public class ClientWriter implements Runnable{
         MessageBuilder.send(MessageBuilder.numberOfPeople(coordx,coordy),out);
 
         Message rep = getReply();
-        System.out.println(rep.getReply().getMessage());
+        confirm(rep);
 
-        menu.setState(Menu.State.NOTLOGGED);
+        menu.setState(Menu.State.LOGGED);
         menu.show();
     }
 

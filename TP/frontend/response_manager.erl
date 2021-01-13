@@ -19,5 +19,6 @@ sendSickPing(Socket,Username) ->
 sendLocationToCountPeople(Socket,Location) ->
     X = maps:get(coordx,Location),
     Y = maps:get(coordy,Location),
-    Msg = messages:encode_msg(#{type=>'NR_PEOPLE_PING', location => #{coordx=>X, coordy=>Y}}, 'Message'),
+    Msg = messages:encode_msg(#{type=>'NR_PEOPLE', location => #{coordx=>X, coordy=>Y}}, 'Message'),
+    io:fwrite("Msg eweaewaew: ~p\n",[Msg]),
     gen_tcp:send(Socket,Msg).

@@ -60,25 +60,27 @@ public class PublicNotifications implements Runnable{
     }
 
     private void locationPing(String user, Point p){
-        int current = district.incrementConcentration(p);
-        int dec, decprev;
-        int previous = current - 1;
-        Point last = district.getCurrentLocation(user);
+        //int current = district.incrementConcentration(p);
+        //int dec, decprev;
+        //int previous = current - 1;
         if(!district.userExists(user)){
             district.addUser(user);
         }
+        //Point last = district.getCurrentLocation(user);
+       // if(last != null) {
+            //publish("Aumento de concentração na localização " + p.toString() + ", " + previous + " -> " + current);
+        //}
         district.addCoord(user,p);
-        publish("Aumento de concentração na localização " + p.toString() + ", " + previous + " -> " + current);
-        if(last!=null) {
-            dec = district.decrementConcentration(last);
-            decprev = dec + 1;
-            if(dec > 0) {
-                publish("Diminuição de concentração na localização " + p.toString() + ", " + decprev + " -> " + dec);
-            }
-            else {
-                publish("A localização " + p.toString() + " está vazia");
-            }
-        }
+        //if(last!=null) {
+           // dec = district.decrementConcentration(last);
+           // decprev = dec + 1;
+           // if(dec > 0) {
+           //     publish("Diminuição de concentração na localização " + p.toString() + ", " + decprev + " -> " + dec);
+           // }
+           // else {
+           //     publish("A localização " + p.toString() + " está vazia");
+           // }
+        //}
     }
 
     private void warnSick(String user) throws Exception{

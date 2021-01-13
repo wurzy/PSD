@@ -1,8 +1,8 @@
 -module(server).
--export ([start_server/2]).
+-export ([start/2]).
 
 % começa a correr o servidor da frontend
-start_server(Port1,Port2) ->
+start(Port1,Port2) ->
     account_manager:start(),
     district_manager:start(),
     {ok, LSock} = gen_tcp:listen(Port1, [binary, {active, once}, {packet, 0}, {reuseaddr, true}]),

@@ -4,24 +4,24 @@
 
 start() -> 
     Districts = #{
-        aveiro => {element(2,gen_tcp:connect("localhost", 8100, [binary, {packet, 0}])), #{}},
-        beja => {element(2,gen_tcp:connect("localhost", 8101, [binary, {packet, 0}])), #{}},
-        braga => {element(2,gen_tcp:connect("localhost", 8102, [binary, {packet, 0}])), #{}},
-        bragança => {element(2,gen_tcp:connect("localhost", 8103, [binary, {packet, 0}])), #{}},
-        castelo_branco => {element(2,gen_tcp:connect("localhost", 8104, [binary, {packet, 0}])), #{}},
-        coimbra => {element(2,gen_tcp:connect("localhost", 8105, [binary, {packet, 0}])), #{}},
-        evora => {element(2,gen_tcp:connect("localhost", 8106, [binary, {packet, 0}])), #{}},
-        faro => {element(2,gen_tcp:connect("localhost", 81007, [binary, {packet, 0}])), #{}},
-        guarda => {element(2,gen_tcp:connect("localhost", 8108, [binary, {packet, 0}])), #{}},
-        leiria => {element(2,gen_tcp:connect("localhost", 8109, [binary, {packet, 0}])), #{}},
-        lisboa => {element(2,gen_tcp:connect("localhost", 8110, [binary, {packet, 0}])), #{}},
-        portalegre => {element(2,gen_tcp:connect("localhost", 8111, [binary, {packet, 0}])), #{}},
-        porto => {element(2,gen_tcp:connect("localhost", 8112, [binary, {packet, 0}])), #{}},
-        santarem => {element(2,gen_tcp:connect("localhost", 8113, [binary, {packet, 0}])), #{}},
-        setubal => {element(2,gen_tcp:connect("localhost", 8114, [binary, {packet, 0}])), #{}},
-        viana_do_castelo => {element(2,gen_tcp:connect("localhost", 8115, [binary, {packet, 0}])), #{}},
-        vila_real => {element(2,gen_tcp:connect("localhost", 8116, [binary, {packet, 0}])), #{}},
-        viseu => {element(2,gen_tcp:connect("localhost", 8117, [binary, {packet, 0}])), #{}}
+        %aveiro => {element(2,gen_tcp:connect("localhost", 8100, [binary, {packet, 0}])), #{}},
+        %beja => {element(2,gen_tcp:connect("localhost", 8101, [binary, {packet, 0}])), #{}},
+        braga => {element(2,gen_tcp:connect("localhost", 8102, [binary, {packet, 0}])), #{}}
+        %bragança => {element(2,gen_tcp:connect("localhost", 8103, [binary, {packet, 0}])), #{}},
+        %castelo_branco => {element(2,gen_tcp:connect("localhost", 8104, [binary, {packet, 0}])), #{}},
+        %coimbra => {element(2,gen_tcp:connect("localhost", 8105, [binary, {packet, 0}])), #{}},
+        %evora => {element(2,gen_tcp:connect("localhost", 8106, [binary, {packet, 0}])), #{}},
+        %faro => {element(2,gen_tcp:connect("localhost", 8107, [binary, {packet, 0}])), #{}},
+        %guarda => {element(2,gen_tcp:connect("localhost", 8108, [binary, {packet, 0}])), #{}},
+        %leiria => {element(2,gen_tcp:connect("localhost", 8109, [binary, {packet, 0}])), #{}},
+        %lisboa => {element(2,gen_tcp:connect("localhost", 8110, [binary, {packet, 0}])), #{}},
+        %portalegre => {element(2,gen_tcp:connect("localhost", 8111, [binary, {packet, 0}])), #{}},
+        %porto => {element(2,gen_tcp:connect("localhost", 8112, [binary, {packet, 0}])), #{}},
+        %santarem => {element(2,gen_tcp:connect("localhost", 8113, [binary, {packet, 0}])), #{}},
+        %setubal => {element(2,gen_tcp:connect("localhost", 8114, [binary, {packet, 0}])), #{}},
+        %viana_do_castelo => {element(2,gen_tcp:connect("localhost", 8115, [binary, {packet, 0}])), #{}},
+        %vila_real => {element(2,gen_tcp:connect("localhost", 8116, [binary, {packet, 0}])), #{}},
+        %viseu => {element(2,gen_tcp:connect("localhost", 8117, [binary, {packet, 0}])), #{}}
     },
     io:fwrite("Districts list: ~p\n", [Districts]),
     register(?MODULE, spawn(fun() -> loop(Districts) end)).
@@ -67,12 +67,12 @@ loop(Districts) ->
             response_manager:sendSickPing(Socket,Username),
             loop(Districts);
 
-        {{nr_people, Socket, District, Location}, From} ->
-            {Socket,_} = maps:get(District,Districts),
-            response_manager:sendLocationToCountPeople(Socket,Location),
+        {{nr_people, CliSocket, District, Location}, From} ->
+            {DistSocket,_} = maps:get(District,Districts),
+            response_manager:sendLocationToCountPeople(DistSocket,Location),
             receive
-                {tcp, Socket, Bin} ->
-                    inet:setopts(Socket, [{active, once}]),
+                {tcp, CliSocket, Bin} ->
+                    inet:setopts(CliSocket, [{active, once}]),
                     Msg = messages:decode_msg(Bin,'Message'),
                     Username = maps:get(username,Msg),
                     Total = maps:get(total,Msg),
