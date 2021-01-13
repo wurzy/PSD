@@ -49,8 +49,8 @@ public class PublicNotifications implements Runnable{
     }
 
     private void publish(String msg){
-        System.out.println("Enviando notificação pública: " + msg);
         pub.send("[" + district.getName() + "] " + addDate(msg));
+        System.out.println("Notificação pública enviada: " + msg);
     }
 
     private String addDate(String msg){
@@ -60,34 +60,27 @@ public class PublicNotifications implements Runnable{
     }
 
     private void locationPing(String user, Point p){
-        //int current = district.incrementConcentration(p);
-        //int dec, decprev;
-        //int previous = current - 1;
+        int current = district.incrementConcentration(p);
+        int previous;
         if(!district.userExists(user)){
             district.addUser(user);
         }
-        //Point last = district.getCurrentLocation(user);
-       // if(last != null) {
-            //publish("Aumento de concentração na localização " + p.toString() + ", " + previous + " -> " + current);
-        //}
+        else {
+            System.out.println("---------------------------------------------------------------------------------");
+            Point last = district.getCurrentLocation(user);
+            previous = district.decrementConcentration(last);
+            publish(previous > 0
+                    ? "Diminuição de concentração na localização " + p.toString() + " [TOTAL: " + previous + "]"
+                    : "A localização " + last.toString() + " está vazia");
+        }
+        publish("Aumento de concentração na localização " + p.toString() + " [TOTAL" + current + "]");
         district.addCoord(user,p);
-        //if(last!=null) {
-           // dec = district.decrementConcentration(last);
-           // decprev = dec + 1;
-           // if(dec > 0) {
-           //     publish("Diminuição de concentração na localização " + p.toString() + ", " + decprev + " -> " + dec);
-           // }
-           // else {
-           //     publish("A localização " + p.toString() + " está vazia");
-           // }
-        //}
     }
 
     private void warnSick(String user) throws Exception{
-        district.setSick(user);
         String mega = district.getUsersToNotify(user);
         MessageBuilder.send(MessageBuilder.notifyUsers(mega),out);
-        publish("Alerta, foi detetado um utilizador infetado, total: " + district.getTotal());
+        publish("Alerta, foi detetado um utilizador infetado [TOTAL: " + district.getTotal() +"]");
     }
 
     private void nrPeople(Point p) throws Exception{
@@ -103,7 +96,6 @@ public class PublicNotifications implements Runnable{
             n = in.read(buf);
             norm = Arrays.copyOf(buf,n);
             m = Message.parseFrom(norm);
-            System.out.println("recebi msg: " + m);
         }
         catch(Exception e){
             e.printStackTrace();

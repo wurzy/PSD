@@ -17,7 +17,7 @@ public class Client {
         Notifications notifications = new Notifications();
 
         ClientPrivateNotifier cp = new ClientPrivateNotifier(notifications,privNotif);
-        ClientWriter cw = new ClientWriter(s,sub,notifications,m,6,privNotif.getLocalPort(),cp);
+        ClientWriter cw = new ClientWriter(s,sub,notifications,m,1,privNotif.getLocalPort(),cp);
         ClientNotifier cr = new ClientNotifier(notifications,sub);
 
         new Thread(cw).start();
