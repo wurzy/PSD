@@ -67,7 +67,6 @@ loop(Accounts) ->
                 {ok, {Password,District,true,false}} -> 
                     From ! {?MODULE, ok},
                     loop(maps:update(Username,{Password,District,false,true},Accounts));
-                %    loop(Accounts);
                 _ -> % à partida nunca acontece
                     From ! {?MODULE, {error, "Error flagging client as sick."}},
                     loop(Accounts)

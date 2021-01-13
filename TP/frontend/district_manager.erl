@@ -1,6 +1,6 @@
 -module(district_manager).
 
--export([start/0, verifyDistrict/1, countPeopleInLocation/2]).
+-export([start/0, verifyDistrict/1, countPeopleInLocation/3]).
 
 start() -> 
     Districts = #{
@@ -35,8 +35,8 @@ rpc(Request) ->
 verifyDistrict(District) ->
     rpc({verify_district,District}).
 
-countPeopleInLocation(District,Location) ->
-    rpc({nr_people,District,Location}).
+countPeopleInLocation(District,X,Y) ->
+    rpc({nr_people,District,X,Y}).
 
 % Districts -> #{district_name -> {district_socket, #{username -> notif_socket}}}
 loop(Districts) ->
@@ -48,37 +48,36 @@ loop(Districts) ->
             end,
             loop(Districts);
 
-        {register_user, CliSocket, District, Username, Port} ->
+        {register_user, District, Username, Port} ->
+            {ok, NotifSocket} = gen_tcp:connect("localhost", Port, [binary, {packet, 0}, {active, false}, {reuseaddr, true}]),
             {DistSocket,Users} = maps:get(District,Districts),
-            NewUsers = maps:put(Username,Port,Users),
-            io:fwrite("Registered private notification socket. ~p ~p\n", [Username, Port]),
-            response_manager:sendResponse(CliSocket,true,"Registered private notification socket."),
+            NewUsers = maps:put(Username,NotifSocket,Users),
+            io:fwrite("Connected to private notification socket. ~p ~p\n", [Username, NotifSocket]),
             loop(maps:update(District,{DistSocket,NewUsers},Districts));
         
         {location, District, Username, Location} ->
-            io:fwrite("D ~p U ~p L ~p\n", [District,Username,Location]),
-            {Socket,_} = maps:get(District,Districts),
-            response_manager:sendUserLocation(Socket,Username,Location),
+            {DistSocket,_} = maps:get(District,Districts),
+            response_manager:sendUserLocation(DistSocket,Username,Location),
             io:fwrite("Sent new location to district server. ~p ~p\n", [Username, District]),
             loop(Districts);
 
         {sick_user, District, Username} ->
-            {Socket,_} = maps:get(District,Districts),
-            response_manager:sendSickPing(Socket,Username),
+            {DistSocket,_} = maps:get(District,Districts),
+            response_manager:sendSickPing(DistSocket,Username),
             loop(Districts);
 
-        {{nr_people, District, Location}, From} ->
+        {{nr_people, District, X, Y}, From} ->
             {DistSocket,_} = maps:get(District,Districts),
-            response_manager:sendLocationToCountPeople(DistSocket,Location),
+            response_manager:sendLocationToCountPeople(DistSocket,X,Y),
             {ok, Bin} = gen_tcp:recv(DistSocket,0),
             Msg = messages:decode_msg(Bin,'Message'),
-            NrPeopleReply = maps:get(nrPeopleReply, Msg),
-            Total = maps:get(total,NrPeopleReply),
+            Total = maps:get(total,maps:get(nrPeopleReply, Msg)),
             From ! {?MODULE, {ok, Total}},
             loop(Districts);
 
         {remove_user, District, Username} ->
             {DistSocket,Users} = maps:get(District,Districts),
-            NewUsers = maps:remove(Username,Users),
-            loop(maps:update(District,{DistSocket,NewUsers},Districts))
+            NotifSocket = maps:get(Username,Users),
+            gen_tcp:close(NotifSocket),
+            loop(maps:update(District,{DistSocket,maps:remove(Username,Users)},Districts))
     end.

@@ -23,8 +23,8 @@ loop(Socket,Username,District) ->
 
 notificationsPortHandler(Socket, Username, District, Data) ->
     Port = maps:get(port, Data),
-    io:fwrite("Register private notification socket request: ~p ~p\n", [Username, Port]),
-    district_manager ! {register_user,Socket,District,Username,Port},
+    io:fwrite("Register private notification port request: ~p ~p\n", [Username, Port]),
+    district_manager ! {register_user, District, Username, Port},
     loop(Socket,Username,District).
 
 updateUserLocation(Socket, Username, District, Location) ->
@@ -46,10 +46,13 @@ sickHandler(Socket, Username, District) ->
     end.
 
 getNrPeopleInLocation(Socket, Username, District, Location) ->
+    X = maps:get(coordx,Location),
+    Y = maps:get(coordy,Location),
     io:fwrite("Count people in location request: ~p\n", [District]),
-    case district_manager:countPeopleInLocation(District,Location) of
+    case district_manager:countPeopleInLocation(District,X,Y) of
         {ok, Total} ->
-            io:fwrite("Total pessoas: ~p\n", [Total])
+            Reply = "~p people in ~p (~p,~p)\n", [Total,District,X,Y],
+            response_manager:sendResponse(Socket,true,Reply)
     end,
     loop(Socket,Username,District).
 
