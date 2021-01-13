@@ -56,6 +56,7 @@ loop(Districts) ->
             loop(maps:update(District,{DistPort,NewUsers},Districts));
         
         {location, District, Username, Location} ->
+            io:fwrite("D ~p U ~p L ~p\n", [District,Username,Location]),
             {Port,_} = maps:get(District,Districts),
             response_manager:sendUserLocation(Port,Username,Location),
             io:fwrite("Sent new location to district server. ~p ~p\n", [Username, District]),

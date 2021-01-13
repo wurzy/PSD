@@ -31,15 +31,15 @@ public class PublicNotifications implements Runnable{
             Type type = m.getType();
             try{
                 if(type.equals(Type.LOCATION_PING)){
-                    LocationPing lp = m.getLocationPing();
+                    Location lp = m.getLocation();
                     locationPing(lp.getUsername() , new Point(lp.getCoordx(),lp.getCoordy()));
                 }
                 else if(type.equals(Type.SICK_PING)){
                     warnSick(m.getSickPing().getUsername());
                 }
-                else if (type.equals(Type.NR_PEOPLE_PING)){
-                    NrPeoplePing npp = m.getNrPeoplePing();
-                    nrPeople(npp.getUsername() , new Point(npp.getCoordx(),npp.getCoordy()));
+                else if (type.equals(Type.NR_PEOPLE)){
+                    Location lp = m.getLocation();
+                    nrPeople(lp.getUsername() , new Point(lp.getCoordx(),lp.getCoordy()));
                 }
             }
             catch(Exception e){
@@ -101,6 +101,7 @@ public class PublicNotifications implements Runnable{
             n = in.read(buf);
             norm = Arrays.copyOf(buf,n);
             m = Message.parseFrom(norm);
+            System.out.println("recebi msg: " + m);
         }
         catch(Exception e){
             e.printStackTrace();

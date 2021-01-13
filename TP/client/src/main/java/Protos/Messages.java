@@ -285,92 +285,77 @@ public final class Messages {
     Protos.Messages.LocationOrBuilder getLocationOrBuilder();
 
     /**
-     * <code>optional .Protos.Location locationPing = 6;</code>
-     * @return Whether the locationPing field is set.
-     */
-    boolean hasLocationPing();
-    /**
-     * <code>optional .Protos.Location locationPing = 6;</code>
-     * @return The locationPing.
-     */
-    Protos.Messages.Location getLocationPing();
-    /**
-     * <code>optional .Protos.Location locationPing = 6;</code>
-     */
-    Protos.Messages.LocationOrBuilder getLocationPingOrBuilder();
-
-    /**
-     * <code>optional .Protos.SickPing sickPing = 7;</code>
+     * <code>optional .Protos.SickPing sickPing = 6;</code>
      * @return Whether the sickPing field is set.
      */
     boolean hasSickPing();
     /**
-     * <code>optional .Protos.SickPing sickPing = 7;</code>
+     * <code>optional .Protos.SickPing sickPing = 6;</code>
      * @return The sickPing.
      */
     Protos.Messages.SickPing getSickPing();
     /**
-     * <code>optional .Protos.SickPing sickPing = 7;</code>
+     * <code>optional .Protos.SickPing sickPing = 6;</code>
      */
     Protos.Messages.SickPingOrBuilder getSickPingOrBuilder();
 
     /**
-     * <code>optional .Protos.PrivateNotificationsPort port = 8;</code>
+     * <code>optional .Protos.PrivateNotificationsPort port = 7;</code>
      * @return Whether the port field is set.
      */
     boolean hasPort();
     /**
-     * <code>optional .Protos.PrivateNotificationsPort port = 8;</code>
+     * <code>optional .Protos.PrivateNotificationsPort port = 7;</code>
      * @return The port.
      */
     Protos.Messages.PrivateNotificationsPort getPort();
     /**
-     * <code>optional .Protos.PrivateNotificationsPort port = 8;</code>
+     * <code>optional .Protos.PrivateNotificationsPort port = 7;</code>
      */
     Protos.Messages.PrivateNotificationsPortOrBuilder getPortOrBuilder();
 
     /**
-     * <code>optional .Protos.NotifyUsers notifyUsers = 9;</code>
+     * <code>optional .Protos.NotifyUsers notifyUsers = 8;</code>
      * @return Whether the notifyUsers field is set.
      */
     boolean hasNotifyUsers();
     /**
-     * <code>optional .Protos.NotifyUsers notifyUsers = 9;</code>
+     * <code>optional .Protos.NotifyUsers notifyUsers = 8;</code>
      * @return The notifyUsers.
      */
     Protos.Messages.NotifyUsers getNotifyUsers();
     /**
-     * <code>optional .Protos.NotifyUsers notifyUsers = 9;</code>
+     * <code>optional .Protos.NotifyUsers notifyUsers = 8;</code>
      */
     Protos.Messages.NotifyUsersOrBuilder getNotifyUsersOrBuilder();
 
     /**
-     * <code>optional .Protos.NrPeopleReply nrPeopleReply = 10;</code>
+     * <code>optional .Protos.NrPeopleReply nrPeopleReply = 9;</code>
      * @return Whether the nrPeopleReply field is set.
      */
     boolean hasNrPeopleReply();
     /**
-     * <code>optional .Protos.NrPeopleReply nrPeopleReply = 10;</code>
+     * <code>optional .Protos.NrPeopleReply nrPeopleReply = 9;</code>
      * @return The nrPeopleReply.
      */
     Protos.Messages.NrPeopleReply getNrPeopleReply();
     /**
-     * <code>optional .Protos.NrPeopleReply nrPeopleReply = 10;</code>
+     * <code>optional .Protos.NrPeopleReply nrPeopleReply = 9;</code>
      */
     Protos.Messages.NrPeopleReplyOrBuilder getNrPeopleReplyOrBuilder();
 
     /**
-     * <code>optional .Protos.Notification notification = 11;</code>
+     * <code>optional .Protos.Notification notification = 10;</code>
      * @return Whether the notification field is set.
      */
     boolean hasNotification();
     /**
-     * <code>optional .Protos.Notification notification = 11;</code>
+     * <code>optional .Protos.Notification notification = 10;</code>
      * @return The notification.
      */
     Protos.Messages.Notification getNotification();
     /**
-     * <code>optional .Protos.Notification notification = 11;</code>
+     * <code>optional .Protos.Notification notification = 10;</code>
      */
     Protos.Messages.NotificationOrBuilder getNotificationOrBuilder();
   }
@@ -486,21 +471,8 @@ public final class Messages {
               break;
             }
             case 50: {
-              Protos.Messages.Location.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000020) != 0)) {
-                subBuilder = locationPing_.toBuilder();
-              }
-              locationPing_ = input.readMessage(Protos.Messages.Location.PARSER, extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(locationPing_);
-                locationPing_ = subBuilder.buildPartial();
-              }
-              bitField0_ |= 0x00000020;
-              break;
-            }
-            case 58: {
               Protos.Messages.SickPing.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000040) != 0)) {
+              if (((bitField0_ & 0x00000020) != 0)) {
                 subBuilder = sickPing_.toBuilder();
               }
               sickPing_ = input.readMessage(Protos.Messages.SickPing.PARSER, extensionRegistry);
@@ -508,12 +480,12 @@ public final class Messages {
                 subBuilder.mergeFrom(sickPing_);
                 sickPing_ = subBuilder.buildPartial();
               }
-              bitField0_ |= 0x00000040;
+              bitField0_ |= 0x00000020;
               break;
             }
-            case 66: {
+            case 58: {
               Protos.Messages.PrivateNotificationsPort.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000080) != 0)) {
+              if (((bitField0_ & 0x00000040) != 0)) {
                 subBuilder = port_.toBuilder();
               }
               port_ = input.readMessage(Protos.Messages.PrivateNotificationsPort.PARSER, extensionRegistry);
@@ -521,12 +493,12 @@ public final class Messages {
                 subBuilder.mergeFrom(port_);
                 port_ = subBuilder.buildPartial();
               }
-              bitField0_ |= 0x00000080;
+              bitField0_ |= 0x00000040;
               break;
             }
-            case 74: {
+            case 66: {
               Protos.Messages.NotifyUsers.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000100) != 0)) {
+              if (((bitField0_ & 0x00000080) != 0)) {
                 subBuilder = notifyUsers_.toBuilder();
               }
               notifyUsers_ = input.readMessage(Protos.Messages.NotifyUsers.PARSER, extensionRegistry);
@@ -534,12 +506,12 @@ public final class Messages {
                 subBuilder.mergeFrom(notifyUsers_);
                 notifyUsers_ = subBuilder.buildPartial();
               }
-              bitField0_ |= 0x00000100;
+              bitField0_ |= 0x00000080;
               break;
             }
-            case 82: {
+            case 74: {
               Protos.Messages.NrPeopleReply.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000200) != 0)) {
+              if (((bitField0_ & 0x00000100) != 0)) {
                 subBuilder = nrPeopleReply_.toBuilder();
               }
               nrPeopleReply_ = input.readMessage(Protos.Messages.NrPeopleReply.PARSER, extensionRegistry);
@@ -547,12 +519,12 @@ public final class Messages {
                 subBuilder.mergeFrom(nrPeopleReply_);
                 nrPeopleReply_ = subBuilder.buildPartial();
               }
-              bitField0_ |= 0x00000200;
+              bitField0_ |= 0x00000100;
               break;
             }
-            case 90: {
+            case 82: {
               Protos.Messages.Notification.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000400) != 0)) {
+              if (((bitField0_ & 0x00000200) != 0)) {
                 subBuilder = notification_.toBuilder();
               }
               notification_ = input.readMessage(Protos.Messages.Notification.PARSER, extensionRegistry);
@@ -560,7 +532,7 @@ public final class Messages {
                 subBuilder.mergeFrom(notification_);
                 notification_ = subBuilder.buildPartial();
               }
-              bitField0_ |= 0x00000400;
+              bitField0_ |= 0x00000200;
               break;
             }
             default: {
@@ -719,44 +691,18 @@ public final class Messages {
       return location_ == null ? Protos.Messages.Location.getDefaultInstance() : location_;
     }
 
-    public static final int LOCATIONPING_FIELD_NUMBER = 6;
-    private Protos.Messages.Location locationPing_;
-    /**
-     * <code>optional .Protos.Location locationPing = 6;</code>
-     * @return Whether the locationPing field is set.
-     */
-    @java.lang.Override
-    public boolean hasLocationPing() {
-      return ((bitField0_ & 0x00000020) != 0);
-    }
-    /**
-     * <code>optional .Protos.Location locationPing = 6;</code>
-     * @return The locationPing.
-     */
-    @java.lang.Override
-    public Protos.Messages.Location getLocationPing() {
-      return locationPing_ == null ? Protos.Messages.Location.getDefaultInstance() : locationPing_;
-    }
-    /**
-     * <code>optional .Protos.Location locationPing = 6;</code>
-     */
-    @java.lang.Override
-    public Protos.Messages.LocationOrBuilder getLocationPingOrBuilder() {
-      return locationPing_ == null ? Protos.Messages.Location.getDefaultInstance() : locationPing_;
-    }
-
-    public static final int SICKPING_FIELD_NUMBER = 7;
+    public static final int SICKPING_FIELD_NUMBER = 6;
     private Protos.Messages.SickPing sickPing_;
     /**
-     * <code>optional .Protos.SickPing sickPing = 7;</code>
+     * <code>optional .Protos.SickPing sickPing = 6;</code>
      * @return Whether the sickPing field is set.
      */
     @java.lang.Override
     public boolean hasSickPing() {
-      return ((bitField0_ & 0x00000040) != 0);
+      return ((bitField0_ & 0x00000020) != 0);
     }
     /**
-     * <code>optional .Protos.SickPing sickPing = 7;</code>
+     * <code>optional .Protos.SickPing sickPing = 6;</code>
      * @return The sickPing.
      */
     @java.lang.Override
@@ -764,25 +710,25 @@ public final class Messages {
       return sickPing_ == null ? Protos.Messages.SickPing.getDefaultInstance() : sickPing_;
     }
     /**
-     * <code>optional .Protos.SickPing sickPing = 7;</code>
+     * <code>optional .Protos.SickPing sickPing = 6;</code>
      */
     @java.lang.Override
     public Protos.Messages.SickPingOrBuilder getSickPingOrBuilder() {
       return sickPing_ == null ? Protos.Messages.SickPing.getDefaultInstance() : sickPing_;
     }
 
-    public static final int PORT_FIELD_NUMBER = 8;
+    public static final int PORT_FIELD_NUMBER = 7;
     private Protos.Messages.PrivateNotificationsPort port_;
     /**
-     * <code>optional .Protos.PrivateNotificationsPort port = 8;</code>
+     * <code>optional .Protos.PrivateNotificationsPort port = 7;</code>
      * @return Whether the port field is set.
      */
     @java.lang.Override
     public boolean hasPort() {
-      return ((bitField0_ & 0x00000080) != 0);
+      return ((bitField0_ & 0x00000040) != 0);
     }
     /**
-     * <code>optional .Protos.PrivateNotificationsPort port = 8;</code>
+     * <code>optional .Protos.PrivateNotificationsPort port = 7;</code>
      * @return The port.
      */
     @java.lang.Override
@@ -790,25 +736,25 @@ public final class Messages {
       return port_ == null ? Protos.Messages.PrivateNotificationsPort.getDefaultInstance() : port_;
     }
     /**
-     * <code>optional .Protos.PrivateNotificationsPort port = 8;</code>
+     * <code>optional .Protos.PrivateNotificationsPort port = 7;</code>
      */
     @java.lang.Override
     public Protos.Messages.PrivateNotificationsPortOrBuilder getPortOrBuilder() {
       return port_ == null ? Protos.Messages.PrivateNotificationsPort.getDefaultInstance() : port_;
     }
 
-    public static final int NOTIFYUSERS_FIELD_NUMBER = 9;
+    public static final int NOTIFYUSERS_FIELD_NUMBER = 8;
     private Protos.Messages.NotifyUsers notifyUsers_;
     /**
-     * <code>optional .Protos.NotifyUsers notifyUsers = 9;</code>
+     * <code>optional .Protos.NotifyUsers notifyUsers = 8;</code>
      * @return Whether the notifyUsers field is set.
      */
     @java.lang.Override
     public boolean hasNotifyUsers() {
-      return ((bitField0_ & 0x00000100) != 0);
+      return ((bitField0_ & 0x00000080) != 0);
     }
     /**
-     * <code>optional .Protos.NotifyUsers notifyUsers = 9;</code>
+     * <code>optional .Protos.NotifyUsers notifyUsers = 8;</code>
      * @return The notifyUsers.
      */
     @java.lang.Override
@@ -816,25 +762,25 @@ public final class Messages {
       return notifyUsers_ == null ? Protos.Messages.NotifyUsers.getDefaultInstance() : notifyUsers_;
     }
     /**
-     * <code>optional .Protos.NotifyUsers notifyUsers = 9;</code>
+     * <code>optional .Protos.NotifyUsers notifyUsers = 8;</code>
      */
     @java.lang.Override
     public Protos.Messages.NotifyUsersOrBuilder getNotifyUsersOrBuilder() {
       return notifyUsers_ == null ? Protos.Messages.NotifyUsers.getDefaultInstance() : notifyUsers_;
     }
 
-    public static final int NRPEOPLEREPLY_FIELD_NUMBER = 10;
+    public static final int NRPEOPLEREPLY_FIELD_NUMBER = 9;
     private Protos.Messages.NrPeopleReply nrPeopleReply_;
     /**
-     * <code>optional .Protos.NrPeopleReply nrPeopleReply = 10;</code>
+     * <code>optional .Protos.NrPeopleReply nrPeopleReply = 9;</code>
      * @return Whether the nrPeopleReply field is set.
      */
     @java.lang.Override
     public boolean hasNrPeopleReply() {
-      return ((bitField0_ & 0x00000200) != 0);
+      return ((bitField0_ & 0x00000100) != 0);
     }
     /**
-     * <code>optional .Protos.NrPeopleReply nrPeopleReply = 10;</code>
+     * <code>optional .Protos.NrPeopleReply nrPeopleReply = 9;</code>
      * @return The nrPeopleReply.
      */
     @java.lang.Override
@@ -842,25 +788,25 @@ public final class Messages {
       return nrPeopleReply_ == null ? Protos.Messages.NrPeopleReply.getDefaultInstance() : nrPeopleReply_;
     }
     /**
-     * <code>optional .Protos.NrPeopleReply nrPeopleReply = 10;</code>
+     * <code>optional .Protos.NrPeopleReply nrPeopleReply = 9;</code>
      */
     @java.lang.Override
     public Protos.Messages.NrPeopleReplyOrBuilder getNrPeopleReplyOrBuilder() {
       return nrPeopleReply_ == null ? Protos.Messages.NrPeopleReply.getDefaultInstance() : nrPeopleReply_;
     }
 
-    public static final int NOTIFICATION_FIELD_NUMBER = 11;
+    public static final int NOTIFICATION_FIELD_NUMBER = 10;
     private Protos.Messages.Notification notification_;
     /**
-     * <code>optional .Protos.Notification notification = 11;</code>
+     * <code>optional .Protos.Notification notification = 10;</code>
      * @return Whether the notification field is set.
      */
     @java.lang.Override
     public boolean hasNotification() {
-      return ((bitField0_ & 0x00000400) != 0);
+      return ((bitField0_ & 0x00000200) != 0);
     }
     /**
-     * <code>optional .Protos.Notification notification = 11;</code>
+     * <code>optional .Protos.Notification notification = 10;</code>
      * @return The notification.
      */
     @java.lang.Override
@@ -868,7 +814,7 @@ public final class Messages {
       return notification_ == null ? Protos.Messages.Notification.getDefaultInstance() : notification_;
     }
     /**
-     * <code>optional .Protos.Notification notification = 11;</code>
+     * <code>optional .Protos.Notification notification = 10;</code>
      */
     @java.lang.Override
     public Protos.Messages.NotificationOrBuilder getNotificationOrBuilder() {
@@ -906,12 +852,6 @@ public final class Messages {
       }
       if (hasLocation()) {
         if (!getLocation().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      if (hasLocationPing()) {
-        if (!getLocationPing().isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -969,22 +909,19 @@ public final class Messages {
         output.writeMessage(5, getLocation());
       }
       if (((bitField0_ & 0x00000020) != 0)) {
-        output.writeMessage(6, getLocationPing());
+        output.writeMessage(6, getSickPing());
       }
       if (((bitField0_ & 0x00000040) != 0)) {
-        output.writeMessage(7, getSickPing());
+        output.writeMessage(7, getPort());
       }
       if (((bitField0_ & 0x00000080) != 0)) {
-        output.writeMessage(8, getPort());
+        output.writeMessage(8, getNotifyUsers());
       }
       if (((bitField0_ & 0x00000100) != 0)) {
-        output.writeMessage(9, getNotifyUsers());
+        output.writeMessage(9, getNrPeopleReply());
       }
       if (((bitField0_ & 0x00000200) != 0)) {
-        output.writeMessage(10, getNrPeopleReply());
-      }
-      if (((bitField0_ & 0x00000400) != 0)) {
-        output.writeMessage(11, getNotification());
+        output.writeMessage(10, getNotification());
       }
       unknownFields.writeTo(output);
     }
@@ -1017,27 +954,23 @@ public final class Messages {
       }
       if (((bitField0_ & 0x00000020) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(6, getLocationPing());
+          .computeMessageSize(6, getSickPing());
       }
       if (((bitField0_ & 0x00000040) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(7, getSickPing());
+          .computeMessageSize(7, getPort());
       }
       if (((bitField0_ & 0x00000080) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(8, getPort());
+          .computeMessageSize(8, getNotifyUsers());
       }
       if (((bitField0_ & 0x00000100) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(9, getNotifyUsers());
+          .computeMessageSize(9, getNrPeopleReply());
       }
       if (((bitField0_ & 0x00000200) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(10, getNrPeopleReply());
-      }
-      if (((bitField0_ & 0x00000400) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(11, getNotification());
+          .computeMessageSize(10, getNotification());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1077,11 +1010,6 @@ public final class Messages {
       if (hasLocation()) {
         if (!getLocation()
             .equals(other.getLocation())) return false;
-      }
-      if (hasLocationPing() != other.hasLocationPing()) return false;
-      if (hasLocationPing()) {
-        if (!getLocationPing()
-            .equals(other.getLocationPing())) return false;
       }
       if (hasSickPing() != other.hasSickPing()) return false;
       if (hasSickPing()) {
@@ -1138,10 +1066,6 @@ public final class Messages {
       if (hasLocation()) {
         hash = (37 * hash) + LOCATION_FIELD_NUMBER;
         hash = (53 * hash) + getLocation().hashCode();
-      }
-      if (hasLocationPing()) {
-        hash = (37 * hash) + LOCATIONPING_FIELD_NUMBER;
-        hash = (53 * hash) + getLocationPing().hashCode();
       }
       if (hasSickPing()) {
         hash = (37 * hash) + SICKPING_FIELD_NUMBER;
@@ -1295,7 +1219,6 @@ public final class Messages {
           getLoginFieldBuilder();
           getReplyFieldBuilder();
           getLocationFieldBuilder();
-          getLocationPingFieldBuilder();
           getSickPingFieldBuilder();
           getPortFieldBuilder();
           getNotifyUsersFieldBuilder();
@@ -1332,42 +1255,36 @@ public final class Messages {
           locationBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000010);
-        if (locationPingBuilder_ == null) {
-          locationPing_ = null;
-        } else {
-          locationPingBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000020);
         if (sickPingBuilder_ == null) {
           sickPing_ = null;
         } else {
           sickPingBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000020);
         if (portBuilder_ == null) {
           port_ = null;
         } else {
           portBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000040);
         if (notifyUsersBuilder_ == null) {
           notifyUsers_ = null;
         } else {
           notifyUsersBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000080);
         if (nrPeopleReplyBuilder_ == null) {
           nrPeopleReply_ = null;
         } else {
           nrPeopleReplyBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000200);
+        bitField0_ = (bitField0_ & ~0x00000100);
         if (notificationBuilder_ == null) {
           notification_ = null;
         } else {
           notificationBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000400);
+        bitField0_ = (bitField0_ & ~0x00000200);
         return this;
       }
 
@@ -1433,52 +1350,44 @@ public final class Messages {
           to_bitField0_ |= 0x00000010;
         }
         if (((from_bitField0_ & 0x00000020) != 0)) {
-          if (locationPingBuilder_ == null) {
-            result.locationPing_ = locationPing_;
-          } else {
-            result.locationPing_ = locationPingBuilder_.build();
-          }
-          to_bitField0_ |= 0x00000020;
-        }
-        if (((from_bitField0_ & 0x00000040) != 0)) {
           if (sickPingBuilder_ == null) {
             result.sickPing_ = sickPing_;
           } else {
             result.sickPing_ = sickPingBuilder_.build();
           }
-          to_bitField0_ |= 0x00000040;
+          to_bitField0_ |= 0x00000020;
         }
-        if (((from_bitField0_ & 0x00000080) != 0)) {
+        if (((from_bitField0_ & 0x00000040) != 0)) {
           if (portBuilder_ == null) {
             result.port_ = port_;
           } else {
             result.port_ = portBuilder_.build();
           }
-          to_bitField0_ |= 0x00000080;
+          to_bitField0_ |= 0x00000040;
         }
-        if (((from_bitField0_ & 0x00000100) != 0)) {
+        if (((from_bitField0_ & 0x00000080) != 0)) {
           if (notifyUsersBuilder_ == null) {
             result.notifyUsers_ = notifyUsers_;
           } else {
             result.notifyUsers_ = notifyUsersBuilder_.build();
           }
-          to_bitField0_ |= 0x00000100;
+          to_bitField0_ |= 0x00000080;
         }
-        if (((from_bitField0_ & 0x00000200) != 0)) {
+        if (((from_bitField0_ & 0x00000100) != 0)) {
           if (nrPeopleReplyBuilder_ == null) {
             result.nrPeopleReply_ = nrPeopleReply_;
           } else {
             result.nrPeopleReply_ = nrPeopleReplyBuilder_.build();
           }
-          to_bitField0_ |= 0x00000200;
+          to_bitField0_ |= 0x00000100;
         }
-        if (((from_bitField0_ & 0x00000400) != 0)) {
+        if (((from_bitField0_ & 0x00000200) != 0)) {
           if (notificationBuilder_ == null) {
             result.notification_ = notification_;
           } else {
             result.notification_ = notificationBuilder_.build();
           }
-          to_bitField0_ |= 0x00000400;
+          to_bitField0_ |= 0x00000200;
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -1544,9 +1453,6 @@ public final class Messages {
         if (other.hasLocation()) {
           mergeLocation(other.getLocation());
         }
-        if (other.hasLocationPing()) {
-          mergeLocationPing(other.getLocationPing());
-        }
         if (other.hasSickPing()) {
           mergeSickPing(other.getSickPing());
         }
@@ -1589,11 +1495,6 @@ public final class Messages {
         }
         if (hasLocation()) {
           if (!getLocation().isInitialized()) {
-            return false;
-          }
-        }
-        if (hasLocationPing()) {
-          if (!getLocationPing().isInitialized()) {
             return false;
           }
         }
@@ -2168,138 +2069,18 @@ public final class Messages {
         return locationBuilder_;
       }
 
-      private Protos.Messages.Location locationPing_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          Protos.Messages.Location, Protos.Messages.Location.Builder, Protos.Messages.LocationOrBuilder> locationPingBuilder_;
-      /**
-       * <code>optional .Protos.Location locationPing = 6;</code>
-       * @return Whether the locationPing field is set.
-       */
-      public boolean hasLocationPing() {
-        return ((bitField0_ & 0x00000020) != 0);
-      }
-      /**
-       * <code>optional .Protos.Location locationPing = 6;</code>
-       * @return The locationPing.
-       */
-      public Protos.Messages.Location getLocationPing() {
-        if (locationPingBuilder_ == null) {
-          return locationPing_ == null ? Protos.Messages.Location.getDefaultInstance() : locationPing_;
-        } else {
-          return locationPingBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>optional .Protos.Location locationPing = 6;</code>
-       */
-      public Builder setLocationPing(Protos.Messages.Location value) {
-        if (locationPingBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          locationPing_ = value;
-          onChanged();
-        } else {
-          locationPingBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000020;
-        return this;
-      }
-      /**
-       * <code>optional .Protos.Location locationPing = 6;</code>
-       */
-      public Builder setLocationPing(
-          Protos.Messages.Location.Builder builderForValue) {
-        if (locationPingBuilder_ == null) {
-          locationPing_ = builderForValue.build();
-          onChanged();
-        } else {
-          locationPingBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000020;
-        return this;
-      }
-      /**
-       * <code>optional .Protos.Location locationPing = 6;</code>
-       */
-      public Builder mergeLocationPing(Protos.Messages.Location value) {
-        if (locationPingBuilder_ == null) {
-          if (((bitField0_ & 0x00000020) != 0) &&
-              locationPing_ != null &&
-              locationPing_ != Protos.Messages.Location.getDefaultInstance()) {
-            locationPing_ =
-              Protos.Messages.Location.newBuilder(locationPing_).mergeFrom(value).buildPartial();
-          } else {
-            locationPing_ = value;
-          }
-          onChanged();
-        } else {
-          locationPingBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000020;
-        return this;
-      }
-      /**
-       * <code>optional .Protos.Location locationPing = 6;</code>
-       */
-      public Builder clearLocationPing() {
-        if (locationPingBuilder_ == null) {
-          locationPing_ = null;
-          onChanged();
-        } else {
-          locationPingBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000020);
-        return this;
-      }
-      /**
-       * <code>optional .Protos.Location locationPing = 6;</code>
-       */
-      public Protos.Messages.Location.Builder getLocationPingBuilder() {
-        bitField0_ |= 0x00000020;
-        onChanged();
-        return getLocationPingFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>optional .Protos.Location locationPing = 6;</code>
-       */
-      public Protos.Messages.LocationOrBuilder getLocationPingOrBuilder() {
-        if (locationPingBuilder_ != null) {
-          return locationPingBuilder_.getMessageOrBuilder();
-        } else {
-          return locationPing_ == null ?
-              Protos.Messages.Location.getDefaultInstance() : locationPing_;
-        }
-      }
-      /**
-       * <code>optional .Protos.Location locationPing = 6;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          Protos.Messages.Location, Protos.Messages.Location.Builder, Protos.Messages.LocationOrBuilder> 
-          getLocationPingFieldBuilder() {
-        if (locationPingBuilder_ == null) {
-          locationPingBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              Protos.Messages.Location, Protos.Messages.Location.Builder, Protos.Messages.LocationOrBuilder>(
-                  getLocationPing(),
-                  getParentForChildren(),
-                  isClean());
-          locationPing_ = null;
-        }
-        return locationPingBuilder_;
-      }
-
       private Protos.Messages.SickPing sickPing_;
       private com.google.protobuf.SingleFieldBuilderV3<
           Protos.Messages.SickPing, Protos.Messages.SickPing.Builder, Protos.Messages.SickPingOrBuilder> sickPingBuilder_;
       /**
-       * <code>optional .Protos.SickPing sickPing = 7;</code>
+       * <code>optional .Protos.SickPing sickPing = 6;</code>
        * @return Whether the sickPing field is set.
        */
       public boolean hasSickPing() {
-        return ((bitField0_ & 0x00000040) != 0);
+        return ((bitField0_ & 0x00000020) != 0);
       }
       /**
-       * <code>optional .Protos.SickPing sickPing = 7;</code>
+       * <code>optional .Protos.SickPing sickPing = 6;</code>
        * @return The sickPing.
        */
       public Protos.Messages.SickPing getSickPing() {
@@ -2310,7 +2091,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>optional .Protos.SickPing sickPing = 7;</code>
+       * <code>optional .Protos.SickPing sickPing = 6;</code>
        */
       public Builder setSickPing(Protos.Messages.SickPing value) {
         if (sickPingBuilder_ == null) {
@@ -2322,11 +2103,11 @@ public final class Messages {
         } else {
           sickPingBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000020;
         return this;
       }
       /**
-       * <code>optional .Protos.SickPing sickPing = 7;</code>
+       * <code>optional .Protos.SickPing sickPing = 6;</code>
        */
       public Builder setSickPing(
           Protos.Messages.SickPing.Builder builderForValue) {
@@ -2336,15 +2117,15 @@ public final class Messages {
         } else {
           sickPingBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000020;
         return this;
       }
       /**
-       * <code>optional .Protos.SickPing sickPing = 7;</code>
+       * <code>optional .Protos.SickPing sickPing = 6;</code>
        */
       public Builder mergeSickPing(Protos.Messages.SickPing value) {
         if (sickPingBuilder_ == null) {
-          if (((bitField0_ & 0x00000040) != 0) &&
+          if (((bitField0_ & 0x00000020) != 0) &&
               sickPing_ != null &&
               sickPing_ != Protos.Messages.SickPing.getDefaultInstance()) {
             sickPing_ =
@@ -2356,11 +2137,11 @@ public final class Messages {
         } else {
           sickPingBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000020;
         return this;
       }
       /**
-       * <code>optional .Protos.SickPing sickPing = 7;</code>
+       * <code>optional .Protos.SickPing sickPing = 6;</code>
        */
       public Builder clearSickPing() {
         if (sickPingBuilder_ == null) {
@@ -2369,19 +2150,19 @@ public final class Messages {
         } else {
           sickPingBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
       /**
-       * <code>optional .Protos.SickPing sickPing = 7;</code>
+       * <code>optional .Protos.SickPing sickPing = 6;</code>
        */
       public Protos.Messages.SickPing.Builder getSickPingBuilder() {
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000020;
         onChanged();
         return getSickPingFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .Protos.SickPing sickPing = 7;</code>
+       * <code>optional .Protos.SickPing sickPing = 6;</code>
        */
       public Protos.Messages.SickPingOrBuilder getSickPingOrBuilder() {
         if (sickPingBuilder_ != null) {
@@ -2392,7 +2173,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>optional .Protos.SickPing sickPing = 7;</code>
+       * <code>optional .Protos.SickPing sickPing = 6;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           Protos.Messages.SickPing, Protos.Messages.SickPing.Builder, Protos.Messages.SickPingOrBuilder> 
@@ -2412,14 +2193,14 @@ public final class Messages {
       private com.google.protobuf.SingleFieldBuilderV3<
           Protos.Messages.PrivateNotificationsPort, Protos.Messages.PrivateNotificationsPort.Builder, Protos.Messages.PrivateNotificationsPortOrBuilder> portBuilder_;
       /**
-       * <code>optional .Protos.PrivateNotificationsPort port = 8;</code>
+       * <code>optional .Protos.PrivateNotificationsPort port = 7;</code>
        * @return Whether the port field is set.
        */
       public boolean hasPort() {
-        return ((bitField0_ & 0x00000080) != 0);
+        return ((bitField0_ & 0x00000040) != 0);
       }
       /**
-       * <code>optional .Protos.PrivateNotificationsPort port = 8;</code>
+       * <code>optional .Protos.PrivateNotificationsPort port = 7;</code>
        * @return The port.
        */
       public Protos.Messages.PrivateNotificationsPort getPort() {
@@ -2430,7 +2211,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>optional .Protos.PrivateNotificationsPort port = 8;</code>
+       * <code>optional .Protos.PrivateNotificationsPort port = 7;</code>
        */
       public Builder setPort(Protos.Messages.PrivateNotificationsPort value) {
         if (portBuilder_ == null) {
@@ -2442,11 +2223,11 @@ public final class Messages {
         } else {
           portBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000080;
+        bitField0_ |= 0x00000040;
         return this;
       }
       /**
-       * <code>optional .Protos.PrivateNotificationsPort port = 8;</code>
+       * <code>optional .Protos.PrivateNotificationsPort port = 7;</code>
        */
       public Builder setPort(
           Protos.Messages.PrivateNotificationsPort.Builder builderForValue) {
@@ -2456,15 +2237,15 @@ public final class Messages {
         } else {
           portBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000080;
+        bitField0_ |= 0x00000040;
         return this;
       }
       /**
-       * <code>optional .Protos.PrivateNotificationsPort port = 8;</code>
+       * <code>optional .Protos.PrivateNotificationsPort port = 7;</code>
        */
       public Builder mergePort(Protos.Messages.PrivateNotificationsPort value) {
         if (portBuilder_ == null) {
-          if (((bitField0_ & 0x00000080) != 0) &&
+          if (((bitField0_ & 0x00000040) != 0) &&
               port_ != null &&
               port_ != Protos.Messages.PrivateNotificationsPort.getDefaultInstance()) {
             port_ =
@@ -2476,11 +2257,11 @@ public final class Messages {
         } else {
           portBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000080;
+        bitField0_ |= 0x00000040;
         return this;
       }
       /**
-       * <code>optional .Protos.PrivateNotificationsPort port = 8;</code>
+       * <code>optional .Protos.PrivateNotificationsPort port = 7;</code>
        */
       public Builder clearPort() {
         if (portBuilder_ == null) {
@@ -2489,19 +2270,19 @@ public final class Messages {
         } else {
           portBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000040);
         return this;
       }
       /**
-       * <code>optional .Protos.PrivateNotificationsPort port = 8;</code>
+       * <code>optional .Protos.PrivateNotificationsPort port = 7;</code>
        */
       public Protos.Messages.PrivateNotificationsPort.Builder getPortBuilder() {
-        bitField0_ |= 0x00000080;
+        bitField0_ |= 0x00000040;
         onChanged();
         return getPortFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .Protos.PrivateNotificationsPort port = 8;</code>
+       * <code>optional .Protos.PrivateNotificationsPort port = 7;</code>
        */
       public Protos.Messages.PrivateNotificationsPortOrBuilder getPortOrBuilder() {
         if (portBuilder_ != null) {
@@ -2512,7 +2293,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>optional .Protos.PrivateNotificationsPort port = 8;</code>
+       * <code>optional .Protos.PrivateNotificationsPort port = 7;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           Protos.Messages.PrivateNotificationsPort, Protos.Messages.PrivateNotificationsPort.Builder, Protos.Messages.PrivateNotificationsPortOrBuilder> 
@@ -2532,14 +2313,14 @@ public final class Messages {
       private com.google.protobuf.SingleFieldBuilderV3<
           Protos.Messages.NotifyUsers, Protos.Messages.NotifyUsers.Builder, Protos.Messages.NotifyUsersOrBuilder> notifyUsersBuilder_;
       /**
-       * <code>optional .Protos.NotifyUsers notifyUsers = 9;</code>
+       * <code>optional .Protos.NotifyUsers notifyUsers = 8;</code>
        * @return Whether the notifyUsers field is set.
        */
       public boolean hasNotifyUsers() {
-        return ((bitField0_ & 0x00000100) != 0);
+        return ((bitField0_ & 0x00000080) != 0);
       }
       /**
-       * <code>optional .Protos.NotifyUsers notifyUsers = 9;</code>
+       * <code>optional .Protos.NotifyUsers notifyUsers = 8;</code>
        * @return The notifyUsers.
        */
       public Protos.Messages.NotifyUsers getNotifyUsers() {
@@ -2550,7 +2331,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>optional .Protos.NotifyUsers notifyUsers = 9;</code>
+       * <code>optional .Protos.NotifyUsers notifyUsers = 8;</code>
        */
       public Builder setNotifyUsers(Protos.Messages.NotifyUsers value) {
         if (notifyUsersBuilder_ == null) {
@@ -2562,11 +2343,11 @@ public final class Messages {
         } else {
           notifyUsersBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000100;
+        bitField0_ |= 0x00000080;
         return this;
       }
       /**
-       * <code>optional .Protos.NotifyUsers notifyUsers = 9;</code>
+       * <code>optional .Protos.NotifyUsers notifyUsers = 8;</code>
        */
       public Builder setNotifyUsers(
           Protos.Messages.NotifyUsers.Builder builderForValue) {
@@ -2576,15 +2357,15 @@ public final class Messages {
         } else {
           notifyUsersBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000100;
+        bitField0_ |= 0x00000080;
         return this;
       }
       /**
-       * <code>optional .Protos.NotifyUsers notifyUsers = 9;</code>
+       * <code>optional .Protos.NotifyUsers notifyUsers = 8;</code>
        */
       public Builder mergeNotifyUsers(Protos.Messages.NotifyUsers value) {
         if (notifyUsersBuilder_ == null) {
-          if (((bitField0_ & 0x00000100) != 0) &&
+          if (((bitField0_ & 0x00000080) != 0) &&
               notifyUsers_ != null &&
               notifyUsers_ != Protos.Messages.NotifyUsers.getDefaultInstance()) {
             notifyUsers_ =
@@ -2596,11 +2377,11 @@ public final class Messages {
         } else {
           notifyUsersBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000100;
+        bitField0_ |= 0x00000080;
         return this;
       }
       /**
-       * <code>optional .Protos.NotifyUsers notifyUsers = 9;</code>
+       * <code>optional .Protos.NotifyUsers notifyUsers = 8;</code>
        */
       public Builder clearNotifyUsers() {
         if (notifyUsersBuilder_ == null) {
@@ -2609,19 +2390,19 @@ public final class Messages {
         } else {
           notifyUsersBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000080);
         return this;
       }
       /**
-       * <code>optional .Protos.NotifyUsers notifyUsers = 9;</code>
+       * <code>optional .Protos.NotifyUsers notifyUsers = 8;</code>
        */
       public Protos.Messages.NotifyUsers.Builder getNotifyUsersBuilder() {
-        bitField0_ |= 0x00000100;
+        bitField0_ |= 0x00000080;
         onChanged();
         return getNotifyUsersFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .Protos.NotifyUsers notifyUsers = 9;</code>
+       * <code>optional .Protos.NotifyUsers notifyUsers = 8;</code>
        */
       public Protos.Messages.NotifyUsersOrBuilder getNotifyUsersOrBuilder() {
         if (notifyUsersBuilder_ != null) {
@@ -2632,7 +2413,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>optional .Protos.NotifyUsers notifyUsers = 9;</code>
+       * <code>optional .Protos.NotifyUsers notifyUsers = 8;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           Protos.Messages.NotifyUsers, Protos.Messages.NotifyUsers.Builder, Protos.Messages.NotifyUsersOrBuilder> 
@@ -2652,14 +2433,14 @@ public final class Messages {
       private com.google.protobuf.SingleFieldBuilderV3<
           Protos.Messages.NrPeopleReply, Protos.Messages.NrPeopleReply.Builder, Protos.Messages.NrPeopleReplyOrBuilder> nrPeopleReplyBuilder_;
       /**
-       * <code>optional .Protos.NrPeopleReply nrPeopleReply = 10;</code>
+       * <code>optional .Protos.NrPeopleReply nrPeopleReply = 9;</code>
        * @return Whether the nrPeopleReply field is set.
        */
       public boolean hasNrPeopleReply() {
-        return ((bitField0_ & 0x00000200) != 0);
+        return ((bitField0_ & 0x00000100) != 0);
       }
       /**
-       * <code>optional .Protos.NrPeopleReply nrPeopleReply = 10;</code>
+       * <code>optional .Protos.NrPeopleReply nrPeopleReply = 9;</code>
        * @return The nrPeopleReply.
        */
       public Protos.Messages.NrPeopleReply getNrPeopleReply() {
@@ -2670,7 +2451,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>optional .Protos.NrPeopleReply nrPeopleReply = 10;</code>
+       * <code>optional .Protos.NrPeopleReply nrPeopleReply = 9;</code>
        */
       public Builder setNrPeopleReply(Protos.Messages.NrPeopleReply value) {
         if (nrPeopleReplyBuilder_ == null) {
@@ -2682,11 +2463,11 @@ public final class Messages {
         } else {
           nrPeopleReplyBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000200;
+        bitField0_ |= 0x00000100;
         return this;
       }
       /**
-       * <code>optional .Protos.NrPeopleReply nrPeopleReply = 10;</code>
+       * <code>optional .Protos.NrPeopleReply nrPeopleReply = 9;</code>
        */
       public Builder setNrPeopleReply(
           Protos.Messages.NrPeopleReply.Builder builderForValue) {
@@ -2696,15 +2477,15 @@ public final class Messages {
         } else {
           nrPeopleReplyBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000200;
+        bitField0_ |= 0x00000100;
         return this;
       }
       /**
-       * <code>optional .Protos.NrPeopleReply nrPeopleReply = 10;</code>
+       * <code>optional .Protos.NrPeopleReply nrPeopleReply = 9;</code>
        */
       public Builder mergeNrPeopleReply(Protos.Messages.NrPeopleReply value) {
         if (nrPeopleReplyBuilder_ == null) {
-          if (((bitField0_ & 0x00000200) != 0) &&
+          if (((bitField0_ & 0x00000100) != 0) &&
               nrPeopleReply_ != null &&
               nrPeopleReply_ != Protos.Messages.NrPeopleReply.getDefaultInstance()) {
             nrPeopleReply_ =
@@ -2716,11 +2497,11 @@ public final class Messages {
         } else {
           nrPeopleReplyBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000200;
+        bitField0_ |= 0x00000100;
         return this;
       }
       /**
-       * <code>optional .Protos.NrPeopleReply nrPeopleReply = 10;</code>
+       * <code>optional .Protos.NrPeopleReply nrPeopleReply = 9;</code>
        */
       public Builder clearNrPeopleReply() {
         if (nrPeopleReplyBuilder_ == null) {
@@ -2729,19 +2510,19 @@ public final class Messages {
         } else {
           nrPeopleReplyBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000200);
+        bitField0_ = (bitField0_ & ~0x00000100);
         return this;
       }
       /**
-       * <code>optional .Protos.NrPeopleReply nrPeopleReply = 10;</code>
+       * <code>optional .Protos.NrPeopleReply nrPeopleReply = 9;</code>
        */
       public Protos.Messages.NrPeopleReply.Builder getNrPeopleReplyBuilder() {
-        bitField0_ |= 0x00000200;
+        bitField0_ |= 0x00000100;
         onChanged();
         return getNrPeopleReplyFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .Protos.NrPeopleReply nrPeopleReply = 10;</code>
+       * <code>optional .Protos.NrPeopleReply nrPeopleReply = 9;</code>
        */
       public Protos.Messages.NrPeopleReplyOrBuilder getNrPeopleReplyOrBuilder() {
         if (nrPeopleReplyBuilder_ != null) {
@@ -2752,7 +2533,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>optional .Protos.NrPeopleReply nrPeopleReply = 10;</code>
+       * <code>optional .Protos.NrPeopleReply nrPeopleReply = 9;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           Protos.Messages.NrPeopleReply, Protos.Messages.NrPeopleReply.Builder, Protos.Messages.NrPeopleReplyOrBuilder> 
@@ -2772,14 +2553,14 @@ public final class Messages {
       private com.google.protobuf.SingleFieldBuilderV3<
           Protos.Messages.Notification, Protos.Messages.Notification.Builder, Protos.Messages.NotificationOrBuilder> notificationBuilder_;
       /**
-       * <code>optional .Protos.Notification notification = 11;</code>
+       * <code>optional .Protos.Notification notification = 10;</code>
        * @return Whether the notification field is set.
        */
       public boolean hasNotification() {
-        return ((bitField0_ & 0x00000400) != 0);
+        return ((bitField0_ & 0x00000200) != 0);
       }
       /**
-       * <code>optional .Protos.Notification notification = 11;</code>
+       * <code>optional .Protos.Notification notification = 10;</code>
        * @return The notification.
        */
       public Protos.Messages.Notification getNotification() {
@@ -2790,7 +2571,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>optional .Protos.Notification notification = 11;</code>
+       * <code>optional .Protos.Notification notification = 10;</code>
        */
       public Builder setNotification(Protos.Messages.Notification value) {
         if (notificationBuilder_ == null) {
@@ -2802,11 +2583,11 @@ public final class Messages {
         } else {
           notificationBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000400;
+        bitField0_ |= 0x00000200;
         return this;
       }
       /**
-       * <code>optional .Protos.Notification notification = 11;</code>
+       * <code>optional .Protos.Notification notification = 10;</code>
        */
       public Builder setNotification(
           Protos.Messages.Notification.Builder builderForValue) {
@@ -2816,15 +2597,15 @@ public final class Messages {
         } else {
           notificationBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000400;
+        bitField0_ |= 0x00000200;
         return this;
       }
       /**
-       * <code>optional .Protos.Notification notification = 11;</code>
+       * <code>optional .Protos.Notification notification = 10;</code>
        */
       public Builder mergeNotification(Protos.Messages.Notification value) {
         if (notificationBuilder_ == null) {
-          if (((bitField0_ & 0x00000400) != 0) &&
+          if (((bitField0_ & 0x00000200) != 0) &&
               notification_ != null &&
               notification_ != Protos.Messages.Notification.getDefaultInstance()) {
             notification_ =
@@ -2836,11 +2617,11 @@ public final class Messages {
         } else {
           notificationBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000400;
+        bitField0_ |= 0x00000200;
         return this;
       }
       /**
-       * <code>optional .Protos.Notification notification = 11;</code>
+       * <code>optional .Protos.Notification notification = 10;</code>
        */
       public Builder clearNotification() {
         if (notificationBuilder_ == null) {
@@ -2849,19 +2630,19 @@ public final class Messages {
         } else {
           notificationBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000400);
+        bitField0_ = (bitField0_ & ~0x00000200);
         return this;
       }
       /**
-       * <code>optional .Protos.Notification notification = 11;</code>
+       * <code>optional .Protos.Notification notification = 10;</code>
        */
       public Protos.Messages.Notification.Builder getNotificationBuilder() {
-        bitField0_ |= 0x00000400;
+        bitField0_ |= 0x00000200;
         onChanged();
         return getNotificationFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .Protos.Notification notification = 11;</code>
+       * <code>optional .Protos.Notification notification = 10;</code>
        */
       public Protos.Messages.NotificationOrBuilder getNotificationOrBuilder() {
         if (notificationBuilder_ != null) {
@@ -2872,7 +2653,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>optional .Protos.Notification notification = 11;</code>
+       * <code>optional .Protos.Notification notification = 10;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           Protos.Messages.Notification, Protos.Messages.Notification.Builder, Protos.Messages.NotificationOrBuilder> 
@@ -9418,17 +9199,16 @@ public final class Messages {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\016messages.proto\022\006Protos\"\251\003\n\007Message\022\032\n\004" +
+      "\n\016messages.proto\022\006Protos\"\201\003\n\007Message\022\032\n\004" +
       "type\030\001 \002(\0162\014.Protos.Type\022\"\n\010register\030\002 \001" +
       "(\0132\020.Protos.Register\022\034\n\005login\030\003 \001(\0132\r.Pr" +
       "otos.Login\022\034\n\005reply\030\004 \001(\0132\r.Protos.Reply" +
-      "\022\"\n\010location\030\005 \001(\0132\020.Protos.Location\022&\n\014" +
-      "locationPing\030\006 \001(\0132\020.Protos.Location\022\"\n\010" +
-      "sickPing\030\007 \001(\0132\020.Protos.SickPing\022.\n\004port" +
-      "\030\010 \001(\0132 .Protos.PrivateNotificationsPort" +
-      "\022(\n\013notifyUsers\030\t \001(\0132\023.Protos.NotifyUse" +
-      "rs\022,\n\rnrPeopleReply\030\n \001(\0132\025.Protos.NrPeo" +
-      "pleReply\022*\n\014notification\030\013 \001(\0132\024.Protos." +
+      "\022\"\n\010location\030\005 \001(\0132\020.Protos.Location\022\"\n\010" +
+      "sickPing\030\006 \001(\0132\020.Protos.SickPing\022.\n\004port" +
+      "\030\007 \001(\0132 .Protos.PrivateNotificationsPort" +
+      "\022(\n\013notifyUsers\030\010 \001(\0132\023.Protos.NotifyUse" +
+      "rs\022,\n\rnrPeopleReply\030\t \001(\0132\025.Protos.NrPeo" +
+      "pleReply\022*\n\014notification\030\n \001(\0132\024.Protos." +
       "Notification\"@\n\010Register\022\020\n\010username\030\001 \002" +
       "(\t\022\020\n\010password\030\002 \002(\t\022\020\n\010district\030\003 \002(\t\"+" +
       "\n\005Login\022\020\n\010username\030\001 \002(\t\022\020\n\010password\030\002 " +
@@ -9455,7 +9235,7 @@ public final class Messages {
     internal_static_Protos_Message_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Protos_Message_descriptor,
-        new java.lang.String[] { "Type", "Register", "Login", "Reply", "Location", "LocationPing", "SickPing", "Port", "NotifyUsers", "NrPeopleReply", "Notification", });
+        new java.lang.String[] { "Type", "Register", "Login", "Reply", "Location", "SickPing", "Port", "NotifyUsers", "NrPeopleReply", "Notification", });
     internal_static_Protos_Register_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_Protos_Register_fieldAccessorTable = new
