@@ -23,6 +23,7 @@ start() ->
         vila_real => {8116, #{}},
         viseu => {8117, #{}}
     },
+    io:fwrite("Districts list: ~p\n", [Districts]),
     register(?MODULE, spawn(fun() -> loop(Districts) end)).
 
 rpc(Request) ->
@@ -39,7 +40,6 @@ countPeopleInLocation(District,Location) ->
 
 % Districts -> #{district_name -> {district_socket, #{username -> notif_socket}}}
 loop(Districts) ->
-    io:fwrite("Districts list: ~p\n", [Districts]),
     receive
         {{verify_district, District}, From} ->
             case maps:is_key(District,Districts) of

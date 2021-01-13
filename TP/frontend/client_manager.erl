@@ -22,6 +22,7 @@ loop(Socket,Username,District) ->
     end.
 
 notificationsPortHandler(Socket, Username, District, Data) ->
+    io:fwrite("~p\n",[Data]),
     Port = maps:get(port, Data),
     io:fwrite("Register private notification socket request: ~p ~p\n", [Username, Port]),
     district_manager ! {register_user,Socket,District,Username,Port},
