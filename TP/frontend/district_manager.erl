@@ -70,14 +70,12 @@ loop(Districts) ->
         {{nr_people, District, Location}, From} ->
             {DistSocket,_} = maps:get(District,Districts),
             response_manager:sendLocationToCountPeople(DistSocket,Location),
-            receive
-                {tcp, DistSocket, Bin} ->
-                    Msg = messages:decode_msg(Bin,'Message'),
-                    Username = maps:get(username,Msg),
-                    Total = maps:get(total,Msg),
-                    io:fwrite("Message nr people reply: ~p ~p\n", [Username, Total]),
-                    From ! {?MODULE, {ok, Total}}
-            end,
+            {ok, Bin} = gen_tcp:recv(DistSocket,0),
+            Msg = messages:decode_msg(Bin,'Message'),
+            Username = maps:get(username,Msg),
+            Total = maps:get(total,Msg),
+            io:fwrite("Message nr people reply: ~p ~p\n", [Username, Total]),
+            From ! {?MODULE, {ok, Total}},
             loop(Districts);
 
         {remove_user, District, Username} ->
