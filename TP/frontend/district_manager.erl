@@ -6,7 +6,7 @@ start() ->
     Districts = #{
         %aveiro => {element(2,gen_tcp:connect("localhost", 8100, [binary, {packet, 0}])), #{}},
         %beja => {element(2,gen_tcp:connect("localhost", 8101, [binary, {packet, 0}])), #{}},
-        braga => {element(2,gen_tcp:connect("localhost", 8102, [binary, {packet, 0}])), #{}}
+        braga => {element(2,gen_tcp:connect("localhost", 8102, [binary, {active, true}, {packet, 0}])), #{}}
         %bragança => {element(2,gen_tcp:connect("localhost", 8103, [binary, {packet, 0}])), #{}},
         %castelo_branco => {element(2,gen_tcp:connect("localhost", 8104, [binary, {packet, 0}])), #{}},
         %coimbra => {element(2,gen_tcp:connect("localhost", 8105, [binary, {packet, 0}])), #{}},
