@@ -3,25 +3,26 @@
 -export([start/0, verifyDistrict/1, countPeopleInLocation/2]).
 
 start() -> 
-    Districts = #{},
-    Districts = maps:put(aveiro,{8100, #{}},Districts),
-    Districts = maps:put(beja,{8101, #{}},Districts),
-    Districts = maps:put(braga,{8102, #{}},Districts),
-    Districts = maps:put(bragança,{8103, #{}},Districts),
-    Districts = maps:put(castelo_branco,{8104, #{}},Districts),
-    Districts = maps:put(coimbra,{8105, #{}},Districts),
-    Districts = maps:put(evora,{8106, #{}},Districts),
-    Districts = maps:put(faro,{8107, #{}},Districts),
-    Districts = maps:put(guarda,{8108, #{}},Districts),
-    Districts = maps:put(leiria,{8109, #{}},Districts),
-    Districts = maps:put(lisboa,{8110, #{}},Districts),
-    Districts = maps:put(portalegre,{8111, #{}},Districts),
-    Districts = maps:put(porto,{8112, #{}},Districts),
-    Districts = maps:put(santarem,{8113, #{}},Districts),
-    Districts = maps:put(setubal,{8114, #{}},Districts),
-    Districts = maps:put(viana_do_castelo,{8115, #{}},Districts),
-    Districts = maps:put(vila_real,{8116, #{}},Districts),
-    Districts = maps:put(viseu,{8117, #{}},Districts),
+    Districts = #{
+        aveiro => {8100, #{}},
+        beja => {8101, #{}},
+        braga => {8102, #{}},
+        bragança => {8103, #{}},
+        castelo_branco => {8104, #{}},
+        coimbra => {8105, #{}},
+        evora => {8006, #{}},
+        faro => {8007, #{}},
+        guarda => {8008, #{}},
+        leiria => {8009, #{}},
+        lisboa => {8010, #{}},
+        portalegre => {8011, #{}},
+        porto => {80012, #{}},
+        santarem => {80013, #{}},
+        setubal => {8014, #{}},
+        viana_do_castelo => {8015, #{}},
+        vila_real => {8016, #{}},
+        viseu => {8017, #{}}
+    },
     register(?MODULE, spawn(fun() -> loop(Districts) end)).
 
 rpc(Request) ->
