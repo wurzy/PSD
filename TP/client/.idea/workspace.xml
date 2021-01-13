@@ -2,15 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bb5be85e-e654-444e-86a8-2797a42a1463" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Client/ClientWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Client/ClientWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../districts/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/src/main/java/District/DistrictServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/src/main/java/District/DistrictServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../districts/src/main/java/District/PublicNotifications.java" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/src/main/java/District/PublicNotifications.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/target/classes/District/DistrictServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/District/DistrictServer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../districts/target/classes/District/PublicNotifications.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/District/PublicNotifications.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/district_manager.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/district_manager.beam" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/district_manager.erl" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/district_manager.erl" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -245,7 +239,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1610565409200" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1610566035086" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../districts" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -367,12 +361,12 @@
       <workItem from="1610031627538" duration="9082000" />
       <workItem from="1610123249776" duration="3119000" />
       <workItem from="1610129925738" duration="3095000" />
-      <workItem from="1610555362539" duration="7449000" />
+      <workItem from="1610555362539" duration="7887000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73526000" />
+    <option name="totallyTimeSpent" value="73964000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
