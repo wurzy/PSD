@@ -67,8 +67,7 @@
 -ifndef('NRPEOPLEREPLY_PB_H').
 -define('NRPEOPLEREPLY_PB_H', true).
 -record('NrPeopleReply',
-        {username               :: iodata() | undefined, % = 1, required
-         total                  :: integer() | undefined % = 2, required, 32 bits
+        {total                  :: integer() | undefined % = 2, required, 32 bits
         }).
 -endif.
 
