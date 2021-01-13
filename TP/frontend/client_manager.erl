@@ -46,7 +46,7 @@ sickHandler(Socket, Username, District) ->
     end.
 
 getNrPeopleInLocation(Socket, Username, District, Location) ->
-    district_manager:countPeopleInLocation(Socket,District,Location),
+    district_manager:countPeopleInLocation(District,Location),
     io:fwrite("Count people in location request: ~p\n", [District]),
     receive
         {ok, Total} ->

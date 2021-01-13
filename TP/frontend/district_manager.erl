@@ -1,6 +1,6 @@
 -module(district_manager).
 
--export([start/0, verifyDistrict/1, countPeopleInLocation/3]).
+-export([start/0, verifyDistrict/1, countPeopleInLocation/2]).
 
 start() -> 
     Districts = #{
@@ -35,8 +35,8 @@ rpc(Request) ->
 verifyDistrict(District) ->
     rpc({verify_district,District}).
 
-countPeopleInLocation(Socket,District,Location) ->
-    rpc({nr_people,Socket,District,Location}).
+countPeopleInLocation(District,Location) ->
+    rpc({nr_people,District,Location}).
 
 % Districts -> #{district_name -> {district_socket, #{username -> notif_socket}}}
 loop(Districts) ->
@@ -67,12 +67,11 @@ loop(Districts) ->
             response_manager:sendSickPing(Socket,Username),
             loop(Districts);
 
-        {{nr_people, CliSocket, District, Location}, From} ->
+        {{nr_people, District, Location}, From} ->
             {DistSocket,_} = maps:get(District,Districts),
             response_manager:sendLocationToCountPeople(DistSocket,Location),
             receive
-                {tcp, CliSocket, Bin} ->
-                    inet:setopts(CliSocket, [{active, once}]),
+                {tcp, DistSocket, Bin} ->
                     Msg = messages:decode_msg(Bin,'Message'),
                     Username = maps:get(username,Msg),
                     Total = maps:get(total,Msg),
