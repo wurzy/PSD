@@ -25,14 +25,12 @@ class Point {
 public class District{
     private final String name;
     private HashMap<String, ArrayList<Point>> userCoords;
-    private HashMap<String, Boolean> userSick;
     private HashMap<String, Integer> concentration;
     private int total;
 
     public District(String name){
         this.name = name;
         this.userCoords = new HashMap<>();
-        this.userSick = new HashMap<>();
         this.concentration = new HashMap<>();
         this.total = 0;
     }
@@ -43,12 +41,6 @@ public class District{
 
     public synchronized void addUser(String user){
         this.userCoords.put(user,new ArrayList<>());
-        this.userSick.put(user,false);
-    }
-
-    public synchronized void setSick(String user){
-        this.userSick.put(user,true);
-        total++;
     }
 
     public synchronized void addCoord(String user, Point p){
