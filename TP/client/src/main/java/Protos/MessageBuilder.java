@@ -40,6 +40,6 @@ public class MessageBuilder {
 
     public static Message port(int port){
         PrivateNotificationsPort p = PrivateNotificationsPort.newBuilder().setPort(port).build();
-        return Message.newBuilder().setType(Type.PORT).setPrivNotif(p).build();
+        return Message.newBuilder().setType(Type.PORT).setPort(p).build();
     }
 }
