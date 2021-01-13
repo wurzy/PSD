@@ -39,7 +39,7 @@ public class PublicNotifications implements Runnable{
                 }
                 else if (type.equals(Type.NR_PEOPLE)){
                     Location lp = m.getLocation();
-                    nrPeople(lp.getUsername() , new Point(lp.getCoordx(),lp.getCoordy()));
+                    nrPeople(new Point(lp.getCoordx(),lp.getCoordy()));
                 }
             }
             catch(Exception e){
@@ -90,9 +90,9 @@ public class PublicNotifications implements Runnable{
         publish("Alerta, foi detetado um utilizador infetado, total: " + district.getTotal());
     }
 
-    private void nrPeople(String user, Point p) throws Exception{
+    private void nrPeople(Point p) throws Exception{
         int x = this.district.getCurrentConcentration(p);
-        MessageBuilder.send(MessageBuilder.nrPeople(user,x),out);
+        MessageBuilder.send(MessageBuilder.nrPeople(x),out);
     }
 
     private Message recvMessage(){
