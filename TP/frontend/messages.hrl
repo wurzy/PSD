@@ -10,11 +10,17 @@
 -ifndef('MESSAGE_PB_H').
 -define('MESSAGE_PB_H', true).
 -record('Message',
-        {type                   :: 'REGISTER' | 'LOGIN' | 'LOGOUT' | 'REPLY' | 'LOCATION' | 'SICK' | 'NR_PEOPLE' | integer() | undefined, % = 1, required, enum Type
+        {type                   :: 'REGISTER' | 'LOGIN' | 'LOGOUT' | 'REPLY' | 'LOCATION' | 'SICK' | 'NR_PEOPLE' | 'LOCATION_PING' | 'SICK_PING' | 'NR_PEOPLE_REPLY' | 'NOTIFY_USERS' | 'NOTIFICATION' | 'PORT' | integer() | undefined, % = 1, required, enum Type
          register               :: messages:'Register'() | undefined, % = 2, optional
          login                  :: messages:'Login'() | undefined, % = 3, optional
          reply                  :: messages:'Reply'() | undefined, % = 4, optional
-         location               :: messages:'Location'() | undefined % = 5, optional
+         location               :: messages:'Location'() | undefined, % = 5, optional
+         locationPing           :: messages:'Location'() | undefined, % = 6, optional
+         sickPing               :: messages:'SickPing'() | undefined, % = 7, optional
+         port                   :: messages:'PrivateNotificationsPort'() | undefined, % = 8, optional
+         notifyUsers            :: messages:'NotifyUsers'() | undefined, % = 9, optional
+         nrPeopleReply          :: messages:'NrPeopleReply'() | undefined, % = 10, optional
+         notification           :: messages:'Notification'() | undefined % = 11, optional
         }).
 -endif.
 
@@ -46,8 +52,45 @@
 -ifndef('LOCATION_PB_H').
 -define('LOCATION_PB_H', true).
 -record('Location',
-        {coordx                 :: integer() | undefined, % = 1, required, 32 bits
-         coordy                 :: integer() | undefined % = 2, required, 32 bits
+        {username               :: iodata() | undefined, % = 1, optional
+         coordx                 :: integer() | undefined, % = 2, required, 32 bits
+         coordy                 :: integer() | undefined % = 3, required, 32 bits
+        }).
+-endif.
+
+-ifndef('SICKPING_PB_H').
+-define('SICKPING_PB_H', true).
+-record('SickPing',
+        {username               :: iodata() | undefined % = 1, required
+        }).
+-endif.
+
+-ifndef('NRPEOPLEREPLY_PB_H').
+-define('NRPEOPLEREPLY_PB_H', true).
+-record('NrPeopleReply',
+        {username               :: iodata() | undefined, % = 1, required
+         total                  :: integer() | undefined % = 2, required, 32 bits
+        }).
+-endif.
+
+-ifndef('NOTIFYUSERS_PB_H').
+-define('NOTIFYUSERS_PB_H', true).
+-record('NotifyUsers',
+        {users                  :: iodata() | undefined % = 1, required
+        }).
+-endif.
+
+-ifndef('NOTIFICATION_PB_H').
+-define('NOTIFICATION_PB_H', true).
+-record('Notification',
+        {notification           :: iodata() | undefined % = 1, required
+        }).
+-endif.
+
+-ifndef('PRIVATENOTIFICATIONSPORT_PB_H').
+-define('PRIVATENOTIFICATIONSPORT_PB_H', true).
+-record('PrivateNotificationsPort',
+        {port                   :: integer() | undefined % = 1, required, 32 bits
         }).
 -endif.
 

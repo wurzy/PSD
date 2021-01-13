@@ -47,16 +47,22 @@
 
 
 %% enumerated types
--type 'Type'() :: 'REGISTER' | 'LOGIN' | 'LOGOUT' | 'REPLY' | 'LOCATION' | 'SICK' | 'NR_PEOPLE'.
+-type 'Type'() :: 'REGISTER' | 'LOGIN' | 'LOGOUT' | 'REPLY' | 'LOCATION' | 'SICK' | 'NR_PEOPLE' | 'LOCATION_PING' | 'SICK_PING' | 'NR_PEOPLE_REPLY' | 'NOTIFY_USERS' | 'NOTIFICATION' | 'PORT'.
 -export_type(['Type'/0]).
 
 %% message types
 -type 'Message'() ::
-      #{type                    => 'REGISTER' | 'LOGIN' | 'LOGOUT' | 'REPLY' | 'LOCATION' | 'SICK' | 'NR_PEOPLE' | integer(), % = 1, required, enum Type
+      #{type                    => 'REGISTER' | 'LOGIN' | 'LOGOUT' | 'REPLY' | 'LOCATION' | 'SICK' | 'NR_PEOPLE' | 'LOCATION_PING' | 'SICK_PING' | 'NR_PEOPLE_REPLY' | 'NOTIFY_USERS' | 'NOTIFICATION' | 'PORT' | integer(), % = 1, required, enum Type
         register                => 'Register'(),    % = 2, optional
         login                   => 'Login'(),       % = 3, optional
         reply                   => 'Reply'(),       % = 4, optional
-        location                => 'Location'()     % = 5, optional
+        location                => 'Location'(),    % = 5, optional
+        locationPing            => 'Location'(),    % = 6, optional
+        sickPing                => 'SickPing'(),    % = 7, optional
+        port                    => 'PrivateNotificationsPort'(), % = 8, optional
+        notifyUsers             => 'NotifyUsers'(), % = 9, optional
+        nrPeopleReply           => 'NrPeopleReply'(), % = 10, optional
+        notification            => 'Notification'() % = 11, optional
        }.
 
 -type 'Register'() ::
@@ -76,16 +82,38 @@
        }.
 
 -type 'Location'() ::
-      #{coordx                  => integer(),       % = 1, required, 32 bits
-        coordy                  => integer()        % = 2, required, 32 bits
+      #{username                => iodata(),        % = 1, optional
+        coordx                  => integer(),       % = 2, required, 32 bits
+        coordy                  => integer()        % = 3, required, 32 bits
        }.
 
--export_type(['Message'/0, 'Register'/0, 'Login'/0, 'Reply'/0, 'Location'/0]).
+-type 'SickPing'() ::
+      #{username                => iodata()         % = 1, required
+       }.
 
--spec encode_msg('Message'() | 'Register'() | 'Login'() | 'Reply'() | 'Location'(), atom()) -> binary().
+-type 'NrPeopleReply'() ::
+      #{username                => iodata(),        % = 1, required
+        total                   => integer()        % = 2, required, 32 bits
+       }.
+
+-type 'NotifyUsers'() ::
+      #{users                   => iodata()         % = 1, required
+       }.
+
+-type 'Notification'() ::
+      #{notification            => iodata()         % = 1, required
+       }.
+
+-type 'PrivateNotificationsPort'() ::
+      #{port                    => integer()        % = 1, required, 32 bits
+       }.
+
+-export_type(['Message'/0, 'Register'/0, 'Login'/0, 'Reply'/0, 'Location'/0, 'SickPing'/0, 'NrPeopleReply'/0, 'NotifyUsers'/0, 'Notification'/0, 'PrivateNotificationsPort'/0]).
+
+-spec encode_msg('Message'() | 'Register'() | 'Login'() | 'Reply'() | 'Location'() | 'SickPing'() | 'NrPeopleReply'() | 'NotifyUsers'() | 'Notification'() | 'PrivateNotificationsPort'(), atom()) -> binary().
 encode_msg(Msg, MsgName) when is_atom(MsgName) -> encode_msg(Msg, MsgName, []).
 
--spec encode_msg('Message'() | 'Register'() | 'Login'() | 'Reply'() | 'Location'(), atom(), list()) -> binary().
+-spec encode_msg('Message'() | 'Register'() | 'Login'() | 'Reply'() | 'Location'() | 'SickPing'() | 'NrPeopleReply'() | 'NotifyUsers'() | 'Notification'() | 'PrivateNotificationsPort'(), atom(), list()) -> binary().
 encode_msg(Msg, MsgName, Opts) ->
     case proplists:get_bool(verify, Opts) of
         true -> verify_msg(Msg, MsgName, Opts);
@@ -97,7 +125,12 @@ encode_msg(Msg, MsgName, Opts) ->
         'Register' -> encode_msg_Register(id(Msg, TrUserData), TrUserData);
         'Login' -> encode_msg_Login(id(Msg, TrUserData), TrUserData);
         'Reply' -> encode_msg_Reply(id(Msg, TrUserData), TrUserData);
-        'Location' -> encode_msg_Location(id(Msg, TrUserData), TrUserData)
+        'Location' -> encode_msg_Location(id(Msg, TrUserData), TrUserData);
+        'SickPing' -> encode_msg_SickPing(id(Msg, TrUserData), TrUserData);
+        'NrPeopleReply' -> encode_msg_NrPeopleReply(id(Msg, TrUserData), TrUserData);
+        'NotifyUsers' -> encode_msg_NotifyUsers(id(Msg, TrUserData), TrUserData);
+        'Notification' -> encode_msg_Notification(id(Msg, TrUserData), TrUserData);
+        'PrivateNotificationsPort' -> encode_msg_PrivateNotificationsPort(id(Msg, TrUserData), TrUserData)
     end.
 
 
@@ -118,9 +151,33 @@ encode_msg_Message(#{type := F1} = M, Bin, TrUserData) ->
              #{reply := F4} -> begin TrF4 = id(F4, TrUserData), e_mfield_Message_reply(TrF4, <<B3/binary, 34>>, TrUserData) end;
              _ -> B3
          end,
+    B5 = case M of
+             #{location := F5} -> begin TrF5 = id(F5, TrUserData), e_mfield_Message_location(TrF5, <<B4/binary, 42>>, TrUserData) end;
+             _ -> B4
+         end,
+    B6 = case M of
+             #{locationPing := F6} -> begin TrF6 = id(F6, TrUserData), e_mfield_Message_locationPing(TrF6, <<B5/binary, 50>>, TrUserData) end;
+             _ -> B5
+         end,
+    B7 = case M of
+             #{sickPing := F7} -> begin TrF7 = id(F7, TrUserData), e_mfield_Message_sickPing(TrF7, <<B6/binary, 58>>, TrUserData) end;
+             _ -> B6
+         end,
+    B8 = case M of
+             #{port := F8} -> begin TrF8 = id(F8, TrUserData), e_mfield_Message_port(TrF8, <<B7/binary, 66>>, TrUserData) end;
+             _ -> B7
+         end,
+    B9 = case M of
+             #{notifyUsers := F9} -> begin TrF9 = id(F9, TrUserData), e_mfield_Message_notifyUsers(TrF9, <<B8/binary, 74>>, TrUserData) end;
+             _ -> B8
+         end,
+    B10 = case M of
+              #{nrPeopleReply := F10} -> begin TrF10 = id(F10, TrUserData), e_mfield_Message_nrPeopleReply(TrF10, <<B9/binary, 82>>, TrUserData) end;
+              _ -> B9
+          end,
     case M of
-        #{location := F5} -> begin TrF5 = id(F5, TrUserData), e_mfield_Message_location(TrF5, <<B4/binary, 42>>, TrUserData) end;
-        _ -> B4
+        #{notification := F11} -> begin TrF11 = id(F11, TrUserData), e_mfield_Message_notification(TrF11, <<B10/binary, 90>>, TrUserData) end;
+        _ -> B10
     end.
 
 encode_msg_Register(Msg, TrUserData) -> encode_msg_Register(Msg, <<>>, TrUserData).
@@ -148,9 +205,40 @@ encode_msg_Reply(#{result := F1, message := F2}, Bin, TrUserData) ->
 encode_msg_Location(Msg, TrUserData) -> encode_msg_Location(Msg, <<>>, TrUserData).
 
 
-encode_msg_Location(#{coordx := F1, coordy := F2}, Bin, TrUserData) ->
-    B1 = begin TrF1 = id(F1, TrUserData), e_type_int32(TrF1, <<Bin/binary, 8>>, TrUserData) end,
+encode_msg_Location(#{coordx := F2, coordy := F3} = M, Bin, TrUserData) ->
+    B1 = case M of
+             #{username := F1} -> begin TrF1 = id(F1, TrUserData), e_type_string(TrF1, <<Bin/binary, 10>>, TrUserData) end;
+             _ -> Bin
+         end,
+    B2 = begin TrF2 = id(F2, TrUserData), e_type_int32(TrF2, <<B1/binary, 16>>, TrUserData) end,
+    begin TrF3 = id(F3, TrUserData), e_type_int32(TrF3, <<B2/binary, 24>>, TrUserData) end.
+
+encode_msg_SickPing(Msg, TrUserData) -> encode_msg_SickPing(Msg, <<>>, TrUserData).
+
+
+encode_msg_SickPing(#{username := F1}, Bin, TrUserData) -> begin TrF1 = id(F1, TrUserData), e_type_string(TrF1, <<Bin/binary, 10>>, TrUserData) end.
+
+encode_msg_NrPeopleReply(Msg, TrUserData) -> encode_msg_NrPeopleReply(Msg, <<>>, TrUserData).
+
+
+encode_msg_NrPeopleReply(#{username := F1, total := F2}, Bin, TrUserData) ->
+    B1 = begin TrF1 = id(F1, TrUserData), e_type_string(TrF1, <<Bin/binary, 10>>, TrUserData) end,
     begin TrF2 = id(F2, TrUserData), e_type_int32(TrF2, <<B1/binary, 16>>, TrUserData) end.
+
+encode_msg_NotifyUsers(Msg, TrUserData) -> encode_msg_NotifyUsers(Msg, <<>>, TrUserData).
+
+
+encode_msg_NotifyUsers(#{users := F1}, Bin, TrUserData) -> begin TrF1 = id(F1, TrUserData), e_type_string(TrF1, <<Bin/binary, 10>>, TrUserData) end.
+
+encode_msg_Notification(Msg, TrUserData) -> encode_msg_Notification(Msg, <<>>, TrUserData).
+
+
+encode_msg_Notification(#{notification := F1}, Bin, TrUserData) -> begin TrF1 = id(F1, TrUserData), e_type_string(TrF1, <<Bin/binary, 10>>, TrUserData) end.
+
+encode_msg_PrivateNotificationsPort(Msg, TrUserData) -> encode_msg_PrivateNotificationsPort(Msg, <<>>, TrUserData).
+
+
+encode_msg_PrivateNotificationsPort(#{port := F1}, Bin, TrUserData) -> begin TrF1 = id(F1, TrUserData), e_type_int32(TrF1, <<Bin/binary, 8>>, TrUserData) end.
 
 e_mfield_Message_register(Msg, Bin, TrUserData) ->
     SubBin = encode_msg_Register(Msg, <<>>, TrUserData),
@@ -172,6 +260,36 @@ e_mfield_Message_location(Msg, Bin, TrUserData) ->
     Bin2 = e_varint(byte_size(SubBin), Bin),
     <<Bin2/binary, SubBin/binary>>.
 
+e_mfield_Message_locationPing(Msg, Bin, TrUserData) ->
+    SubBin = encode_msg_Location(Msg, <<>>, TrUserData),
+    Bin2 = e_varint(byte_size(SubBin), Bin),
+    <<Bin2/binary, SubBin/binary>>.
+
+e_mfield_Message_sickPing(Msg, Bin, TrUserData) ->
+    SubBin = encode_msg_SickPing(Msg, <<>>, TrUserData),
+    Bin2 = e_varint(byte_size(SubBin), Bin),
+    <<Bin2/binary, SubBin/binary>>.
+
+e_mfield_Message_port(Msg, Bin, TrUserData) ->
+    SubBin = encode_msg_PrivateNotificationsPort(Msg, <<>>, TrUserData),
+    Bin2 = e_varint(byte_size(SubBin), Bin),
+    <<Bin2/binary, SubBin/binary>>.
+
+e_mfield_Message_notifyUsers(Msg, Bin, TrUserData) ->
+    SubBin = encode_msg_NotifyUsers(Msg, <<>>, TrUserData),
+    Bin2 = e_varint(byte_size(SubBin), Bin),
+    <<Bin2/binary, SubBin/binary>>.
+
+e_mfield_Message_nrPeopleReply(Msg, Bin, TrUserData) ->
+    SubBin = encode_msg_NrPeopleReply(Msg, <<>>, TrUserData),
+    Bin2 = e_varint(byte_size(SubBin), Bin),
+    <<Bin2/binary, SubBin/binary>>.
+
+e_mfield_Message_notification(Msg, Bin, TrUserData) ->
+    SubBin = encode_msg_Notification(Msg, <<>>, TrUserData),
+    Bin2 = e_varint(byte_size(SubBin), Bin),
+    <<Bin2/binary, SubBin/binary>>.
+
 e_enum_Type('REGISTER', Bin, _TrUserData) -> <<Bin/binary, 0>>;
 e_enum_Type('LOGIN', Bin, _TrUserData) -> <<Bin/binary, 1>>;
 e_enum_Type('LOGOUT', Bin, _TrUserData) -> <<Bin/binary, 2>>;
@@ -179,6 +297,12 @@ e_enum_Type('REPLY', Bin, _TrUserData) -> <<Bin/binary, 3>>;
 e_enum_Type('LOCATION', Bin, _TrUserData) -> <<Bin/binary, 4>>;
 e_enum_Type('SICK', Bin, _TrUserData) -> <<Bin/binary, 5>>;
 e_enum_Type('NR_PEOPLE', Bin, _TrUserData) -> <<Bin/binary, 6>>;
+e_enum_Type('LOCATION_PING', Bin, _TrUserData) -> <<Bin/binary, 7>>;
+e_enum_Type('SICK_PING', Bin, _TrUserData) -> <<Bin/binary, 8>>;
+e_enum_Type('NR_PEOPLE_REPLY', Bin, _TrUserData) -> <<Bin/binary, 9>>;
+e_enum_Type('NOTIFY_USERS', Bin, _TrUserData) -> <<Bin/binary, 10>>;
+e_enum_Type('NOTIFICATION', Bin, _TrUserData) -> <<Bin/binary, 11>>;
+e_enum_Type('PORT', Bin, _TrUserData) -> <<Bin/binary, 12>>;
 e_enum_Type(V, Bin, _TrUserData) -> e_varint(V, Bin).
 
 -compile({nowarn_unused_function,e_type_sint/3}).
@@ -300,18 +424,56 @@ decode_msg_2_doit('Message', Bin, TrUserData) -> id(decode_msg_Message(Bin, TrUs
 decode_msg_2_doit('Register', Bin, TrUserData) -> id(decode_msg_Register(Bin, TrUserData), TrUserData);
 decode_msg_2_doit('Login', Bin, TrUserData) -> id(decode_msg_Login(Bin, TrUserData), TrUserData);
 decode_msg_2_doit('Reply', Bin, TrUserData) -> id(decode_msg_Reply(Bin, TrUserData), TrUserData);
-decode_msg_2_doit('Location', Bin, TrUserData) -> id(decode_msg_Location(Bin, TrUserData), TrUserData).
+decode_msg_2_doit('Location', Bin, TrUserData) -> id(decode_msg_Location(Bin, TrUserData), TrUserData);
+decode_msg_2_doit('SickPing', Bin, TrUserData) -> id(decode_msg_SickPing(Bin, TrUserData), TrUserData);
+decode_msg_2_doit('NrPeopleReply', Bin, TrUserData) -> id(decode_msg_NrPeopleReply(Bin, TrUserData), TrUserData);
+decode_msg_2_doit('NotifyUsers', Bin, TrUserData) -> id(decode_msg_NotifyUsers(Bin, TrUserData), TrUserData);
+decode_msg_2_doit('Notification', Bin, TrUserData) -> id(decode_msg_Notification(Bin, TrUserData), TrUserData);
+decode_msg_2_doit('PrivateNotificationsPort', Bin, TrUserData) -> id(decode_msg_PrivateNotificationsPort(Bin, TrUserData), TrUserData).
 
 
 
-decode_msg_Message(Bin, TrUserData) -> dfp_read_field_def_Message(Bin, 0, 0, 0, id('$undef', TrUserData), id('$undef', TrUserData), id('$undef', TrUserData), id('$undef', TrUserData), id('$undef', TrUserData), TrUserData).
+decode_msg_Message(Bin, TrUserData) ->
+    dfp_read_field_def_Message(Bin,
+                               0,
+                               0,
+                               0,
+                               id('$undef', TrUserData),
+                               id('$undef', TrUserData),
+                               id('$undef', TrUserData),
+                               id('$undef', TrUserData),
+                               id('$undef', TrUserData),
+                               id('$undef', TrUserData),
+                               id('$undef', TrUserData),
+                               id('$undef', TrUserData),
+                               id('$undef', TrUserData),
+                               id('$undef', TrUserData),
+                               id('$undef', TrUserData),
+                               TrUserData).
 
-dfp_read_field_def_Message(<<8, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) -> d_field_Message_type(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-dfp_read_field_def_Message(<<18, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) -> d_field_Message_register(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-dfp_read_field_def_Message(<<26, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) -> d_field_Message_login(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-dfp_read_field_def_Message(<<34, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) -> d_field_Message_reply(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-dfp_read_field_def_Message(<<42, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) -> d_field_Message_location(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-dfp_read_field_def_Message(<<>>, 0, 0, _, F@_1, F@_2, F@_3, F@_4, F@_5, _) ->
+dfp_read_field_def_Message(<<8, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
+    d_field_Message_type(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+dfp_read_field_def_Message(<<18, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
+    d_field_Message_register(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+dfp_read_field_def_Message(<<26, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
+    d_field_Message_login(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+dfp_read_field_def_Message(<<34, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
+    d_field_Message_reply(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+dfp_read_field_def_Message(<<42, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
+    d_field_Message_location(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+dfp_read_field_def_Message(<<50, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
+    d_field_Message_locationPing(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+dfp_read_field_def_Message(<<58, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
+    d_field_Message_sickPing(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+dfp_read_field_def_Message(<<66, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
+    d_field_Message_port(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+dfp_read_field_def_Message(<<74, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
+    d_field_Message_notifyUsers(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+dfp_read_field_def_Message(<<82, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
+    d_field_Message_nrPeopleReply(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+dfp_read_field_def_Message(<<90, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
+    d_field_Message_notification(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+dfp_read_field_def_Message(<<>>, 0, 0, _, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, _) ->
     S1 = #{type => F@_1},
     S2 = if F@_2 == '$undef' -> S1;
             true -> S1#{register => F@_2}
@@ -322,30 +484,56 @@ dfp_read_field_def_Message(<<>>, 0, 0, _, F@_1, F@_2, F@_3, F@_4, F@_5, _) ->
     S4 = if F@_4 == '$undef' -> S3;
             true -> S3#{reply => F@_4}
          end,
-    if F@_5 == '$undef' -> S4;
-       true -> S4#{location => F@_5}
+    S5 = if F@_5 == '$undef' -> S4;
+            true -> S4#{location => F@_5}
+         end,
+    S6 = if F@_6 == '$undef' -> S5;
+            true -> S5#{locationPing => F@_6}
+         end,
+    S7 = if F@_7 == '$undef' -> S6;
+            true -> S6#{sickPing => F@_7}
+         end,
+    S8 = if F@_8 == '$undef' -> S7;
+            true -> S7#{port => F@_8}
+         end,
+    S9 = if F@_9 == '$undef' -> S8;
+            true -> S8#{notifyUsers => F@_9}
+         end,
+    S10 = if F@_10 == '$undef' -> S9;
+             true -> S9#{nrPeopleReply => F@_10}
+          end,
+    if F@_11 == '$undef' -> S10;
+       true -> S10#{notification => F@_11}
     end;
-dfp_read_field_def_Message(Other, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) -> dg_read_field_def_Message(Other, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData).
+dfp_read_field_def_Message(Other, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
+    dg_read_field_def_Message(Other, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData).
 
-dg_read_field_def_Message(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) when N < 32 - 7 -> dg_read_field_def_Message(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-dg_read_field_def_Message(<<0:1, X:7, Rest/binary>>, N, Acc, _, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) ->
+dg_read_field_def_Message(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) when N < 32 - 7 ->
+    dg_read_field_def_Message(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+dg_read_field_def_Message(<<0:1, X:7, Rest/binary>>, N, Acc, _, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
     Key = X bsl N + Acc,
     case Key of
-        8 -> d_field_Message_type(Rest, 0, 0, 0, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-        18 -> d_field_Message_register(Rest, 0, 0, 0, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-        26 -> d_field_Message_login(Rest, 0, 0, 0, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-        34 -> d_field_Message_reply(Rest, 0, 0, 0, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-        42 -> d_field_Message_location(Rest, 0, 0, 0, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
+        8 -> d_field_Message_type(Rest, 0, 0, 0, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+        18 -> d_field_Message_register(Rest, 0, 0, 0, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+        26 -> d_field_Message_login(Rest, 0, 0, 0, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+        34 -> d_field_Message_reply(Rest, 0, 0, 0, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+        42 -> d_field_Message_location(Rest, 0, 0, 0, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+        50 -> d_field_Message_locationPing(Rest, 0, 0, 0, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+        58 -> d_field_Message_sickPing(Rest, 0, 0, 0, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+        66 -> d_field_Message_port(Rest, 0, 0, 0, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+        74 -> d_field_Message_notifyUsers(Rest, 0, 0, 0, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+        82 -> d_field_Message_nrPeopleReply(Rest, 0, 0, 0, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+        90 -> d_field_Message_notification(Rest, 0, 0, 0, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
         _ ->
             case Key band 7 of
-                0 -> skip_varint_Message(Rest, 0, 0, Key bsr 3, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-                1 -> skip_64_Message(Rest, 0, 0, Key bsr 3, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-                2 -> skip_length_delimited_Message(Rest, 0, 0, Key bsr 3, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-                3 -> skip_group_Message(Rest, 0, 0, Key bsr 3, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-                5 -> skip_32_Message(Rest, 0, 0, Key bsr 3, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData)
+                0 -> skip_varint_Message(Rest, 0, 0, Key bsr 3, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+                1 -> skip_64_Message(Rest, 0, 0, Key bsr 3, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+                2 -> skip_length_delimited_Message(Rest, 0, 0, Key bsr 3, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+                3 -> skip_group_Message(Rest, 0, 0, Key bsr 3, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+                5 -> skip_32_Message(Rest, 0, 0, Key bsr 3, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData)
             end
     end;
-dg_read_field_def_Message(<<>>, 0, 0, _, F@_1, F@_2, F@_3, F@_4, F@_5, _) ->
+dg_read_field_def_Message(<<>>, 0, 0, _, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, _) ->
     S1 = #{type => F@_1},
     S2 = if F@_2 == '$undef' -> S1;
             true -> S1#{register => F@_2}
@@ -356,17 +544,37 @@ dg_read_field_def_Message(<<>>, 0, 0, _, F@_1, F@_2, F@_3, F@_4, F@_5, _) ->
     S4 = if F@_4 == '$undef' -> S3;
             true -> S3#{reply => F@_4}
          end,
-    if F@_5 == '$undef' -> S4;
-       true -> S4#{location => F@_5}
+    S5 = if F@_5 == '$undef' -> S4;
+            true -> S4#{location => F@_5}
+         end,
+    S6 = if F@_6 == '$undef' -> S5;
+            true -> S5#{locationPing => F@_6}
+         end,
+    S7 = if F@_7 == '$undef' -> S6;
+            true -> S6#{sickPing => F@_7}
+         end,
+    S8 = if F@_8 == '$undef' -> S7;
+            true -> S7#{port => F@_8}
+         end,
+    S9 = if F@_9 == '$undef' -> S8;
+            true -> S8#{notifyUsers => F@_9}
+         end,
+    S10 = if F@_10 == '$undef' -> S9;
+             true -> S9#{nrPeopleReply => F@_10}
+          end,
+    if F@_11 == '$undef' -> S10;
+       true -> S10#{notification => F@_11}
     end.
 
-d_field_Message_type(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) when N < 57 -> d_field_Message_type(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-d_field_Message_type(<<0:1, X:7, Rest/binary>>, N, Acc, F, _, F@_2, F@_3, F@_4, F@_5, TrUserData) ->
+d_field_Message_type(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) when N < 57 ->
+    d_field_Message_type(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+d_field_Message_type(<<0:1, X:7, Rest/binary>>, N, Acc, F, _, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
     {NewFValue, RestF} = {id(d_enum_Type(begin <<Res:32/signed-native>> = <<(X bsl N + Acc):32/unsigned-native>>, id(Res, TrUserData) end), TrUserData), Rest},
-    dfp_read_field_def_Message(RestF, 0, 0, F, NewFValue, F@_2, F@_3, F@_4, F@_5, TrUserData).
+    dfp_read_field_def_Message(RestF, 0, 0, F, NewFValue, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData).
 
-d_field_Message_register(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) when N < 57 -> d_field_Message_register(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-d_field_Message_register(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, Prev, F@_3, F@_4, F@_5, TrUserData) ->
+d_field_Message_register(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) when N < 57 ->
+    d_field_Message_register(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+d_field_Message_register(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, Prev, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
     {NewFValue, RestF} = begin Len = X bsl N + Acc, <<Bs:Len/binary, Rest2/binary>> = Rest, {id(decode_msg_Register(Bs, TrUserData), TrUserData), Rest2} end,
     dfp_read_field_def_Message(RestF,
                                0,
@@ -379,10 +587,17 @@ d_field_Message_register(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, Prev, F@_3,
                                F@_3,
                                F@_4,
                                F@_5,
+                               F@_6,
+                               F@_7,
+                               F@_8,
+                               F@_9,
+                               F@_10,
+                               F@_11,
                                TrUserData).
 
-d_field_Message_login(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) when N < 57 -> d_field_Message_login(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-d_field_Message_login(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, Prev, F@_4, F@_5, TrUserData) ->
+d_field_Message_login(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) when N < 57 ->
+    d_field_Message_login(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+d_field_Message_login(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, Prev, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
     {NewFValue, RestF} = begin Len = X bsl N + Acc, <<Bs:Len/binary, Rest2/binary>> = Rest, {id(decode_msg_Login(Bs, TrUserData), TrUserData), Rest2} end,
     dfp_read_field_def_Message(RestF,
                                0,
@@ -395,10 +610,17 @@ d_field_Message_login(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, Prev, F@
                                end,
                                F@_4,
                                F@_5,
+                               F@_6,
+                               F@_7,
+                               F@_8,
+                               F@_9,
+                               F@_10,
+                               F@_11,
                                TrUserData).
 
-d_field_Message_reply(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) when N < 57 -> d_field_Message_reply(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-d_field_Message_reply(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, Prev, F@_5, TrUserData) ->
+d_field_Message_reply(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) when N < 57 ->
+    d_field_Message_reply(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+d_field_Message_reply(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, Prev, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
     {NewFValue, RestF} = begin Len = X bsl N + Acc, <<Bs:Len/binary, Rest2/binary>> = Rest, {id(decode_msg_Reply(Bs, TrUserData), TrUserData), Rest2} end,
     dfp_read_field_def_Message(RestF,
                                0,
@@ -411,10 +633,17 @@ d_field_Message_reply(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, Pr
                                   true -> merge_msg_Reply(Prev, NewFValue, TrUserData)
                                end,
                                F@_5,
+                               F@_6,
+                               F@_7,
+                               F@_8,
+                               F@_9,
+                               F@_10,
+                               F@_11,
                                TrUserData).
 
-d_field_Message_location(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) when N < 57 -> d_field_Message_location(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-d_field_Message_location(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, Prev, TrUserData) ->
+d_field_Message_location(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) when N < 57 ->
+    d_field_Message_location(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+d_field_Message_location(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, Prev, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
     {NewFValue, RestF} = begin Len = X bsl N + Acc, <<Bs:Len/binary, Rest2/binary>> = Rest, {id(decode_msg_Location(Bs, TrUserData), TrUserData), Rest2} end,
     dfp_read_field_def_Message(RestF,
                                0,
@@ -427,24 +656,173 @@ d_field_Message_location(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3,
                                if Prev == '$undef' -> NewFValue;
                                   true -> merge_msg_Location(Prev, NewFValue, TrUserData)
                                end,
+                               F@_6,
+                               F@_7,
+                               F@_8,
+                               F@_9,
+                               F@_10,
+                               F@_11,
                                TrUserData).
 
-skip_varint_Message(<<1:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) -> skip_varint_Message(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-skip_varint_Message(<<0:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) -> dfp_read_field_def_Message(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData).
+d_field_Message_locationPing(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) when N < 57 ->
+    d_field_Message_locationPing(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+d_field_Message_locationPing(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, Prev, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
+    {NewFValue, RestF} = begin Len = X bsl N + Acc, <<Bs:Len/binary, Rest2/binary>> = Rest, {id(decode_msg_Location(Bs, TrUserData), TrUserData), Rest2} end,
+    dfp_read_field_def_Message(RestF,
+                               0,
+                               0,
+                               F,
+                               F@_1,
+                               F@_2,
+                               F@_3,
+                               F@_4,
+                               F@_5,
+                               if Prev == '$undef' -> NewFValue;
+                                  true -> merge_msg_Location(Prev, NewFValue, TrUserData)
+                               end,
+                               F@_7,
+                               F@_8,
+                               F@_9,
+                               F@_10,
+                               F@_11,
+                               TrUserData).
 
-skip_length_delimited_Message(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) when N < 57 -> skip_length_delimited_Message(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData);
-skip_length_delimited_Message(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) ->
+d_field_Message_sickPing(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) when N < 57 ->
+    d_field_Message_sickPing(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+d_field_Message_sickPing(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, Prev, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
+    {NewFValue, RestF} = begin Len = X bsl N + Acc, <<Bs:Len/binary, Rest2/binary>> = Rest, {id(decode_msg_SickPing(Bs, TrUserData), TrUserData), Rest2} end,
+    dfp_read_field_def_Message(RestF,
+                               0,
+                               0,
+                               F,
+                               F@_1,
+                               F@_2,
+                               F@_3,
+                               F@_4,
+                               F@_5,
+                               F@_6,
+                               if Prev == '$undef' -> NewFValue;
+                                  true -> merge_msg_SickPing(Prev, NewFValue, TrUserData)
+                               end,
+                               F@_8,
+                               F@_9,
+                               F@_10,
+                               F@_11,
+                               TrUserData).
+
+d_field_Message_port(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) when N < 57 ->
+    d_field_Message_port(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+d_field_Message_port(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, Prev, F@_9, F@_10, F@_11, TrUserData) ->
+    {NewFValue, RestF} = begin Len = X bsl N + Acc, <<Bs:Len/binary, Rest2/binary>> = Rest, {id(decode_msg_PrivateNotificationsPort(Bs, TrUserData), TrUserData), Rest2} end,
+    dfp_read_field_def_Message(RestF,
+                               0,
+                               0,
+                               F,
+                               F@_1,
+                               F@_2,
+                               F@_3,
+                               F@_4,
+                               F@_5,
+                               F@_6,
+                               F@_7,
+                               if Prev == '$undef' -> NewFValue;
+                                  true -> merge_msg_PrivateNotificationsPort(Prev, NewFValue, TrUserData)
+                               end,
+                               F@_9,
+                               F@_10,
+                               F@_11,
+                               TrUserData).
+
+d_field_Message_notifyUsers(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) when N < 57 ->
+    d_field_Message_notifyUsers(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+d_field_Message_notifyUsers(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, Prev, F@_10, F@_11, TrUserData) ->
+    {NewFValue, RestF} = begin Len = X bsl N + Acc, <<Bs:Len/binary, Rest2/binary>> = Rest, {id(decode_msg_NotifyUsers(Bs, TrUserData), TrUserData), Rest2} end,
+    dfp_read_field_def_Message(RestF,
+                               0,
+                               0,
+                               F,
+                               F@_1,
+                               F@_2,
+                               F@_3,
+                               F@_4,
+                               F@_5,
+                               F@_6,
+                               F@_7,
+                               F@_8,
+                               if Prev == '$undef' -> NewFValue;
+                                  true -> merge_msg_NotifyUsers(Prev, NewFValue, TrUserData)
+                               end,
+                               F@_10,
+                               F@_11,
+                               TrUserData).
+
+d_field_Message_nrPeopleReply(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) when N < 57 ->
+    d_field_Message_nrPeopleReply(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+d_field_Message_nrPeopleReply(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, Prev, F@_11, TrUserData) ->
+    {NewFValue, RestF} = begin Len = X bsl N + Acc, <<Bs:Len/binary, Rest2/binary>> = Rest, {id(decode_msg_NrPeopleReply(Bs, TrUserData), TrUserData), Rest2} end,
+    dfp_read_field_def_Message(RestF,
+                               0,
+                               0,
+                               F,
+                               F@_1,
+                               F@_2,
+                               F@_3,
+                               F@_4,
+                               F@_5,
+                               F@_6,
+                               F@_7,
+                               F@_8,
+                               F@_9,
+                               if Prev == '$undef' -> NewFValue;
+                                  true -> merge_msg_NrPeopleReply(Prev, NewFValue, TrUserData)
+                               end,
+                               F@_11,
+                               TrUserData).
+
+d_field_Message_notification(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) when N < 57 ->
+    d_field_Message_notification(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+d_field_Message_notification(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, Prev, TrUserData) ->
+    {NewFValue, RestF} = begin Len = X bsl N + Acc, <<Bs:Len/binary, Rest2/binary>> = Rest, {id(decode_msg_Notification(Bs, TrUserData), TrUserData), Rest2} end,
+    dfp_read_field_def_Message(RestF,
+                               0,
+                               0,
+                               F,
+                               F@_1,
+                               F@_2,
+                               F@_3,
+                               F@_4,
+                               F@_5,
+                               F@_6,
+                               F@_7,
+                               F@_8,
+                               F@_9,
+                               F@_10,
+                               if Prev == '$undef' -> NewFValue;
+                                  true -> merge_msg_Notification(Prev, NewFValue, TrUserData)
+                               end,
+                               TrUserData).
+
+skip_varint_Message(<<1:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
+    skip_varint_Message(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+skip_varint_Message(<<0:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
+    dfp_read_field_def_Message(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData).
+
+skip_length_delimited_Message(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) when N < 57 ->
+    skip_length_delimited_Message(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData);
+skip_length_delimited_Message(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
     Length = X bsl N + Acc,
     <<_:Length/binary, Rest2/binary>> = Rest,
-    dfp_read_field_def_Message(Rest2, 0, 0, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData).
+    dfp_read_field_def_Message(Rest2, 0, 0, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData).
 
-skip_group_Message(Bin, _, Z2, FNum, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) ->
+skip_group_Message(Bin, _, Z2, FNum, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
     {_, Rest} = read_group(Bin, FNum),
-    dfp_read_field_def_Message(Rest, 0, Z2, FNum, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData).
+    dfp_read_field_def_Message(Rest, 0, Z2, FNum, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData).
 
-skip_32_Message(<<_:32, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) -> dfp_read_field_def_Message(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData).
+skip_32_Message(<<_:32, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
+    dfp_read_field_def_Message(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData).
 
-skip_64_Message(<<_:64, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData) -> dfp_read_field_def_Message(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, TrUserData).
+skip_64_Message(<<_:64, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData) ->
+    dfp_read_field_def_Message(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, F@_4, F@_5, F@_6, F@_7, F@_8, F@_9, F@_10, F@_11, TrUserData).
 
 decode_msg_Register(Bin, TrUserData) -> dfp_read_field_def_Register(Bin, 0, 0, 0, id('$undef', TrUserData), id('$undef', TrUserData), id('$undef', TrUserData), TrUserData).
 
@@ -606,56 +984,298 @@ skip_32_Reply(<<_:32, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> dfp_r
 
 skip_64_Reply(<<_:64, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> dfp_read_field_def_Reply(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData).
 
-decode_msg_Location(Bin, TrUserData) -> dfp_read_field_def_Location(Bin, 0, 0, 0, id('$undef', TrUserData), id('$undef', TrUserData), TrUserData).
+decode_msg_Location(Bin, TrUserData) -> dfp_read_field_def_Location(Bin, 0, 0, 0, id('$undef', TrUserData), id('$undef', TrUserData), id('$undef', TrUserData), TrUserData).
 
-dfp_read_field_def_Location(<<8, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> d_field_Location_coordx(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData);
-dfp_read_field_def_Location(<<16, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> d_field_Location_coordy(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData);
-dfp_read_field_def_Location(<<>>, 0, 0, _, F@_1, F@_2, _) -> #{coordx => F@_1, coordy => F@_2};
-dfp_read_field_def_Location(Other, Z1, Z2, F, F@_1, F@_2, TrUserData) -> dg_read_field_def_Location(Other, Z1, Z2, F, F@_1, F@_2, TrUserData).
+dfp_read_field_def_Location(<<10, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, TrUserData) -> d_field_Location_username(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, TrUserData);
+dfp_read_field_def_Location(<<16, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, TrUserData) -> d_field_Location_coordx(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, TrUserData);
+dfp_read_field_def_Location(<<24, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, TrUserData) -> d_field_Location_coordy(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, TrUserData);
+dfp_read_field_def_Location(<<>>, 0, 0, _, F@_1, F@_2, F@_3, _) ->
+    S1 = #{coordx => F@_2, coordy => F@_3},
+    if F@_1 == '$undef' -> S1;
+       true -> S1#{username => F@_1}
+    end;
+dfp_read_field_def_Location(Other, Z1, Z2, F, F@_1, F@_2, F@_3, TrUserData) -> dg_read_field_def_Location(Other, Z1, Z2, F, F@_1, F@_2, F@_3, TrUserData).
 
-dg_read_field_def_Location(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, TrUserData) when N < 32 - 7 -> dg_read_field_def_Location(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, TrUserData);
-dg_read_field_def_Location(<<0:1, X:7, Rest/binary>>, N, Acc, _, F@_1, F@_2, TrUserData) ->
+dg_read_field_def_Location(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, TrUserData) when N < 32 - 7 -> dg_read_field_def_Location(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, TrUserData);
+dg_read_field_def_Location(<<0:1, X:7, Rest/binary>>, N, Acc, _, F@_1, F@_2, F@_3, TrUserData) ->
     Key = X bsl N + Acc,
     case Key of
-        8 -> d_field_Location_coordx(Rest, 0, 0, 0, F@_1, F@_2, TrUserData);
-        16 -> d_field_Location_coordy(Rest, 0, 0, 0, F@_1, F@_2, TrUserData);
+        10 -> d_field_Location_username(Rest, 0, 0, 0, F@_1, F@_2, F@_3, TrUserData);
+        16 -> d_field_Location_coordx(Rest, 0, 0, 0, F@_1, F@_2, F@_3, TrUserData);
+        24 -> d_field_Location_coordy(Rest, 0, 0, 0, F@_1, F@_2, F@_3, TrUserData);
         _ ->
             case Key band 7 of
-                0 -> skip_varint_Location(Rest, 0, 0, Key bsr 3, F@_1, F@_2, TrUserData);
-                1 -> skip_64_Location(Rest, 0, 0, Key bsr 3, F@_1, F@_2, TrUserData);
-                2 -> skip_length_delimited_Location(Rest, 0, 0, Key bsr 3, F@_1, F@_2, TrUserData);
-                3 -> skip_group_Location(Rest, 0, 0, Key bsr 3, F@_1, F@_2, TrUserData);
-                5 -> skip_32_Location(Rest, 0, 0, Key bsr 3, F@_1, F@_2, TrUserData)
+                0 -> skip_varint_Location(Rest, 0, 0, Key bsr 3, F@_1, F@_2, F@_3, TrUserData);
+                1 -> skip_64_Location(Rest, 0, 0, Key bsr 3, F@_1, F@_2, F@_3, TrUserData);
+                2 -> skip_length_delimited_Location(Rest, 0, 0, Key bsr 3, F@_1, F@_2, F@_3, TrUserData);
+                3 -> skip_group_Location(Rest, 0, 0, Key bsr 3, F@_1, F@_2, F@_3, TrUserData);
+                5 -> skip_32_Location(Rest, 0, 0, Key bsr 3, F@_1, F@_2, F@_3, TrUserData)
             end
     end;
-dg_read_field_def_Location(<<>>, 0, 0, _, F@_1, F@_2, _) -> #{coordx => F@_1, coordy => F@_2}.
+dg_read_field_def_Location(<<>>, 0, 0, _, F@_1, F@_2, F@_3, _) ->
+    S1 = #{coordx => F@_2, coordy => F@_3},
+    if F@_1 == '$undef' -> S1;
+       true -> S1#{username => F@_1}
+    end.
 
-d_field_Location_coordx(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, TrUserData) when N < 57 -> d_field_Location_coordx(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, TrUserData);
-d_field_Location_coordx(<<0:1, X:7, Rest/binary>>, N, Acc, F, _, F@_2, TrUserData) ->
+d_field_Location_username(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, TrUserData) when N < 57 -> d_field_Location_username(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, TrUserData);
+d_field_Location_username(<<0:1, X:7, Rest/binary>>, N, Acc, F, _, F@_2, F@_3, TrUserData) ->
+    {NewFValue, RestF} = begin Len = X bsl N + Acc, <<Utf8:Len/binary, Rest2/binary>> = Rest, {id(unicode:characters_to_list(Utf8, unicode), TrUserData), Rest2} end,
+    dfp_read_field_def_Location(RestF, 0, 0, F, NewFValue, F@_2, F@_3, TrUserData).
+
+d_field_Location_coordx(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, TrUserData) when N < 57 -> d_field_Location_coordx(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, TrUserData);
+d_field_Location_coordx(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, _, F@_3, TrUserData) ->
     {NewFValue, RestF} = {begin <<Res:32/signed-native>> = <<(X bsl N + Acc):32/unsigned-native>>, id(Res, TrUserData) end, Rest},
-    dfp_read_field_def_Location(RestF, 0, 0, F, NewFValue, F@_2, TrUserData).
+    dfp_read_field_def_Location(RestF, 0, 0, F, F@_1, NewFValue, F@_3, TrUserData).
 
-d_field_Location_coordy(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, TrUserData) when N < 57 -> d_field_Location_coordy(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, TrUserData);
-d_field_Location_coordy(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, _, TrUserData) ->
+d_field_Location_coordy(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, TrUserData) when N < 57 -> d_field_Location_coordy(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, TrUserData);
+d_field_Location_coordy(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, _, TrUserData) ->
     {NewFValue, RestF} = {begin <<Res:32/signed-native>> = <<(X bsl N + Acc):32/unsigned-native>>, id(Res, TrUserData) end, Rest},
-    dfp_read_field_def_Location(RestF, 0, 0, F, F@_1, NewFValue, TrUserData).
+    dfp_read_field_def_Location(RestF, 0, 0, F, F@_1, F@_2, NewFValue, TrUserData).
 
-skip_varint_Location(<<1:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> skip_varint_Location(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData);
-skip_varint_Location(<<0:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> dfp_read_field_def_Location(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData).
+skip_varint_Location(<<1:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, TrUserData) -> skip_varint_Location(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, TrUserData);
+skip_varint_Location(<<0:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, TrUserData) -> dfp_read_field_def_Location(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, TrUserData).
 
-skip_length_delimited_Location(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, TrUserData) when N < 57 -> skip_length_delimited_Location(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, TrUserData);
-skip_length_delimited_Location(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, TrUserData) ->
+skip_length_delimited_Location(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, TrUserData) when N < 57 -> skip_length_delimited_Location(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, F@_3, TrUserData);
+skip_length_delimited_Location(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, F@_3, TrUserData) ->
     Length = X bsl N + Acc,
     <<_:Length/binary, Rest2/binary>> = Rest,
-    dfp_read_field_def_Location(Rest2, 0, 0, F, F@_1, F@_2, TrUserData).
+    dfp_read_field_def_Location(Rest2, 0, 0, F, F@_1, F@_2, F@_3, TrUserData).
 
-skip_group_Location(Bin, _, Z2, FNum, F@_1, F@_2, TrUserData) ->
+skip_group_Location(Bin, _, Z2, FNum, F@_1, F@_2, F@_3, TrUserData) ->
     {_, Rest} = read_group(Bin, FNum),
-    dfp_read_field_def_Location(Rest, 0, Z2, FNum, F@_1, F@_2, TrUserData).
+    dfp_read_field_def_Location(Rest, 0, Z2, FNum, F@_1, F@_2, F@_3, TrUserData).
 
-skip_32_Location(<<_:32, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> dfp_read_field_def_Location(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData).
+skip_32_Location(<<_:32, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, TrUserData) -> dfp_read_field_def_Location(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, TrUserData).
 
-skip_64_Location(<<_:64, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> dfp_read_field_def_Location(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData).
+skip_64_Location(<<_:64, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, F@_3, TrUserData) -> dfp_read_field_def_Location(Rest, Z1, Z2, F, F@_1, F@_2, F@_3, TrUserData).
+
+decode_msg_SickPing(Bin, TrUserData) -> dfp_read_field_def_SickPing(Bin, 0, 0, 0, id('$undef', TrUserData), TrUserData).
+
+dfp_read_field_def_SickPing(<<10, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> d_field_SickPing_username(Rest, Z1, Z2, F, F@_1, TrUserData);
+dfp_read_field_def_SickPing(<<>>, 0, 0, _, F@_1, _) -> #{username => F@_1};
+dfp_read_field_def_SickPing(Other, Z1, Z2, F, F@_1, TrUserData) -> dg_read_field_def_SickPing(Other, Z1, Z2, F, F@_1, TrUserData).
+
+dg_read_field_def_SickPing(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, TrUserData) when N < 32 - 7 -> dg_read_field_def_SickPing(Rest, N + 7, X bsl N + Acc, F, F@_1, TrUserData);
+dg_read_field_def_SickPing(<<0:1, X:7, Rest/binary>>, N, Acc, _, F@_1, TrUserData) ->
+    Key = X bsl N + Acc,
+    case Key of
+        10 -> d_field_SickPing_username(Rest, 0, 0, 0, F@_1, TrUserData);
+        _ ->
+            case Key band 7 of
+                0 -> skip_varint_SickPing(Rest, 0, 0, Key bsr 3, F@_1, TrUserData);
+                1 -> skip_64_SickPing(Rest, 0, 0, Key bsr 3, F@_1, TrUserData);
+                2 -> skip_length_delimited_SickPing(Rest, 0, 0, Key bsr 3, F@_1, TrUserData);
+                3 -> skip_group_SickPing(Rest, 0, 0, Key bsr 3, F@_1, TrUserData);
+                5 -> skip_32_SickPing(Rest, 0, 0, Key bsr 3, F@_1, TrUserData)
+            end
+    end;
+dg_read_field_def_SickPing(<<>>, 0, 0, _, F@_1, _) -> #{username => F@_1}.
+
+d_field_SickPing_username(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, TrUserData) when N < 57 -> d_field_SickPing_username(Rest, N + 7, X bsl N + Acc, F, F@_1, TrUserData);
+d_field_SickPing_username(<<0:1, X:7, Rest/binary>>, N, Acc, F, _, TrUserData) ->
+    {NewFValue, RestF} = begin Len = X bsl N + Acc, <<Utf8:Len/binary, Rest2/binary>> = Rest, {id(unicode:characters_to_list(Utf8, unicode), TrUserData), Rest2} end,
+    dfp_read_field_def_SickPing(RestF, 0, 0, F, NewFValue, TrUserData).
+
+skip_varint_SickPing(<<1:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> skip_varint_SickPing(Rest, Z1, Z2, F, F@_1, TrUserData);
+skip_varint_SickPing(<<0:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> dfp_read_field_def_SickPing(Rest, Z1, Z2, F, F@_1, TrUserData).
+
+skip_length_delimited_SickPing(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, TrUserData) when N < 57 -> skip_length_delimited_SickPing(Rest, N + 7, X bsl N + Acc, F, F@_1, TrUserData);
+skip_length_delimited_SickPing(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, TrUserData) ->
+    Length = X bsl N + Acc,
+    <<_:Length/binary, Rest2/binary>> = Rest,
+    dfp_read_field_def_SickPing(Rest2, 0, 0, F, F@_1, TrUserData).
+
+skip_group_SickPing(Bin, _, Z2, FNum, F@_1, TrUserData) ->
+    {_, Rest} = read_group(Bin, FNum),
+    dfp_read_field_def_SickPing(Rest, 0, Z2, FNum, F@_1, TrUserData).
+
+skip_32_SickPing(<<_:32, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> dfp_read_field_def_SickPing(Rest, Z1, Z2, F, F@_1, TrUserData).
+
+skip_64_SickPing(<<_:64, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> dfp_read_field_def_SickPing(Rest, Z1, Z2, F, F@_1, TrUserData).
+
+decode_msg_NrPeopleReply(Bin, TrUserData) -> dfp_read_field_def_NrPeopleReply(Bin, 0, 0, 0, id('$undef', TrUserData), id('$undef', TrUserData), TrUserData).
+
+dfp_read_field_def_NrPeopleReply(<<10, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> d_field_NrPeopleReply_username(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData);
+dfp_read_field_def_NrPeopleReply(<<16, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> d_field_NrPeopleReply_total(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData);
+dfp_read_field_def_NrPeopleReply(<<>>, 0, 0, _, F@_1, F@_2, _) -> #{username => F@_1, total => F@_2};
+dfp_read_field_def_NrPeopleReply(Other, Z1, Z2, F, F@_1, F@_2, TrUserData) -> dg_read_field_def_NrPeopleReply(Other, Z1, Z2, F, F@_1, F@_2, TrUserData).
+
+dg_read_field_def_NrPeopleReply(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, TrUserData) when N < 32 - 7 -> dg_read_field_def_NrPeopleReply(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, TrUserData);
+dg_read_field_def_NrPeopleReply(<<0:1, X:7, Rest/binary>>, N, Acc, _, F@_1, F@_2, TrUserData) ->
+    Key = X bsl N + Acc,
+    case Key of
+        10 -> d_field_NrPeopleReply_username(Rest, 0, 0, 0, F@_1, F@_2, TrUserData);
+        16 -> d_field_NrPeopleReply_total(Rest, 0, 0, 0, F@_1, F@_2, TrUserData);
+        _ ->
+            case Key band 7 of
+                0 -> skip_varint_NrPeopleReply(Rest, 0, 0, Key bsr 3, F@_1, F@_2, TrUserData);
+                1 -> skip_64_NrPeopleReply(Rest, 0, 0, Key bsr 3, F@_1, F@_2, TrUserData);
+                2 -> skip_length_delimited_NrPeopleReply(Rest, 0, 0, Key bsr 3, F@_1, F@_2, TrUserData);
+                3 -> skip_group_NrPeopleReply(Rest, 0, 0, Key bsr 3, F@_1, F@_2, TrUserData);
+                5 -> skip_32_NrPeopleReply(Rest, 0, 0, Key bsr 3, F@_1, F@_2, TrUserData)
+            end
+    end;
+dg_read_field_def_NrPeopleReply(<<>>, 0, 0, _, F@_1, F@_2, _) -> #{username => F@_1, total => F@_2}.
+
+d_field_NrPeopleReply_username(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, TrUserData) when N < 57 -> d_field_NrPeopleReply_username(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, TrUserData);
+d_field_NrPeopleReply_username(<<0:1, X:7, Rest/binary>>, N, Acc, F, _, F@_2, TrUserData) ->
+    {NewFValue, RestF} = begin Len = X bsl N + Acc, <<Utf8:Len/binary, Rest2/binary>> = Rest, {id(unicode:characters_to_list(Utf8, unicode), TrUserData), Rest2} end,
+    dfp_read_field_def_NrPeopleReply(RestF, 0, 0, F, NewFValue, F@_2, TrUserData).
+
+d_field_NrPeopleReply_total(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, TrUserData) when N < 57 -> d_field_NrPeopleReply_total(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, TrUserData);
+d_field_NrPeopleReply_total(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, _, TrUserData) ->
+    {NewFValue, RestF} = {begin <<Res:32/signed-native>> = <<(X bsl N + Acc):32/unsigned-native>>, id(Res, TrUserData) end, Rest},
+    dfp_read_field_def_NrPeopleReply(RestF, 0, 0, F, F@_1, NewFValue, TrUserData).
+
+skip_varint_NrPeopleReply(<<1:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> skip_varint_NrPeopleReply(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData);
+skip_varint_NrPeopleReply(<<0:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> dfp_read_field_def_NrPeopleReply(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData).
+
+skip_length_delimited_NrPeopleReply(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, TrUserData) when N < 57 -> skip_length_delimited_NrPeopleReply(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, TrUserData);
+skip_length_delimited_NrPeopleReply(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, TrUserData) ->
+    Length = X bsl N + Acc,
+    <<_:Length/binary, Rest2/binary>> = Rest,
+    dfp_read_field_def_NrPeopleReply(Rest2, 0, 0, F, F@_1, F@_2, TrUserData).
+
+skip_group_NrPeopleReply(Bin, _, Z2, FNum, F@_1, F@_2, TrUserData) ->
+    {_, Rest} = read_group(Bin, FNum),
+    dfp_read_field_def_NrPeopleReply(Rest, 0, Z2, FNum, F@_1, F@_2, TrUserData).
+
+skip_32_NrPeopleReply(<<_:32, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> dfp_read_field_def_NrPeopleReply(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData).
+
+skip_64_NrPeopleReply(<<_:64, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> dfp_read_field_def_NrPeopleReply(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData).
+
+decode_msg_NotifyUsers(Bin, TrUserData) -> dfp_read_field_def_NotifyUsers(Bin, 0, 0, 0, id('$undef', TrUserData), TrUserData).
+
+dfp_read_field_def_NotifyUsers(<<10, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> d_field_NotifyUsers_users(Rest, Z1, Z2, F, F@_1, TrUserData);
+dfp_read_field_def_NotifyUsers(<<>>, 0, 0, _, F@_1, _) -> #{users => F@_1};
+dfp_read_field_def_NotifyUsers(Other, Z1, Z2, F, F@_1, TrUserData) -> dg_read_field_def_NotifyUsers(Other, Z1, Z2, F, F@_1, TrUserData).
+
+dg_read_field_def_NotifyUsers(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, TrUserData) when N < 32 - 7 -> dg_read_field_def_NotifyUsers(Rest, N + 7, X bsl N + Acc, F, F@_1, TrUserData);
+dg_read_field_def_NotifyUsers(<<0:1, X:7, Rest/binary>>, N, Acc, _, F@_1, TrUserData) ->
+    Key = X bsl N + Acc,
+    case Key of
+        10 -> d_field_NotifyUsers_users(Rest, 0, 0, 0, F@_1, TrUserData);
+        _ ->
+            case Key band 7 of
+                0 -> skip_varint_NotifyUsers(Rest, 0, 0, Key bsr 3, F@_1, TrUserData);
+                1 -> skip_64_NotifyUsers(Rest, 0, 0, Key bsr 3, F@_1, TrUserData);
+                2 -> skip_length_delimited_NotifyUsers(Rest, 0, 0, Key bsr 3, F@_1, TrUserData);
+                3 -> skip_group_NotifyUsers(Rest, 0, 0, Key bsr 3, F@_1, TrUserData);
+                5 -> skip_32_NotifyUsers(Rest, 0, 0, Key bsr 3, F@_1, TrUserData)
+            end
+    end;
+dg_read_field_def_NotifyUsers(<<>>, 0, 0, _, F@_1, _) -> #{users => F@_1}.
+
+d_field_NotifyUsers_users(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, TrUserData) when N < 57 -> d_field_NotifyUsers_users(Rest, N + 7, X bsl N + Acc, F, F@_1, TrUserData);
+d_field_NotifyUsers_users(<<0:1, X:7, Rest/binary>>, N, Acc, F, _, TrUserData) ->
+    {NewFValue, RestF} = begin Len = X bsl N + Acc, <<Utf8:Len/binary, Rest2/binary>> = Rest, {id(unicode:characters_to_list(Utf8, unicode), TrUserData), Rest2} end,
+    dfp_read_field_def_NotifyUsers(RestF, 0, 0, F, NewFValue, TrUserData).
+
+skip_varint_NotifyUsers(<<1:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> skip_varint_NotifyUsers(Rest, Z1, Z2, F, F@_1, TrUserData);
+skip_varint_NotifyUsers(<<0:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> dfp_read_field_def_NotifyUsers(Rest, Z1, Z2, F, F@_1, TrUserData).
+
+skip_length_delimited_NotifyUsers(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, TrUserData) when N < 57 -> skip_length_delimited_NotifyUsers(Rest, N + 7, X bsl N + Acc, F, F@_1, TrUserData);
+skip_length_delimited_NotifyUsers(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, TrUserData) ->
+    Length = X bsl N + Acc,
+    <<_:Length/binary, Rest2/binary>> = Rest,
+    dfp_read_field_def_NotifyUsers(Rest2, 0, 0, F, F@_1, TrUserData).
+
+skip_group_NotifyUsers(Bin, _, Z2, FNum, F@_1, TrUserData) ->
+    {_, Rest} = read_group(Bin, FNum),
+    dfp_read_field_def_NotifyUsers(Rest, 0, Z2, FNum, F@_1, TrUserData).
+
+skip_32_NotifyUsers(<<_:32, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> dfp_read_field_def_NotifyUsers(Rest, Z1, Z2, F, F@_1, TrUserData).
+
+skip_64_NotifyUsers(<<_:64, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> dfp_read_field_def_NotifyUsers(Rest, Z1, Z2, F, F@_1, TrUserData).
+
+decode_msg_Notification(Bin, TrUserData) -> dfp_read_field_def_Notification(Bin, 0, 0, 0, id('$undef', TrUserData), TrUserData).
+
+dfp_read_field_def_Notification(<<10, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> d_field_Notification_notification(Rest, Z1, Z2, F, F@_1, TrUserData);
+dfp_read_field_def_Notification(<<>>, 0, 0, _, F@_1, _) -> #{notification => F@_1};
+dfp_read_field_def_Notification(Other, Z1, Z2, F, F@_1, TrUserData) -> dg_read_field_def_Notification(Other, Z1, Z2, F, F@_1, TrUserData).
+
+dg_read_field_def_Notification(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, TrUserData) when N < 32 - 7 -> dg_read_field_def_Notification(Rest, N + 7, X bsl N + Acc, F, F@_1, TrUserData);
+dg_read_field_def_Notification(<<0:1, X:7, Rest/binary>>, N, Acc, _, F@_1, TrUserData) ->
+    Key = X bsl N + Acc,
+    case Key of
+        10 -> d_field_Notification_notification(Rest, 0, 0, 0, F@_1, TrUserData);
+        _ ->
+            case Key band 7 of
+                0 -> skip_varint_Notification(Rest, 0, 0, Key bsr 3, F@_1, TrUserData);
+                1 -> skip_64_Notification(Rest, 0, 0, Key bsr 3, F@_1, TrUserData);
+                2 -> skip_length_delimited_Notification(Rest, 0, 0, Key bsr 3, F@_1, TrUserData);
+                3 -> skip_group_Notification(Rest, 0, 0, Key bsr 3, F@_1, TrUserData);
+                5 -> skip_32_Notification(Rest, 0, 0, Key bsr 3, F@_1, TrUserData)
+            end
+    end;
+dg_read_field_def_Notification(<<>>, 0, 0, _, F@_1, _) -> #{notification => F@_1}.
+
+d_field_Notification_notification(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, TrUserData) when N < 57 -> d_field_Notification_notification(Rest, N + 7, X bsl N + Acc, F, F@_1, TrUserData);
+d_field_Notification_notification(<<0:1, X:7, Rest/binary>>, N, Acc, F, _, TrUserData) ->
+    {NewFValue, RestF} = begin Len = X bsl N + Acc, <<Utf8:Len/binary, Rest2/binary>> = Rest, {id(unicode:characters_to_list(Utf8, unicode), TrUserData), Rest2} end,
+    dfp_read_field_def_Notification(RestF, 0, 0, F, NewFValue, TrUserData).
+
+skip_varint_Notification(<<1:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> skip_varint_Notification(Rest, Z1, Z2, F, F@_1, TrUserData);
+skip_varint_Notification(<<0:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> dfp_read_field_def_Notification(Rest, Z1, Z2, F, F@_1, TrUserData).
+
+skip_length_delimited_Notification(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, TrUserData) when N < 57 -> skip_length_delimited_Notification(Rest, N + 7, X bsl N + Acc, F, F@_1, TrUserData);
+skip_length_delimited_Notification(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, TrUserData) ->
+    Length = X bsl N + Acc,
+    <<_:Length/binary, Rest2/binary>> = Rest,
+    dfp_read_field_def_Notification(Rest2, 0, 0, F, F@_1, TrUserData).
+
+skip_group_Notification(Bin, _, Z2, FNum, F@_1, TrUserData) ->
+    {_, Rest} = read_group(Bin, FNum),
+    dfp_read_field_def_Notification(Rest, 0, Z2, FNum, F@_1, TrUserData).
+
+skip_32_Notification(<<_:32, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> dfp_read_field_def_Notification(Rest, Z1, Z2, F, F@_1, TrUserData).
+
+skip_64_Notification(<<_:64, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> dfp_read_field_def_Notification(Rest, Z1, Z2, F, F@_1, TrUserData).
+
+decode_msg_PrivateNotificationsPort(Bin, TrUserData) -> dfp_read_field_def_PrivateNotificationsPort(Bin, 0, 0, 0, id('$undef', TrUserData), TrUserData).
+
+dfp_read_field_def_PrivateNotificationsPort(<<8, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> d_field_PrivateNotificationsPort_port(Rest, Z1, Z2, F, F@_1, TrUserData);
+dfp_read_field_def_PrivateNotificationsPort(<<>>, 0, 0, _, F@_1, _) -> #{port => F@_1};
+dfp_read_field_def_PrivateNotificationsPort(Other, Z1, Z2, F, F@_1, TrUserData) -> dg_read_field_def_PrivateNotificationsPort(Other, Z1, Z2, F, F@_1, TrUserData).
+
+dg_read_field_def_PrivateNotificationsPort(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, TrUserData) when N < 32 - 7 -> dg_read_field_def_PrivateNotificationsPort(Rest, N + 7, X bsl N + Acc, F, F@_1, TrUserData);
+dg_read_field_def_PrivateNotificationsPort(<<0:1, X:7, Rest/binary>>, N, Acc, _, F@_1, TrUserData) ->
+    Key = X bsl N + Acc,
+    case Key of
+        8 -> d_field_PrivateNotificationsPort_port(Rest, 0, 0, 0, F@_1, TrUserData);
+        _ ->
+            case Key band 7 of
+                0 -> skip_varint_PrivateNotificationsPort(Rest, 0, 0, Key bsr 3, F@_1, TrUserData);
+                1 -> skip_64_PrivateNotificationsPort(Rest, 0, 0, Key bsr 3, F@_1, TrUserData);
+                2 -> skip_length_delimited_PrivateNotificationsPort(Rest, 0, 0, Key bsr 3, F@_1, TrUserData);
+                3 -> skip_group_PrivateNotificationsPort(Rest, 0, 0, Key bsr 3, F@_1, TrUserData);
+                5 -> skip_32_PrivateNotificationsPort(Rest, 0, 0, Key bsr 3, F@_1, TrUserData)
+            end
+    end;
+dg_read_field_def_PrivateNotificationsPort(<<>>, 0, 0, _, F@_1, _) -> #{port => F@_1}.
+
+d_field_PrivateNotificationsPort_port(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, TrUserData) when N < 57 -> d_field_PrivateNotificationsPort_port(Rest, N + 7, X bsl N + Acc, F, F@_1, TrUserData);
+d_field_PrivateNotificationsPort_port(<<0:1, X:7, Rest/binary>>, N, Acc, F, _, TrUserData) ->
+    {NewFValue, RestF} = {begin <<Res:32/signed-native>> = <<(X bsl N + Acc):32/unsigned-native>>, id(Res, TrUserData) end, Rest},
+    dfp_read_field_def_PrivateNotificationsPort(RestF, 0, 0, F, NewFValue, TrUserData).
+
+skip_varint_PrivateNotificationsPort(<<1:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> skip_varint_PrivateNotificationsPort(Rest, Z1, Z2, F, F@_1, TrUserData);
+skip_varint_PrivateNotificationsPort(<<0:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> dfp_read_field_def_PrivateNotificationsPort(Rest, Z1, Z2, F, F@_1, TrUserData).
+
+skip_length_delimited_PrivateNotificationsPort(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, TrUserData) when N < 57 -> skip_length_delimited_PrivateNotificationsPort(Rest, N + 7, X bsl N + Acc, F, F@_1, TrUserData);
+skip_length_delimited_PrivateNotificationsPort(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, TrUserData) ->
+    Length = X bsl N + Acc,
+    <<_:Length/binary, Rest2/binary>> = Rest,
+    dfp_read_field_def_PrivateNotificationsPort(Rest2, 0, 0, F, F@_1, TrUserData).
+
+skip_group_PrivateNotificationsPort(Bin, _, Z2, FNum, F@_1, TrUserData) ->
+    {_, Rest} = read_group(Bin, FNum),
+    dfp_read_field_def_PrivateNotificationsPort(Rest, 0, Z2, FNum, F@_1, TrUserData).
+
+skip_32_PrivateNotificationsPort(<<_:32, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> dfp_read_field_def_PrivateNotificationsPort(Rest, Z1, Z2, F, F@_1, TrUserData).
+
+skip_64_PrivateNotificationsPort(<<_:64, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> dfp_read_field_def_PrivateNotificationsPort(Rest, Z1, Z2, F, F@_1, TrUserData).
 
 d_enum_Type(0) -> 'REGISTER';
 d_enum_Type(1) -> 'LOGIN';
@@ -664,6 +1284,12 @@ d_enum_Type(3) -> 'REPLY';
 d_enum_Type(4) -> 'LOCATION';
 d_enum_Type(5) -> 'SICK';
 d_enum_Type(6) -> 'NR_PEOPLE';
+d_enum_Type(7) -> 'LOCATION_PING';
+d_enum_Type(8) -> 'SICK_PING';
+d_enum_Type(9) -> 'NR_PEOPLE_REPLY';
+d_enum_Type(10) -> 'NOTIFY_USERS';
+d_enum_Type(11) -> 'NOTIFICATION';
+d_enum_Type(12) -> 'PORT';
 d_enum_Type(V) -> V.
 
 read_group(Bin, FieldNum) ->
@@ -733,7 +1359,12 @@ merge_msgs(Prev, New, MsgName, Opts) ->
         'Register' -> merge_msg_Register(Prev, New, TrUserData);
         'Login' -> merge_msg_Login(Prev, New, TrUserData);
         'Reply' -> merge_msg_Reply(Prev, New, TrUserData);
-        'Location' -> merge_msg_Location(Prev, New, TrUserData)
+        'Location' -> merge_msg_Location(Prev, New, TrUserData);
+        'SickPing' -> merge_msg_SickPing(Prev, New, TrUserData);
+        'NrPeopleReply' -> merge_msg_NrPeopleReply(Prev, New, TrUserData);
+        'NotifyUsers' -> merge_msg_NotifyUsers(Prev, New, TrUserData);
+        'Notification' -> merge_msg_Notification(Prev, New, TrUserData);
+        'PrivateNotificationsPort' -> merge_msg_PrivateNotificationsPort(Prev, New, TrUserData)
     end.
 
 -compile({nowarn_unused_function,merge_msg_Message/3}).
@@ -757,11 +1388,47 @@ merge_msg_Message(#{} = PMsg, #{type := NFtype} = NMsg, TrUserData) ->
              {#{reply := PFreply}, _} -> S3#{reply => PFreply};
              {_, _} -> S3
          end,
+    S5 = case {PMsg, NMsg} of
+             {#{location := PFlocation}, #{location := NFlocation}} -> S4#{location => merge_msg_Location(PFlocation, NFlocation, TrUserData)};
+             {_, #{location := NFlocation}} -> S4#{location => NFlocation};
+             {#{location := PFlocation}, _} -> S4#{location => PFlocation};
+             {_, _} -> S4
+         end,
+    S6 = case {PMsg, NMsg} of
+             {#{locationPing := PFlocationPing}, #{locationPing := NFlocationPing}} -> S5#{locationPing => merge_msg_Location(PFlocationPing, NFlocationPing, TrUserData)};
+             {_, #{locationPing := NFlocationPing}} -> S5#{locationPing => NFlocationPing};
+             {#{locationPing := PFlocationPing}, _} -> S5#{locationPing => PFlocationPing};
+             {_, _} -> S5
+         end,
+    S7 = case {PMsg, NMsg} of
+             {#{sickPing := PFsickPing}, #{sickPing := NFsickPing}} -> S6#{sickPing => merge_msg_SickPing(PFsickPing, NFsickPing, TrUserData)};
+             {_, #{sickPing := NFsickPing}} -> S6#{sickPing => NFsickPing};
+             {#{sickPing := PFsickPing}, _} -> S6#{sickPing => PFsickPing};
+             {_, _} -> S6
+         end,
+    S8 = case {PMsg, NMsg} of
+             {#{port := PFport}, #{port := NFport}} -> S7#{port => merge_msg_PrivateNotificationsPort(PFport, NFport, TrUserData)};
+             {_, #{port := NFport}} -> S7#{port => NFport};
+             {#{port := PFport}, _} -> S7#{port => PFport};
+             {_, _} -> S7
+         end,
+    S9 = case {PMsg, NMsg} of
+             {#{notifyUsers := PFnotifyUsers}, #{notifyUsers := NFnotifyUsers}} -> S8#{notifyUsers => merge_msg_NotifyUsers(PFnotifyUsers, NFnotifyUsers, TrUserData)};
+             {_, #{notifyUsers := NFnotifyUsers}} -> S8#{notifyUsers => NFnotifyUsers};
+             {#{notifyUsers := PFnotifyUsers}, _} -> S8#{notifyUsers => PFnotifyUsers};
+             {_, _} -> S8
+         end,
+    S10 = case {PMsg, NMsg} of
+              {#{nrPeopleReply := PFnrPeopleReply}, #{nrPeopleReply := NFnrPeopleReply}} -> S9#{nrPeopleReply => merge_msg_NrPeopleReply(PFnrPeopleReply, NFnrPeopleReply, TrUserData)};
+              {_, #{nrPeopleReply := NFnrPeopleReply}} -> S9#{nrPeopleReply => NFnrPeopleReply};
+              {#{nrPeopleReply := PFnrPeopleReply}, _} -> S9#{nrPeopleReply => PFnrPeopleReply};
+              {_, _} -> S9
+          end,
     case {PMsg, NMsg} of
-        {#{location := PFlocation}, #{location := NFlocation}} -> S4#{location => merge_msg_Location(PFlocation, NFlocation, TrUserData)};
-        {_, #{location := NFlocation}} -> S4#{location => NFlocation};
-        {#{location := PFlocation}, _} -> S4#{location => PFlocation};
-        {_, _} -> S4
+        {#{notification := PFnotification}, #{notification := NFnotification}} -> S10#{notification => merge_msg_Notification(PFnotification, NFnotification, TrUserData)};
+        {_, #{notification := NFnotification}} -> S10#{notification => NFnotification};
+        {#{notification := PFnotification}, _} -> S10#{notification => PFnotification};
+        {_, _} -> S10
     end.
 
 -compile({nowarn_unused_function,merge_msg_Register/3}).
@@ -774,7 +1441,28 @@ merge_msg_Login(#{}, #{username := NFusername, password := NFpassword}, _) -> #{
 merge_msg_Reply(#{}, #{result := NFresult, message := NFmessage}, _) -> #{result => NFresult, message => NFmessage}.
 
 -compile({nowarn_unused_function,merge_msg_Location/3}).
-merge_msg_Location(#{}, #{coordx := NFcoordx, coordy := NFcoordy}, _) -> #{coordx => NFcoordx, coordy => NFcoordy}.
+merge_msg_Location(#{} = PMsg, #{coordx := NFcoordx, coordy := NFcoordy} = NMsg, _) ->
+    S1 = #{coordx => NFcoordx, coordy => NFcoordy},
+    case {PMsg, NMsg} of
+        {_, #{username := NFusername}} -> S1#{username => NFusername};
+        {#{username := PFusername}, _} -> S1#{username => PFusername};
+        _ -> S1
+    end.
+
+-compile({nowarn_unused_function,merge_msg_SickPing/3}).
+merge_msg_SickPing(#{}, #{username := NFusername}, _) -> #{username => NFusername}.
+
+-compile({nowarn_unused_function,merge_msg_NrPeopleReply/3}).
+merge_msg_NrPeopleReply(#{}, #{username := NFusername, total := NFtotal}, _) -> #{username => NFusername, total => NFtotal}.
+
+-compile({nowarn_unused_function,merge_msg_NotifyUsers/3}).
+merge_msg_NotifyUsers(#{}, #{users := NFusers}, _) -> #{users => NFusers}.
+
+-compile({nowarn_unused_function,merge_msg_Notification/3}).
+merge_msg_Notification(#{}, #{notification := NFnotification}, _) -> #{notification => NFnotification}.
+
+-compile({nowarn_unused_function,merge_msg_PrivateNotificationsPort/3}).
+merge_msg_PrivateNotificationsPort(#{}, #{port := NFport}, _) -> #{port => NFport}.
 
 
 verify_msg(Msg, MsgName) when is_atom(MsgName) -> verify_msg(Msg, MsgName, []).
@@ -787,6 +1475,11 @@ verify_msg(Msg, MsgName, Opts) ->
         'Login' -> v_msg_Login(Msg, [MsgName], TrUserData);
         'Reply' -> v_msg_Reply(Msg, [MsgName], TrUserData);
         'Location' -> v_msg_Location(Msg, [MsgName], TrUserData);
+        'SickPing' -> v_msg_SickPing(Msg, [MsgName], TrUserData);
+        'NrPeopleReply' -> v_msg_NrPeopleReply(Msg, [MsgName], TrUserData);
+        'NotifyUsers' -> v_msg_NotifyUsers(Msg, [MsgName], TrUserData);
+        'Notification' -> v_msg_Notification(Msg, [MsgName], TrUserData);
+        'PrivateNotificationsPort' -> v_msg_PrivateNotificationsPort(Msg, [MsgName], TrUserData);
         _ -> mk_type_error(not_a_known_message, Msg, [])
     end.
 
@@ -811,11 +1504,41 @@ v_msg_Message(#{type := F1} = M, Path, TrUserData) ->
         #{location := F5} -> v_msg_Location(F5, [location | Path], TrUserData);
         _ -> ok
     end,
+    case M of
+        #{locationPing := F6} -> v_msg_Location(F6, [locationPing | Path], TrUserData);
+        _ -> ok
+    end,
+    case M of
+        #{sickPing := F7} -> v_msg_SickPing(F7, [sickPing | Path], TrUserData);
+        _ -> ok
+    end,
+    case M of
+        #{port := F8} -> v_msg_PrivateNotificationsPort(F8, [port | Path], TrUserData);
+        _ -> ok
+    end,
+    case M of
+        #{notifyUsers := F9} -> v_msg_NotifyUsers(F9, [notifyUsers | Path], TrUserData);
+        _ -> ok
+    end,
+    case M of
+        #{nrPeopleReply := F10} -> v_msg_NrPeopleReply(F10, [nrPeopleReply | Path], TrUserData);
+        _ -> ok
+    end,
+    case M of
+        #{notification := F11} -> v_msg_Notification(F11, [notification | Path], TrUserData);
+        _ -> ok
+    end,
     lists:foreach(fun (type) -> ok;
                       (register) -> ok;
                       (login) -> ok;
                       (reply) -> ok;
                       (location) -> ok;
+                      (locationPing) -> ok;
+                      (sickPing) -> ok;
+                      (port) -> ok;
+                      (notifyUsers) -> ok;
+                      (nrPeopleReply) -> ok;
+                      (notification) -> ok;
                       (OtherKey) -> mk_type_error({extraneous_key, OtherKey}, M, Path)
                   end,
                   maps:keys(M)),
@@ -869,10 +1592,15 @@ v_msg_Reply(X, Path, _TrUserData) -> mk_type_error({expected_msg, 'Reply'}, X, P
 
 -compile({nowarn_unused_function,v_msg_Location/3}).
 -dialyzer({nowarn_function,v_msg_Location/3}).
-v_msg_Location(#{coordx := F1, coordy := F2} = M, Path, TrUserData) ->
-    v_type_int32(F1, [coordx | Path], TrUserData),
-    v_type_int32(F2, [coordy | Path], TrUserData),
-    lists:foreach(fun (coordx) -> ok;
+v_msg_Location(#{coordx := F2, coordy := F3} = M, Path, TrUserData) ->
+    case M of
+        #{username := F1} -> v_type_string(F1, [username | Path], TrUserData);
+        _ -> ok
+    end,
+    v_type_int32(F2, [coordx | Path], TrUserData),
+    v_type_int32(F3, [coordy | Path], TrUserData),
+    lists:foreach(fun (username) -> ok;
+                      (coordx) -> ok;
                       (coordy) -> ok;
                       (OtherKey) -> mk_type_error({extraneous_key, OtherKey}, M, Path)
                   end,
@@ -880,6 +1608,68 @@ v_msg_Location(#{coordx := F1, coordy := F2} = M, Path, TrUserData) ->
     ok;
 v_msg_Location(M, Path, _TrUserData) when is_map(M) -> mk_type_error({missing_fields, [coordx, coordy] -- maps:keys(M), 'Location'}, M, Path);
 v_msg_Location(X, Path, _TrUserData) -> mk_type_error({expected_msg, 'Location'}, X, Path).
+
+-compile({nowarn_unused_function,v_msg_SickPing/3}).
+-dialyzer({nowarn_function,v_msg_SickPing/3}).
+v_msg_SickPing(#{username := F1} = M, Path, TrUserData) ->
+    v_type_string(F1, [username | Path], TrUserData),
+    lists:foreach(fun (username) -> ok;
+                      (OtherKey) -> mk_type_error({extraneous_key, OtherKey}, M, Path)
+                  end,
+                  maps:keys(M)),
+    ok;
+v_msg_SickPing(M, Path, _TrUserData) when is_map(M) -> mk_type_error({missing_fields, [username] -- maps:keys(M), 'SickPing'}, M, Path);
+v_msg_SickPing(X, Path, _TrUserData) -> mk_type_error({expected_msg, 'SickPing'}, X, Path).
+
+-compile({nowarn_unused_function,v_msg_NrPeopleReply/3}).
+-dialyzer({nowarn_function,v_msg_NrPeopleReply/3}).
+v_msg_NrPeopleReply(#{username := F1, total := F2} = M, Path, TrUserData) ->
+    v_type_string(F1, [username | Path], TrUserData),
+    v_type_int32(F2, [total | Path], TrUserData),
+    lists:foreach(fun (username) -> ok;
+                      (total) -> ok;
+                      (OtherKey) -> mk_type_error({extraneous_key, OtherKey}, M, Path)
+                  end,
+                  maps:keys(M)),
+    ok;
+v_msg_NrPeopleReply(M, Path, _TrUserData) when is_map(M) -> mk_type_error({missing_fields, [username, total] -- maps:keys(M), 'NrPeopleReply'}, M, Path);
+v_msg_NrPeopleReply(X, Path, _TrUserData) -> mk_type_error({expected_msg, 'NrPeopleReply'}, X, Path).
+
+-compile({nowarn_unused_function,v_msg_NotifyUsers/3}).
+-dialyzer({nowarn_function,v_msg_NotifyUsers/3}).
+v_msg_NotifyUsers(#{users := F1} = M, Path, TrUserData) ->
+    v_type_string(F1, [users | Path], TrUserData),
+    lists:foreach(fun (users) -> ok;
+                      (OtherKey) -> mk_type_error({extraneous_key, OtherKey}, M, Path)
+                  end,
+                  maps:keys(M)),
+    ok;
+v_msg_NotifyUsers(M, Path, _TrUserData) when is_map(M) -> mk_type_error({missing_fields, [users] -- maps:keys(M), 'NotifyUsers'}, M, Path);
+v_msg_NotifyUsers(X, Path, _TrUserData) -> mk_type_error({expected_msg, 'NotifyUsers'}, X, Path).
+
+-compile({nowarn_unused_function,v_msg_Notification/3}).
+-dialyzer({nowarn_function,v_msg_Notification/3}).
+v_msg_Notification(#{notification := F1} = M, Path, TrUserData) ->
+    v_type_string(F1, [notification | Path], TrUserData),
+    lists:foreach(fun (notification) -> ok;
+                      (OtherKey) -> mk_type_error({extraneous_key, OtherKey}, M, Path)
+                  end,
+                  maps:keys(M)),
+    ok;
+v_msg_Notification(M, Path, _TrUserData) when is_map(M) -> mk_type_error({missing_fields, [notification] -- maps:keys(M), 'Notification'}, M, Path);
+v_msg_Notification(X, Path, _TrUserData) -> mk_type_error({expected_msg, 'Notification'}, X, Path).
+
+-compile({nowarn_unused_function,v_msg_PrivateNotificationsPort/3}).
+-dialyzer({nowarn_function,v_msg_PrivateNotificationsPort/3}).
+v_msg_PrivateNotificationsPort(#{port := F1} = M, Path, TrUserData) ->
+    v_type_int32(F1, [port | Path], TrUserData),
+    lists:foreach(fun (port) -> ok;
+                      (OtherKey) -> mk_type_error({extraneous_key, OtherKey}, M, Path)
+                  end,
+                  maps:keys(M)),
+    ok;
+v_msg_PrivateNotificationsPort(M, Path, _TrUserData) when is_map(M) -> mk_type_error({missing_fields, [port] -- maps:keys(M), 'PrivateNotificationsPort'}, M, Path);
+v_msg_PrivateNotificationsPort(X, Path, _TrUserData) -> mk_type_error({expected_msg, 'PrivateNotificationsPort'}, X, Path).
 
 -compile({nowarn_unused_function,v_enum_Type/3}).
 -dialyzer({nowarn_function,v_enum_Type/3}).
@@ -890,6 +1680,12 @@ v_enum_Type('REPLY', _Path, _TrUserData) -> ok;
 v_enum_Type('LOCATION', _Path, _TrUserData) -> ok;
 v_enum_Type('SICK', _Path, _TrUserData) -> ok;
 v_enum_Type('NR_PEOPLE', _Path, _TrUserData) -> ok;
+v_enum_Type('LOCATION_PING', _Path, _TrUserData) -> ok;
+v_enum_Type('SICK_PING', _Path, _TrUserData) -> ok;
+v_enum_Type('NR_PEOPLE_REPLY', _Path, _TrUserData) -> ok;
+v_enum_Type('NOTIFY_USERS', _Path, _TrUserData) -> ok;
+v_enum_Type('NOTIFICATION', _Path, _TrUserData) -> ok;
+v_enum_Type('PORT', _Path, _TrUserData) -> ok;
 v_enum_Type(V, _Path, _TrUserData) when -2147483648 =< V, V =< 2147483647, is_integer(V) -> ok;
 v_enum_Type(X, Path, _TrUserData) -> mk_type_error({invalid_enum, 'Type'}, X, Path).
 
@@ -956,29 +1752,43 @@ cons(Elem, Acc, _TrUserData) -> [Elem | Acc].
 
 
 get_msg_defs() ->
-    [{{enum, 'Type'}, [{'REGISTER', 0}, {'LOGIN', 1}, {'LOGOUT', 2}, {'REPLY', 3}, {'LOCATION', 4}, {'SICK', 5}, {'NR_PEOPLE', 6}]},
+    [{{enum, 'Type'}, [{'REGISTER', 0}, {'LOGIN', 1}, {'LOGOUT', 2}, {'REPLY', 3}, {'LOCATION', 4}, {'SICK', 5}, {'NR_PEOPLE', 6}, {'LOCATION_PING', 7}, {'SICK_PING', 8}, {'NR_PEOPLE_REPLY', 9}, {'NOTIFY_USERS', 10}, {'NOTIFICATION', 11}, {'PORT', 12}]},
      {{msg, 'Message'},
       [#{name => type, fnum => 1, rnum => 2, type => {enum, 'Type'}, occurrence => required, opts => []},
        #{name => register, fnum => 2, rnum => 3, type => {msg, 'Register'}, occurrence => optional, opts => []},
        #{name => login, fnum => 3, rnum => 4, type => {msg, 'Login'}, occurrence => optional, opts => []},
        #{name => reply, fnum => 4, rnum => 5, type => {msg, 'Reply'}, occurrence => optional, opts => []},
-       #{name => location, fnum => 5, rnum => 6, type => {msg, 'Location'}, occurrence => optional, opts => []}]},
+       #{name => location, fnum => 5, rnum => 6, type => {msg, 'Location'}, occurrence => optional, opts => []},
+       #{name => locationPing, fnum => 6, rnum => 7, type => {msg, 'Location'}, occurrence => optional, opts => []},
+       #{name => sickPing, fnum => 7, rnum => 8, type => {msg, 'SickPing'}, occurrence => optional, opts => []},
+       #{name => port, fnum => 8, rnum => 9, type => {msg, 'PrivateNotificationsPort'}, occurrence => optional, opts => []},
+       #{name => notifyUsers, fnum => 9, rnum => 10, type => {msg, 'NotifyUsers'}, occurrence => optional, opts => []},
+       #{name => nrPeopleReply, fnum => 10, rnum => 11, type => {msg, 'NrPeopleReply'}, occurrence => optional, opts => []},
+       #{name => notification, fnum => 11, rnum => 12, type => {msg, 'Notification'}, occurrence => optional, opts => []}]},
      {{msg, 'Register'},
       [#{name => username, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []},
        #{name => password, fnum => 2, rnum => 3, type => string, occurrence => required, opts => []},
        #{name => district, fnum => 3, rnum => 4, type => string, occurrence => required, opts => []}]},
      {{msg, 'Login'}, [#{name => username, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []}, #{name => password, fnum => 2, rnum => 3, type => string, occurrence => required, opts => []}]},
      {{msg, 'Reply'}, [#{name => result, fnum => 1, rnum => 2, type => bool, occurrence => required, opts => []}, #{name => message, fnum => 2, rnum => 3, type => string, occurrence => required, opts => []}]},
-     {{msg, 'Location'}, [#{name => coordx, fnum => 1, rnum => 2, type => int32, occurrence => required, opts => []}, #{name => coordy, fnum => 2, rnum => 3, type => int32, occurrence => required, opts => []}]}].
+     {{msg, 'Location'},
+      [#{name => username, fnum => 1, rnum => 2, type => string, occurrence => optional, opts => []},
+       #{name => coordx, fnum => 2, rnum => 3, type => int32, occurrence => required, opts => []},
+       #{name => coordy, fnum => 3, rnum => 4, type => int32, occurrence => required, opts => []}]},
+     {{msg, 'SickPing'}, [#{name => username, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []}]},
+     {{msg, 'NrPeopleReply'}, [#{name => username, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []}, #{name => total, fnum => 2, rnum => 3, type => int32, occurrence => required, opts => []}]},
+     {{msg, 'NotifyUsers'}, [#{name => users, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []}]},
+     {{msg, 'Notification'}, [#{name => notification, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []}]},
+     {{msg, 'PrivateNotificationsPort'}, [#{name => port, fnum => 1, rnum => 2, type => int32, occurrence => required, opts => []}]}].
 
 
-get_msg_names() -> ['Message', 'Register', 'Login', 'Reply', 'Location'].
+get_msg_names() -> ['Message', 'Register', 'Login', 'Reply', 'Location', 'SickPing', 'NrPeopleReply', 'NotifyUsers', 'Notification', 'PrivateNotificationsPort'].
 
 
 get_group_names() -> [].
 
 
-get_msg_or_group_names() -> ['Message', 'Register', 'Login', 'Reply', 'Location'].
+get_msg_or_group_names() -> ['Message', 'Register', 'Login', 'Reply', 'Location', 'SickPing', 'NrPeopleReply', 'NotifyUsers', 'Notification', 'PrivateNotificationsPort'].
 
 
 get_enum_names() -> ['Type'].
@@ -1003,18 +1813,33 @@ find_msg_def('Message') ->
      #{name => register, fnum => 2, rnum => 3, type => {msg, 'Register'}, occurrence => optional, opts => []},
      #{name => login, fnum => 3, rnum => 4, type => {msg, 'Login'}, occurrence => optional, opts => []},
      #{name => reply, fnum => 4, rnum => 5, type => {msg, 'Reply'}, occurrence => optional, opts => []},
-     #{name => location, fnum => 5, rnum => 6, type => {msg, 'Location'}, occurrence => optional, opts => []}];
+     #{name => location, fnum => 5, rnum => 6, type => {msg, 'Location'}, occurrence => optional, opts => []},
+     #{name => locationPing, fnum => 6, rnum => 7, type => {msg, 'Location'}, occurrence => optional, opts => []},
+     #{name => sickPing, fnum => 7, rnum => 8, type => {msg, 'SickPing'}, occurrence => optional, opts => []},
+     #{name => port, fnum => 8, rnum => 9, type => {msg, 'PrivateNotificationsPort'}, occurrence => optional, opts => []},
+     #{name => notifyUsers, fnum => 9, rnum => 10, type => {msg, 'NotifyUsers'}, occurrence => optional, opts => []},
+     #{name => nrPeopleReply, fnum => 10, rnum => 11, type => {msg, 'NrPeopleReply'}, occurrence => optional, opts => []},
+     #{name => notification, fnum => 11, rnum => 12, type => {msg, 'Notification'}, occurrence => optional, opts => []}];
 find_msg_def('Register') ->
     [#{name => username, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []},
      #{name => password, fnum => 2, rnum => 3, type => string, occurrence => required, opts => []},
      #{name => district, fnum => 3, rnum => 4, type => string, occurrence => required, opts => []}];
 find_msg_def('Login') -> [#{name => username, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []}, #{name => password, fnum => 2, rnum => 3, type => string, occurrence => required, opts => []}];
 find_msg_def('Reply') -> [#{name => result, fnum => 1, rnum => 2, type => bool, occurrence => required, opts => []}, #{name => message, fnum => 2, rnum => 3, type => string, occurrence => required, opts => []}];
-find_msg_def('Location') -> [#{name => coordx, fnum => 1, rnum => 2, type => int32, occurrence => required, opts => []}, #{name => coordy, fnum => 2, rnum => 3, type => int32, occurrence => required, opts => []}];
+find_msg_def('Location') ->
+    [#{name => username, fnum => 1, rnum => 2, type => string, occurrence => optional, opts => []},
+     #{name => coordx, fnum => 2, rnum => 3, type => int32, occurrence => required, opts => []},
+     #{name => coordy, fnum => 3, rnum => 4, type => int32, occurrence => required, opts => []}];
+find_msg_def('SickPing') -> [#{name => username, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []}];
+find_msg_def('NrPeopleReply') -> [#{name => username, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []}, #{name => total, fnum => 2, rnum => 3, type => int32, occurrence => required, opts => []}];
+find_msg_def('NotifyUsers') -> [#{name => users, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []}];
+find_msg_def('Notification') -> [#{name => notification, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []}];
+find_msg_def('PrivateNotificationsPort') -> [#{name => port, fnum => 1, rnum => 2, type => int32, occurrence => required, opts => []}];
 find_msg_def(_) -> error.
 
 
-find_enum_def('Type') -> [{'REGISTER', 0}, {'LOGIN', 1}, {'LOGOUT', 2}, {'REPLY', 3}, {'LOCATION', 4}, {'SICK', 5}, {'NR_PEOPLE', 6}];
+find_enum_def('Type') ->
+    [{'REGISTER', 0}, {'LOGIN', 1}, {'LOGOUT', 2}, {'REPLY', 3}, {'LOCATION', 4}, {'SICK', 5}, {'NR_PEOPLE', 6}, {'LOCATION_PING', 7}, {'SICK_PING', 8}, {'NR_PEOPLE_REPLY', 9}, {'NOTIFY_USERS', 10}, {'NOTIFICATION', 11}, {'PORT', 12}];
 find_enum_def(_) -> error.
 
 
@@ -1030,7 +1855,13 @@ enum_symbol_by_value_Type(2) -> 'LOGOUT';
 enum_symbol_by_value_Type(3) -> 'REPLY';
 enum_symbol_by_value_Type(4) -> 'LOCATION';
 enum_symbol_by_value_Type(5) -> 'SICK';
-enum_symbol_by_value_Type(6) -> 'NR_PEOPLE'.
+enum_symbol_by_value_Type(6) -> 'NR_PEOPLE';
+enum_symbol_by_value_Type(7) -> 'LOCATION_PING';
+enum_symbol_by_value_Type(8) -> 'SICK_PING';
+enum_symbol_by_value_Type(9) -> 'NR_PEOPLE_REPLY';
+enum_symbol_by_value_Type(10) -> 'NOTIFY_USERS';
+enum_symbol_by_value_Type(11) -> 'NOTIFICATION';
+enum_symbol_by_value_Type(12) -> 'PORT'.
 
 
 enum_value_by_symbol_Type('REGISTER') -> 0;
@@ -1039,7 +1870,13 @@ enum_value_by_symbol_Type('LOGOUT') -> 2;
 enum_value_by_symbol_Type('REPLY') -> 3;
 enum_value_by_symbol_Type('LOCATION') -> 4;
 enum_value_by_symbol_Type('SICK') -> 5;
-enum_value_by_symbol_Type('NR_PEOPLE') -> 6.
+enum_value_by_symbol_Type('NR_PEOPLE') -> 6;
+enum_value_by_symbol_Type('LOCATION_PING') -> 7;
+enum_value_by_symbol_Type('SICK_PING') -> 8;
+enum_value_by_symbol_Type('NR_PEOPLE_REPLY') -> 9;
+enum_value_by_symbol_Type('NOTIFY_USERS') -> 10;
+enum_value_by_symbol_Type('NOTIFICATION') -> 11;
+enum_value_by_symbol_Type('PORT') -> 12.
 
 
 get_service_names() -> [].
@@ -1090,6 +1927,11 @@ fqbin_to_msg_name(<<"Protos.Register">>) -> 'Register';
 fqbin_to_msg_name(<<"Protos.Login">>) -> 'Login';
 fqbin_to_msg_name(<<"Protos.Reply">>) -> 'Reply';
 fqbin_to_msg_name(<<"Protos.Location">>) -> 'Location';
+fqbin_to_msg_name(<<"Protos.SickPing">>) -> 'SickPing';
+fqbin_to_msg_name(<<"Protos.NrPeopleReply">>) -> 'NrPeopleReply';
+fqbin_to_msg_name(<<"Protos.NotifyUsers">>) -> 'NotifyUsers';
+fqbin_to_msg_name(<<"Protos.Notification">>) -> 'Notification';
+fqbin_to_msg_name(<<"Protos.PrivateNotificationsPort">>) -> 'PrivateNotificationsPort';
 fqbin_to_msg_name(E) -> error({gpb_error, {badmsg, E}}).
 
 
@@ -1098,6 +1940,11 @@ msg_name_to_fqbin('Register') -> <<"Protos.Register">>;
 msg_name_to_fqbin('Login') -> <<"Protos.Login">>;
 msg_name_to_fqbin('Reply') -> <<"Protos.Reply">>;
 msg_name_to_fqbin('Location') -> <<"Protos.Location">>;
+msg_name_to_fqbin('SickPing') -> <<"Protos.SickPing">>;
+msg_name_to_fqbin('NrPeopleReply') -> <<"Protos.NrPeopleReply">>;
+msg_name_to_fqbin('NotifyUsers') -> <<"Protos.NotifyUsers">>;
+msg_name_to_fqbin('Notification') -> <<"Protos.Notification">>;
+msg_name_to_fqbin('PrivateNotificationsPort') -> <<"Protos.PrivateNotificationsPort">>;
 msg_name_to_fqbin(E) -> error({gpb_error, {badmsg, E}}).
 
 
@@ -1136,7 +1983,7 @@ get_all_source_basenames() -> ["messages.proto"].
 get_all_proto_names() -> ["messages"].
 
 
-get_msg_containment("messages") -> ['Location', 'Login', 'Message', 'Register', 'Reply'];
+get_msg_containment("messages") -> ['Location', 'Login', 'Message', 'Notification', 'NotifyUsers', 'NrPeopleReply', 'PrivateNotificationsPort', 'Register', 'Reply', 'SickPing'];
 get_msg_containment(P) -> error({gpb_error, {badproto, P}}).
 
 
@@ -1157,8 +2004,13 @@ get_enum_containment(P) -> error({gpb_error, {badproto, P}}).
 
 
 get_proto_by_msg_name_as_fqbin(<<"Protos.Register">>) -> "messages";
+get_proto_by_msg_name_as_fqbin(<<"Protos.NotifyUsers">>) -> "messages";
+get_proto_by_msg_name_as_fqbin(<<"Protos.PrivateNotificationsPort">>) -> "messages";
 get_proto_by_msg_name_as_fqbin(<<"Protos.Message">>) -> "messages";
+get_proto_by_msg_name_as_fqbin(<<"Protos.SickPing">>) -> "messages";
 get_proto_by_msg_name_as_fqbin(<<"Protos.Reply">>) -> "messages";
+get_proto_by_msg_name_as_fqbin(<<"Protos.NrPeopleReply">>) -> "messages";
+get_proto_by_msg_name_as_fqbin(<<"Protos.Notification">>) -> "messages";
 get_proto_by_msg_name_as_fqbin(<<"Protos.Login">>) -> "messages";
 get_proto_by_msg_name_as_fqbin(<<"Protos.Location">>) -> "messages";
 get_proto_by_msg_name_as_fqbin(E) -> error({gpb_error, {badmsg, E}}).
