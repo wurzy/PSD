@@ -35,7 +35,7 @@ registerHandler(Socket, Data) ->
     io:fwrite("Register request: ~p ~p ~p\n", [Username, Password, District]),
     case district_manager:verifyDistrict(District) of
         ok ->
-            case account_manager:register(Username, Password, District) of
+            case account_manager:signup(Username, Password, District) of
                 ok ->
                     io:fwrite("Successfully registered: ~p ~p ~p\n", [Username, Password, District]),
                     response_manager:sendResponse(Socket,true,"Successfully registered."),

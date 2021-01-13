@@ -1,5 +1,5 @@
 -module(account_manager).
--export([start/0, register/3, login/2, logout/1, sick/1]).
+-export([start/0, signup/3, login/2, logout/1, sick/1]).
 
 start() -> 
     register(?MODULE, spawn(fun() -> loop(#{}) end)). 
@@ -10,8 +10,8 @@ rpc(Request) ->
         {?MODULE, Result} -> Result
     end.
 
-register(Username,Password,District) ->
-    rpc({register,Username,Password,District}).
+signup(Username,Password,District) ->
+    rpc({signup,Username,Password,District}).
 
 login(Username,Password) ->
     rpc({login,Username,Password}).
@@ -26,7 +26,7 @@ sick(Username) ->
 loop(Accounts) ->
     io:fwrite("Client state: ~p.\n", [Accounts]),
     receive
-        {{register,Username,Password,District},From} ->
+        {{signup,Username,Password,District},From} ->
             case maps:find(Username,Accounts) of 
                 error -> 
                     From ! {?MODULE, ok},
