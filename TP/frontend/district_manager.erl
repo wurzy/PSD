@@ -1,6 +1,6 @@
 -module(district_manager).
 
--export([start/0, verifyDistrict/1, countPeopleInLocation/2]).
+-export([start/0, verifyDistrict/1, countPeopleInLocation/3]).
 
 start() -> 
     Districts = #{
@@ -35,8 +35,8 @@ rpc(Request) ->
 verifyDistrict(District) ->
     rpc({verify_district,District}).
 
-countPeopleInLocation(District,Location) ->
-    rpc({nr_people,District,Location}).
+countPeopleInLocation(Socket,District,Location) ->
+    rpc({nr_people,Socket,District,Location}).
 
 % Districts -> #{district_name -> {district_socket, #{username -> notif_socket}}}
 loop(Districts) ->
@@ -49,30 +49,39 @@ loop(Districts) ->
             loop(Districts);
 
         {register_user, Socket, District, Username, Port} ->
-            {DistSocket,Users} = maps:get(District,Districts),
+            {DistPort,Users} = maps:get(District,Districts),
             NewUsers = maps:put(Username,Port,Users),
             io:fwrite("Registered private notification socket. ~p ~p\n", [Username, Port]),
             response_manager:sendResponse(Socket,true,"Registered private notification socket."),
-            loop(maps:update(District,{DistSocket,NewUsers},Districts));
+            loop(maps:update(District,{DistPort,NewUsers},Districts));
         
         {location, District, Username, Location} ->
-            {Socket,_} = maps:get(District,Districts),
-            response_manager:sendUserLocation(Socket,Username,Location),
+            {Port,_} = maps:get(District,Districts),
+            response_manager:sendUserLocation(Port,Username,Location),
             io:fwrite("Sent new location to district server. ~p ~p\n", [Username, District]),
             loop(Districts);
 
         {sick_user, District, Username} ->
-            {Socket,_} = maps:get(District,Districts),
-            response_manager:sendSickPing(Socket,Username),
+            {Port,_} = maps:get(District,Districts),
+            response_manager:sendSickPing(Port,Username),
             loop(Districts);
 
-        {{nr_people, District, Location}, From} ->
-            {Socket,_} = maps:get(District,Districts),
-            response_manager:sendLocationToCountPeople(Socket,Location),
+        {{nr_people, Socket, District, Location}, From} ->
+            {Port,_} = maps:get(District,Districts),
+            response_manager:sendLocationToCountPeople(Port,Location),
+            receive
+                {tcp, Socket, Bin} ->
+                    inet:setopts(Socket, [{active, once}]),
+                    Msg = messages:decode_msg(Bin,'Message'),
+                    Username = maps:get(username,Msg),
+                    Total = maps:get(total,Msg),
+                    io:fwrite("Message nr people reply: ~p ~p\n", [Username, Total]),
+                    From ! {?MODULE, {ok, Total}}
+            end,
             loop(Districts);
 
         {remove_user, District, Username} ->
-            {DistSocket,Users} = maps:get(District,Districts),
+            {DistPort,Users} = maps:get(District,Districts),
             NewUsers = maps:remove(Username,Users),
-            loop(maps:update(District,{DistSocket,NewUsers},Districts))
+            loop(maps:update(District,{DistPort,NewUsers},Districts))
     end.
