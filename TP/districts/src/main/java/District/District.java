@@ -96,14 +96,15 @@ public class District{
         return total;
     }
 
+    public synchronized void incrementInfected() {
+        this.total++;
+    }
+
+    // Separated by commas
     public synchronized String getUsersToNotify(String user){
         ArrayList<String> users = usersNear(user);
         if (users == null) return null;
-        String mega = "";
-        for(String u : users){
-            mega = mega + u + ","; // user,user,user,user,
-        }
-        return mega.substring(0,mega.length()-1); // user,user,user,user
+        return String.join(",", users);
     }
 
     private synchronized ArrayList<String> usersNear(String user){
@@ -115,6 +116,7 @@ public class District{
                 for(Point point : entry.getValue()){
                     if(p.equals(point)){
                         ret.add(entry.getKey());
+                        break;
                     }
                 }
             }

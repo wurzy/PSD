@@ -18,4 +18,5 @@ public class MessageBuilder {
         NotifyUsers nu = NotifyUsers.newBuilder().setUsers(users).build();
         return Message.newBuilder().setType(Type.NOTIFY_USERS).setNotifyUsers(nu).build();
     }
+
 }

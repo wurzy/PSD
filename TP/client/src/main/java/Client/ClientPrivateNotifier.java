@@ -1,10 +1,8 @@
 package Client;
 
-import Protos.MessageBuilder;
 import Protos.Messages.*;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.Socket;
 import java.util.Arrays;
 
