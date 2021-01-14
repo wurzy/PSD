@@ -31,10 +31,10 @@ authentication(Socket) ->
 registerHandler(Socket, Data) ->
     Username = maps:get(username, Data),
     Password = maps:get(password, Data),
-    District = erlang:list_to_atom(string:lowercase(maps:get(district, Data))),
-    io:fwrite("Register request: ~p ~p ~p\n", [Username, Password, District]),
-    case district_manager:verifyDistrict(District) of
-        ok ->
+    DistrictCode = erlang:list_to_atom(maps:get(district, Data)),
+    io:fwrite("Register request: ~p ~p ~p\n", [Username, Password, DistrictCode]),
+    case district_manager:verifyDistrict(DistrictCode) of
+        {ok, District} ->
             case account_manager:signup(Username, Password, District) of
                 ok ->
                     io:fwrite("Successfully registered: ~p ~p ~p\n", [Username, Password, District]),
