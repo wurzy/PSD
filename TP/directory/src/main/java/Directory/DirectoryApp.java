@@ -1,8 +1,6 @@
-package diretorio;
+package Directory;
 
-import diretorio.resources.*;
-import diretorio.business.*;
-import diretorio.health.*;
+import Directory.*;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -20,6 +18,6 @@ public class DiretorioApp extends Application<DirectoryConfiguration> {
         environment.jersey().register(
                 new DiretorioResource(Diretorio.getInstance()));
         environment.healthChecks().register("template",
-                new DiretorioHealthCheck(configuration.getVersion(), Diretorio.getInstance()));
+                new DiretorioHealthCheck(configuration.getVersion(), Directory.getInstance()));
     }
 }
