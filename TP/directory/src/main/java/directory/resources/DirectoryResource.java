@@ -22,9 +22,14 @@ public class DirectoryResource {
     @Produces(MediaType.APPLICATION_JSON)
     public UsersRepresentation getUsers(@PathParam("id") int dist) {
         synchronized (this){
-            this.diretorio.getNumberOfUsers()
+            try{
+                int t = this.diretorio.getNumberOfUsers(dist);
+                return new UsersRepresentation(diretorio.getNameOfDistrict(dist),t);
+            }
+            catch(Exception e){
+                return null;
+            }
         }
-    return null;
     }
 
     @POST
@@ -36,11 +41,14 @@ public class DirectoryResource {
                 return Response.ok().build();
             }
             catch(Exception e){
-                return Response.status(404).entity("Não existe o distrito especificado.").build();
+                return invalidDistrict();
             }
         }
     }
 
+    private Response invalidDistrict(){
+        return Response.status(404).entity("Não existe o distrito especificado.").build();
+    }
     public static class PostUser{
         @JsonProperty("coordx")
         public int coordx;

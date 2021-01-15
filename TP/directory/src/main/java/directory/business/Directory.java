@@ -53,6 +53,10 @@ public class Directory {
         return d.getNumberOfUsers();
     }
 
+    public String getNameOfDistrict(int id){
+        return this.distNames.get(id);
+    }
+
     public void userUpdate(int district, PostUser user) throws Exception{
         District d = this.districts.get(district);
         if(d==null) throw new Exception();
