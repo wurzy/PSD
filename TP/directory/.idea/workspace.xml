@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="2df4d400-ec10-4b5c-964f-8af0693ec3ab" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/workspace.xml" afterDir="false" />
@@ -8,9 +11,6 @@
       <change beforePath="$PROJECT_DIR$/../districts/target/classes/District/District.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/District/District.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../districts/target/classes/District/Point.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/District/Point.class" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/out/" />
-    <ignored path="$PROJECT_DIR$/target/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -166,10 +166,11 @@
   <component name="SvnConfiguration">
     <configuration />
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="2df4d400-ec10-4b5c-964f-8af0693ec3ab" name="Default Changelist" comment="" />
-      <created>1610734094764</created>
+      <changelist id="61592aa2-c02b-4b59-adb5-b42e0f882fd7" name="Default Changelist" comment="" />
+      <created>1610043558999</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1610734094764</updated>
