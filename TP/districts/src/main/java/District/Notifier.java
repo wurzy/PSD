@@ -11,18 +11,21 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 
-public class PublicNotifications implements Runnable{
+public class Notifier implements Runnable{
     private ZMQ.Socket pub;
     private District district;
 
     private InputStream in;
     private OutputStream out;
 
-    public PublicNotifications(ZMQ.Socket pub, Socket priv, District district) throws Exception {
+    private ZMQ.Socket priv;
+
+    public Notifier(ZMQ.Socket pub, ZMQ.Socket priv, Socket info, District district) throws Exception {
         this.pub = pub;
         this.district = district;
-        this.in = priv.getInputStream();
-        this.out = priv.getOutputStream();
+        this.in = info.getInputStream();
+        this.out = info.getOutputStream();
+        this.priv = priv;
     }
 
     public void run(){
@@ -35,6 +38,7 @@ public class PublicNotifications implements Runnable{
                     locationPing(lp.getUsername() , new Point(lp.getCoordx(),lp.getCoordy()));
                 }
                 else if(type.equals(Type.SICK_PING)){
+                    district.incrementInfected();
                     warnSick(m.getSickPing().getUsername());
                 }
                 else if (type.equals(Type.NR_PEOPLE)){
@@ -77,9 +81,9 @@ public class PublicNotifications implements Runnable{
         district.addCoord(user,p);
     }
 
-    private void warnSick(String user) throws Exception{
+    private void warnSick(String user){
         String mega = district.getUsersToNotify(user);
-        MessageBuilder.send(MessageBuilder.notifyUsers(mega),out);
+        priv.send(MessageBuilder.notifyUsers(mega).toByteArray());
         publish("Alerta, foi detetado um utilizador infetado [TOTAL: " + district.getTotal() +"]");
     }
 
