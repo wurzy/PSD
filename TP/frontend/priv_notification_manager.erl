@@ -1,13 +1,19 @@
 -module(priv_notification_manager).
--export([loop/1]).
+-export([bind/1,loop/1]).
 
-% processo em loop à espera de conexões de clientes
-% processo em loop à espera de pedidos do user
+bind(Port) ->
+    {ok, Context} = erlzmq:context(1),
+    {ok, DistSocket} = erlzmq:socket(Context, [pull, {active, false}]),
+    ok = erlzmq:bind(DistSocket, "tcp://localhost:" ++ integer_to_list(Port)),
+    register(?MODULE, spawn(fun() -> loop(DistSocket) end)).
+
+% processo em loop à espera de mensagens dos servidores distritais
 loop(Socket) ->
-    receive
-        {tcp, Socket, Bin} ->
-            inet:setopts(Socket, [{active, once}]),
+    case erlzmq:recv(Socket) of
+        {ok, Bin} ->
             Msg = messages:decode_msg(Bin,'Message'),
-            io:fwrite("Private notification message: ~p\n", [Msg]),
+            io:fwrite("Message from district: ~p\n", [Msg]),
+            loop(Socket);
+        {error, _} ->
             loop(Socket)
     end.
