@@ -1,6 +1,6 @@
 -module(response_manager).
 
--export([sendResponse/3, sendUserLocation/3, sendSickPing/2, sendLocationToCountPeople/3]).
+-export([sendResponse/3, sendUserLocation/3, sendSickPing/2, sendLocationToCountPeople/3, sendInfectionWarning/1]).
 
 sendResponse(Socket,Result,Msg) ->
     Reply = messages:encode_msg(#{type=>'REPLY', reply => #{result=>Result, message=>Msg}}, 'Message'),
@@ -18,4 +18,9 @@ sendSickPing(Socket,Username) ->
 
 sendLocationToCountPeople(Socket,X,Y) ->
     Msg = messages:encode_msg(#{type=>'NR_PEOPLE', location => #{coordx=>X, coordy=>Y}}, 'Message'),
+    gen_tcp:send(Socket,Msg).
+
+sendInfectionWarning(Socket) ->
+    Warning = "Esteve em contacto com um utilizador que está doente!",
+    Msg = messages:encode_msg(#{type=>' NOTIFICATION', notification => #{notification=>Warning}}, 'Message'),
     gen_tcp:send(Socket,Msg).

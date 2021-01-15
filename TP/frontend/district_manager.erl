@@ -60,7 +60,7 @@ loop(Districts) ->
                 '15' -> From ! {?MODULE, {ok, setubal}};
                 '16' -> From ! {?MODULE, {ok, viana_do_castelo}};
                 '17' -> From ! {?MODULE, {ok, vila_real}};
-                '18' -> From ! {?MODULE, {ok, viseu}};
+                '18' -> From ! {?MODULE, {ok, viseu}};               
                 _ -> From ! {?MODULE, invalid}
             end,
             loop(Districts);
@@ -93,9 +93,20 @@ loop(Districts) ->
             From ! {?MODULE, {ok, Total}},
             loop(Districts);
 
+        {notify_users, District, Usernames} ->
+            {_,UserSockets} = maps:get(District,Districts),
+            notify_loop(Usernames, UserSockets),
+            loop(Districts);
+
         {remove_user, District, Username} ->
             {DistSocket,Users} = maps:get(District,Districts),
             NotifSocket = maps:get(Username,Users),
             gen_tcp:close(NotifSocket),
             loop(maps:update(District,{DistSocket,maps:remove(Username,Users)},Districts))
     end.
+
+notify_loop([], _) -> notified_users;
+notify_loop([Username|T], UserSockets) ->
+    Sock = maps:get(Username,UserSockets),
+    response_manager:sendInfectionWarning(Sock),
+    notify_loop(T,UserSockets).

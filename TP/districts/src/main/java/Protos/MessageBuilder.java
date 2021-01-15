@@ -14,8 +14,8 @@ public class MessageBuilder {
         return Message.newBuilder().setType(Type.NR_PEOPLE_REPLY).setNrPeopleReply(nr).build();
     }
 
-    public static Message notifyUsers(String users){
-        NotifyUsers nu = NotifyUsers.newBuilder().setUsers(users).build();
+    public static Message notifyUsers(String users, String district){
+        NotifyUsers nu = NotifyUsers.newBuilder().setUsers(users).setDistrict(district).build();
         return Message.newBuilder().setType(Type.NOTIFY_USERS).setNotifyUsers(nu).build();
     }
 
