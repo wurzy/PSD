@@ -3,11 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="24c55760-3597-4ce4-a165-e85f5369ad98" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/main/java/Client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/main/java/Client/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../directory/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../directory/src/main/java/Directory/DirectoryApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/src/main/java/directory/DirectoryApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../directory/src/main/java/Directory/DirectoryConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/src/main/java/directory/DirectoryConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/erlzmq_nif.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/erlzmq_nif.beam" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -336,18 +333,18 @@
       <workItem from="1610123290229" duration="5326000" />
       <workItem from="1610555467800" duration="16436000" />
       <workItem from="1610643106845" duration="6253000" />
-      <workItem from="1610733983715" duration="4581000" />
+      <workItem from="1610733983715" duration="5916000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52560000" />
+    <option name="totallyTimeSpent" value="53895000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26066098" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26066098" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -356,7 +353,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32998884" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.34448162" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.34448162" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />

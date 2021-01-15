@@ -7,7 +7,7 @@ import java.net.Socket;
 public class Client {
     public static void main(String[] args) throws Exception{
         Socket s = new Socket("localhost",Integer.parseInt(args[0]));
-        Socket privNotif = new Socket("localhost",Integer.parseInt(args[1]));
+        Socket privNotif = new Socket("localhost",Integer.parseInt(args[0]));
 
         ZMQ.Context context = ZMQ.context(1);
         ZMQ.Socket sub = context.socket(SocketType.SUB);
