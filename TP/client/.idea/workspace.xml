@@ -3,16 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="bb5be85e-e654-444e-86a8-2797a42a1463" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Client/ClientPrivateNotifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Client/ClientPrivateNotifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../directory/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../directory/src/main/java/Directory/DirectoryApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/src/main/java/Directory/DirectoryApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../districts/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/src/main/java/District/District.java" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/src/main/java/District/District.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/src/main/java/District/DistrictServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/src/main/java/District/DistrictServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/src/main/java/District/PublicNotifications.java" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/src/main/java/District/Notifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/src/main/java/Protos/MessageBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/src/main/java/Protos/MessageBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../districts/target/classes/District/District.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/District/District.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/target/classes/District/DistrictServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/District/DistrictServer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../districts/target/classes/District/Point.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/District/Point.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/target/classes/District/PublicNotifications.class" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -27,7 +22,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Client/Client.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
+            <state relative-caret-position="368">
               <caret line="19" column="66" selection-start-line="19" selection-start-column="66" selection-end-line="19" selection-end-column="66" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -63,8 +58,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Client/ClientPrivateNotifier.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="123">
-              <caret line="23" column="34" lean-forward="true" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
+            <state relative-caret-position="437">
+              <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -84,7 +79,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Protos/MessageBuilder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="644">
+            <state relative-caret-position="759">
               <caret line="39" selection-start-line="39" selection-end-line="39" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -176,6 +171,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -242,8 +239,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -373,11 +368,12 @@
       <workItem from="1610129925738" duration="3095000" />
       <workItem from="1610555362539" duration="14962000" />
       <workItem from="1610643382039" duration="4357000" />
+      <workItem from="1610737440758" duration="600000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85396000" />
+    <option name="totallyTimeSpent" value="85996000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -389,10 +385,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2153518" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21748401" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -495,10 +491,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Client/ClientNotifier.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="10" column="5" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Client/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="19" column="66" selection-start-line="19" selection-start-column="66" selection-end-line="19" selection-end-column="66" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Client/ClientWriter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2254">
           <caret line="106" selection-start-line="106" selection-end-line="106" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Client/ClientPrivateNotifier.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -512,26 +535,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Client/Randomizer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="759">
-          <caret line="39" selection-start-line="39" selection-end-line="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Client/ClientNotifier.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="10" column="5" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Protos/MessageBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="644">
+        <state relative-caret-position="759">
           <caret line="39" selection-start-line="39" selection-end-line="39" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -541,20 +547,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Client/ClientPrivateNotifier.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Client/Randomizer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="23" column="34" lean-forward="true" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Client/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="19" column="66" selection-start-line="19" selection-start-column="66" selection-end-line="19" selection-end-column="66" />
+        <state relative-caret-position="759">
+          <caret line="39" selection-start-line="39" selection-end-line="39" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
