@@ -57,6 +57,10 @@ public class District{
         return ps.get(ps.size()-1);
     }
 
+    public synchronized void deleteUser(String user){
+        this.userCoords.remove(user);
+    }
+
     // basta saber que incrementou
     public synchronized int incrementConcentration(Point p){
         String s = p.toString();

@@ -1,11 +1,10 @@
 package directory.representations;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 
 public class InfectedRepresentation {
-    private final int number;
-    private final String district;
+    public final int number;
+    public final String district;
 
     @JsonCreator
     public InfectedRepresentation(@JsonProperty("district") String d, @JsonProperty("infected") int t) {

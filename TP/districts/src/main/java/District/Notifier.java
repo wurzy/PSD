@@ -86,6 +86,7 @@ public class Notifier implements Runnable{
         String name = district.getName();
         priv.send(MessageBuilder.notifyUsers(mega,name).toByteArray());
         publish("Alerta, foi detetado um utilizador infetado [TOTAL: " + district.getTotal() +"]");
+        this.district.deleteUser(user);
     }
 
     private void nrPeople(Point p) throws Exception{
