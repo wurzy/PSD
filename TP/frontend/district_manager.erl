@@ -66,10 +66,10 @@ loop(Districts) ->
             loop(Districts);
 
         {register_user, District, Username, Port} ->
-            %{ok, NotifSocket} = gen_tcp:connect("localhost", Port, [binary, {packet, 0}, {active, false}, {reuseaddr, true}]),
+            {ok, NotifSocket} = gen_tcp:connect("localhost", Port, [binary, {packet, 0}, {active, false}, {reuseaddr, true}]),
             {DistSocket,Users} = maps:get(District,Districts),
             NewUsers = maps:put(Username,Port,Users),
-            %io:fwrite("Connected to private notification socket. ~p ~p\n", [Username, NotifSocket]),
+            io:fwrite("Connected to private notification socket. ~p ~p\n", [Username, NotifSocket]),
             loop(maps:update(District,{DistSocket,NewUsers},Districts));
         
         {location, District, Username, Location} ->
