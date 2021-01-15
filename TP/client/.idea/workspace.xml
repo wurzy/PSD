@@ -4,10 +4,10 @@
     <list default="true" id="bb5be85e-e654-444e-86a8-2797a42a1463" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../directory/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../directory/src/main/java/Directory/DirectoryApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/src/main/java/Directory/DirectoryApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../directory/src/main/java/Directory/DirectoryApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/src/main/java/directory/DirectoryApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../directory/src/main/java/Directory/DirectoryConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/src/main/java/directory/DirectoryConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../districts/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/target/classes/District/District.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/District/District.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/target/classes/District/Point.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/District/Point.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/erlzmq_nif.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/erlzmq_nif.beam" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -34,7 +34,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Client/ClientWriter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2254">
+            <state relative-caret-position="-322">
               <caret line="106" selection-start-line="106" selection-end-line="106" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -46,8 +46,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Client/Notifications.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="48" selection-start-line="48" selection-end-line="48" />
+            <state relative-caret-position="368">
+              <caret line="16" selection-start-line="16" selection-end-line="20" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -161,7 +161,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="width" value="1920" />
     <option name="height" value="1080" />
   </component>
@@ -368,12 +368,12 @@
       <workItem from="1610129925738" duration="3095000" />
       <workItem from="1610555362539" duration="14962000" />
       <workItem from="1610643382039" duration="4357000" />
-      <workItem from="1610737440758" duration="600000" />
+      <workItem from="1610737440758" duration="1803000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85996000" />
+    <option name="totallyTimeSpent" value="87199000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -385,7 +385,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21748401" />
@@ -508,16 +508,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Client/ClientWriter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2254">
-          <caret line="106" selection-start-line="106" selection-end-line="106" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Client/ClientPrivateNotifier.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="437">
@@ -557,10 +547,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Client/ClientWriter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-322">
+          <caret line="106" selection-start-line="106" selection-end-line="106" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Client/Notifications.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="48" selection-start-line="48" selection-end-line="48" />
+        <state relative-caret-position="368">
+          <caret line="16" selection-start-line="16" selection-end-line="20" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

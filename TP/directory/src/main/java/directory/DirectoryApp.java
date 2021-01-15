@@ -1,13 +1,14 @@
-package Directory;
+package directory;
 
-import Directory.*;
+import directory.resources.DirectoryResource;
+import directory.business.Directory;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
-public class DiretorioApp extends Application<DirectoryConfiguration> {
+public class DirectoryApp extends Application<DirectoryConfiguration> {
     public static void main(String[] args) throws Exception {
-        new DiretorioApp().run(args);
+        new DirectoryApp().run(args);
     }
 
     @Override
@@ -16,8 +17,6 @@ public class DiretorioApp extends Application<DirectoryConfiguration> {
     @Override
     public void run(DirectoryConfiguration configuration, Environment environment) {
         environment.jersey().register(
-                new DiretorioResource(Diretorio.getInstance()));
-        environment.healthChecks().register("template",
-                new DiretorioHealthCheck(configuration.getVersion(), Directory.getInstance()));
+                new DirectoryResource(Directory.getInstance()));
     }
 }
