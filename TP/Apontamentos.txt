@@ -10,4 +10,12 @@ Autenticaçao:
 
 Informar o serviço da localizaçao atual
 
-Servidores distritais: 
+Diretorio:
+- PUT /$district DATA: user, location
+- DELETE /$district/user
+- GET /$district/users -----> Query 1
+- PUT /$district/infected DATA: user
+- GET /$district/infected ----> Query 2
+- GET /$district/top5infected ----> Query 3
+- GET /$district/top5locations -----> Query 4
+- GET /$district/average -----> Query 5
