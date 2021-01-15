@@ -73,7 +73,6 @@ loop(Districts) ->
             loop(maps:update(District,{DistSocket,NewUsers},Districts));
         
         {location, District, Username, Location} ->
-            io:fwrite("XDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"),
             {DistSocket,_} = maps:get(District,Districts),
             io:fwrite("Dist ~p User ~p Location ~p\n", [District, Username, Location]),
             response_manager:sendUserLocation(DistSocket,Username,Location),
