@@ -1,5 +1,6 @@
 package directory.resources;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import directory.business.*;
 import directory.representations.UsersRepresentation;
 
@@ -19,19 +20,34 @@ public class DirectoryResource {
     @GET
     @Path("/districts/{id}/users")
     @Produces(MediaType.APPLICATION_JSON)
-    public UsersRepresentation getEmpresas(@PathParam("id") int dist) {
+    public UsersRepresentation getUsers(@PathParam("id") int dist) {
         synchronized (this){
+            this.diretorio.getNumberOfUsers()
         }
     return null;
     }
 
     @POST
     @Path("/districts/{id}")
-    public Response addUser(@PathParam("id") int id) {
+    public Response addUser(@PathParam("id") int id, PostUser user) {
         synchronized (this) {
-            this.diretorio.endEmprestimo(e);
+            try {
+                this.diretorio.userUpdate(id,user);
+                return Response.ok().build();
+            }
+            catch(Exception e){
+                return Response.status(404).entity("Não existe o distrito especificado.").build();
+            }
         }
-        return Response.ok().build();
+    }
+
+    public static class PostUser{
+        @JsonProperty("coordx")
+        public int coordx;
+        @JsonProperty("coordy")
+        public int coordy;
+        @JsonProperty("user")
+        public String user;
     }
 }
 

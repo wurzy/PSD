@@ -1,5 +1,7 @@
 package directory.business;
 
+import directory.resources.DirectoryResource.*;
+
 import java.util.*;
 
 public class Directory {
@@ -43,5 +45,20 @@ public class Directory {
         this.distNames.put(16,"Viana do Castelo");
         this.distNames.put(17,"Vila Real");
         this.distNames.put(18,"Viseu");
+    }
+
+    public int getNumberOfUsers(int district) throws Exception{
+        District d = this.districts.get(district);
+        if(d==null) throw new Exception();
+        return d.getNumberOfUsers();
+    }
+
+    public void userUpdate(int district, PostUser user) throws Exception{
+        District d = this.districts.get(district);
+        if(d==null) throw new Exception();
+        if(d.userExists(user.user)){
+            d.addUser(user.user);
+        }
+        d.addCoord(user.user,new Point(user.coordx,user.coordy));
     }
 }
