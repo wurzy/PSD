@@ -43,24 +43,24 @@ loop(Districts) ->
     receive
         {{verify_district, DistrictCode}, From} ->
             case DistrictCode of
-                1 -> From ! {?MODULE, {ok, aveiro}};
-                2 -> From ! {?MODULE, {ok, beja}};
-                3 -> From ! {?MODULE, {ok, braga}};
-                4 -> From ! {?MODULE, {ok, bragança}};
-                5 -> From ! {?MODULE, {ok, castelo_branco}};
-                6 -> From ! {?MODULE, {ok, coimbra}};
-                7 -> From ! {?MODULE, {ok, evora}};
-                8 -> From ! {?MODULE, {ok, faro}};
-                9 -> From ! {?MODULE, {ok, guarda}};
-                10 -> From ! {?MODULE, {ok, leiria}};
-                11 -> From ! {?MODULE, {ok, lisboa}};
-                12 -> From ! {?MODULE, {ok, portalegre}};
-                13 -> From ! {?MODULE, {ok, porto}};
-                14 -> From ! {?MODULE, {ok, santarem}};
-                15 -> From ! {?MODULE, {ok, setubal}};
-                16 -> From ! {?MODULE, {ok, viana_do_castelo}};
-                17 -> From ! {?MODULE, {ok, vila_real}};
-                18 -> From ! {?MODULE, {ok, viseu}};
+                '1' -> From ! {?MODULE, {ok, aveiro}};
+                '2' -> From ! {?MODULE, {ok, beja}};
+                '3' -> From ! {?MODULE, {ok, braga}};
+                '4' -> From ! {?MODULE, {ok, bragança}};
+                '5' -> From ! {?MODULE, {ok, castelo_branco}};
+                '6' -> From ! {?MODULE, {ok, coimbra}};
+                '7' -> From ! {?MODULE, {ok, evora}};
+                '8' -> From ! {?MODULE, {ok, faro}};
+                '9' -> From ! {?MODULE, {ok, guarda}};
+                '10' -> From ! {?MODULE, {ok, leiria}};
+                '11' -> From ! {?MODULE, {ok, lisboa}};
+                '12' -> From ! {?MODULE, {ok, portalegre}};
+                '13' -> From ! {?MODULE, {ok, porto}};
+                '14' -> From ! {?MODULE, {ok, santarem}};
+                '15' -> From ! {?MODULE, {ok, setubal}};
+                '16' -> From ! {?MODULE, {ok, viana_do_castelo}};
+                '17' -> From ! {?MODULE, {ok, vila_real}};
+                '18' -> From ! {?MODULE, {ok, viseu}};
                 _ -> From ! {?MODULE, invalid}
             end,
             loop(Districts);
