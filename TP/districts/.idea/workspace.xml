@@ -3,16 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="24c55760-3597-4ce4-a165-e85f5369ad98" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/main/java/Client/ClientPrivateNotifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/main/java/Client/ClientPrivateNotifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/District/District.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/District/District.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/District/DistrictServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/District/DistrictServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/District/PublicNotifications.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/District/Notifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Protos/MessageBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Protos/MessageBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/District/District.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/District/District.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/District/DistrictServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/District/DistrictServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/District/Point.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/District/Point.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/District/PublicNotifications.class" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -64,7 +54,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/District/District.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="508">
-              <caret line="118" column="30" selection-start-line="118" selection-start-column="30" selection-end-line="118" selection-end-column="30" />
+              <caret line="119" column="21" lean-forward="true" selection-start-line="119" selection-start-column="21" selection-end-line="119" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#239#240#0" expanded="true" />
@@ -213,7 +203,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1610649666031" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1610649667549" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../client" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -322,16 +312,15 @@
       <workItem from="1610035326924" duration="19964000" />
       <workItem from="1610123290229" duration="5326000" />
       <workItem from="1610555467800" duration="16436000" />
-      <workItem from="1610643106845" duration="5481000" />
+      <workItem from="1610643106845" duration="6253000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47207000" />
+    <option name="totallyTimeSpent" value="47979000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25799572" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -452,7 +441,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/District/District.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="508">
-          <caret line="118" column="30" selection-start-line="118" selection-start-column="30" selection-end-line="118" selection-end-column="30" />
+          <caret line="119" column="21" lean-forward="true" selection-start-line="119" selection-start-column="21" selection-end-line="119" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#239#240#0" expanded="true" />

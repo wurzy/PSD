@@ -51,7 +51,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Client/Notifications.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="813">
+            <state relative-caret-position="468">
               <caret line="48" selection-start-line="48" selection-end-line="48" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -372,12 +372,12 @@
       <workItem from="1610123249776" duration="3119000" />
       <workItem from="1610129925738" duration="3095000" />
       <workItem from="1610555362539" duration="14962000" />
-      <workItem from="1610643382039" duration="3588000" />
+      <workItem from="1610643382039" duration="4357000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="84627000" />
+    <option name="totallyTimeSpent" value="85396000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -563,7 +563,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Client/Notifications.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="813">
+        <state relative-caret-position="468">
           <caret line="48" selection-start-line="48" selection-end-line="48" />
           <folding>
             <element signature="imports" expanded="true" />
