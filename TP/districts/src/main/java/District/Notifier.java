@@ -83,7 +83,8 @@ public class Notifier implements Runnable{
 
     private void warnSick(String user){
         String mega = district.getUsersToNotify(user);
-        priv.send(MessageBuilder.notifyUsers(mega).toByteArray());
+        String name = district.getName();
+        priv.send(MessageBuilder.notifyUsers(mega,name).toByteArray());
         publish("Alerta, foi detetado um utilizador infetado [TOTAL: " + district.getTotal() +"]");
         this.district.deleteUser(user);
     }

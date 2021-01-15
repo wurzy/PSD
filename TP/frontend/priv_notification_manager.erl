@@ -16,6 +16,13 @@ bind(Port) ->
     register(?MODULE, spawn(fun() -> loop(DistSocket) end)).
 
 loop(Socket) ->
-    {ok, Data} = chumak:recv(Socket),
-    io:format("Received ~p\n", [Data]),
+    {ok, Bin} = chumak:recv(Socket),
+    Msg = messages:decode_msg(Bin,'Message'),
+    case maps:get(type, Msg) of
+        'NOTIFY_USERS' ->
+            MsgBody = maps:get(notifyUsers, Msg),
+            District = maps:get(district, MsgBody),
+            Usernames = string:split(maps:get(users, MsgBody), ",", all),
+            district_manager ! {notify_users, District, Usernames}
+    end,
     loop(Socket).

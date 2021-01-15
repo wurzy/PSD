@@ -74,7 +74,8 @@
 -ifndef('NOTIFYUSERS_PB_H').
 -define('NOTIFYUSERS_PB_H', true).
 -record('NotifyUsers',
-        {users                  :: iodata() | undefined % = 1, required
+        {users                  :: iodata() | undefined, % = 1, required
+         district               :: iodata() | undefined % = 2, required
         }).
 -endif.
 

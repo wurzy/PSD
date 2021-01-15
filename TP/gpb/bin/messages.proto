@@ -63,6 +63,7 @@ message NrPeopleReply {
 
 message NotifyUsers {
     required string users = 1;
+    required string district = 2;
 }
 
 message Notification {

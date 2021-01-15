@@ -95,7 +95,8 @@
        }.
 
 -type 'NotifyUsers'() ::
-      #{users                   => iodata()         % = 1, required
+      #{users                   => iodata(),        % = 1, required
+        district                => iodata()         % = 2, required
        }.
 
 -type 'Notification'() ::
@@ -220,7 +221,9 @@ encode_msg_NrPeopleReply(#{total := F1}, Bin, TrUserData) -> begin TrF1 = id(F1,
 encode_msg_NotifyUsers(Msg, TrUserData) -> encode_msg_NotifyUsers(Msg, <<>>, TrUserData).
 
 
-encode_msg_NotifyUsers(#{users := F1}, Bin, TrUserData) -> begin TrF1 = id(F1, TrUserData), e_type_string(TrF1, <<Bin/binary, 10>>, TrUserData) end.
+encode_msg_NotifyUsers(#{users := F1, district := F2}, Bin, TrUserData) ->
+    B1 = begin TrF1 = id(F1, TrUserData), e_type_string(TrF1, <<Bin/binary, 10>>, TrUserData) end,
+    begin TrF2 = id(F2, TrUserData), e_type_string(TrF2, <<B1/binary, 18>>, TrUserData) end.
 
 encode_msg_Notification(Msg, TrUserData) -> encode_msg_Notification(Msg, <<>>, TrUserData).
 
@@ -1072,49 +1075,56 @@ skip_32_NrPeopleReply(<<_:32, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> dfp
 
 skip_64_NrPeopleReply(<<_:64, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> dfp_read_field_def_NrPeopleReply(Rest, Z1, Z2, F, F@_1, TrUserData).
 
-decode_msg_NotifyUsers(Bin, TrUserData) -> dfp_read_field_def_NotifyUsers(Bin, 0, 0, 0, id('$undef', TrUserData), TrUserData).
+decode_msg_NotifyUsers(Bin, TrUserData) -> dfp_read_field_def_NotifyUsers(Bin, 0, 0, 0, id('$undef', TrUserData), id('$undef', TrUserData), TrUserData).
 
-dfp_read_field_def_NotifyUsers(<<10, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> d_field_NotifyUsers_users(Rest, Z1, Z2, F, F@_1, TrUserData);
-dfp_read_field_def_NotifyUsers(<<>>, 0, 0, _, F@_1, _) -> #{users => F@_1};
-dfp_read_field_def_NotifyUsers(Other, Z1, Z2, F, F@_1, TrUserData) -> dg_read_field_def_NotifyUsers(Other, Z1, Z2, F, F@_1, TrUserData).
+dfp_read_field_def_NotifyUsers(<<10, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> d_field_NotifyUsers_users(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData);
+dfp_read_field_def_NotifyUsers(<<18, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> d_field_NotifyUsers_district(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData);
+dfp_read_field_def_NotifyUsers(<<>>, 0, 0, _, F@_1, F@_2, _) -> #{users => F@_1, district => F@_2};
+dfp_read_field_def_NotifyUsers(Other, Z1, Z2, F, F@_1, F@_2, TrUserData) -> dg_read_field_def_NotifyUsers(Other, Z1, Z2, F, F@_1, F@_2, TrUserData).
 
-dg_read_field_def_NotifyUsers(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, TrUserData) when N < 32 - 7 -> dg_read_field_def_NotifyUsers(Rest, N + 7, X bsl N + Acc, F, F@_1, TrUserData);
-dg_read_field_def_NotifyUsers(<<0:1, X:7, Rest/binary>>, N, Acc, _, F@_1, TrUserData) ->
+dg_read_field_def_NotifyUsers(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, TrUserData) when N < 32 - 7 -> dg_read_field_def_NotifyUsers(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, TrUserData);
+dg_read_field_def_NotifyUsers(<<0:1, X:7, Rest/binary>>, N, Acc, _, F@_1, F@_2, TrUserData) ->
     Key = X bsl N + Acc,
     case Key of
-        10 -> d_field_NotifyUsers_users(Rest, 0, 0, 0, F@_1, TrUserData);
+        10 -> d_field_NotifyUsers_users(Rest, 0, 0, 0, F@_1, F@_2, TrUserData);
+        18 -> d_field_NotifyUsers_district(Rest, 0, 0, 0, F@_1, F@_2, TrUserData);
         _ ->
             case Key band 7 of
-                0 -> skip_varint_NotifyUsers(Rest, 0, 0, Key bsr 3, F@_1, TrUserData);
-                1 -> skip_64_NotifyUsers(Rest, 0, 0, Key bsr 3, F@_1, TrUserData);
-                2 -> skip_length_delimited_NotifyUsers(Rest, 0, 0, Key bsr 3, F@_1, TrUserData);
-                3 -> skip_group_NotifyUsers(Rest, 0, 0, Key bsr 3, F@_1, TrUserData);
-                5 -> skip_32_NotifyUsers(Rest, 0, 0, Key bsr 3, F@_1, TrUserData)
+                0 -> skip_varint_NotifyUsers(Rest, 0, 0, Key bsr 3, F@_1, F@_2, TrUserData);
+                1 -> skip_64_NotifyUsers(Rest, 0, 0, Key bsr 3, F@_1, F@_2, TrUserData);
+                2 -> skip_length_delimited_NotifyUsers(Rest, 0, 0, Key bsr 3, F@_1, F@_2, TrUserData);
+                3 -> skip_group_NotifyUsers(Rest, 0, 0, Key bsr 3, F@_1, F@_2, TrUserData);
+                5 -> skip_32_NotifyUsers(Rest, 0, 0, Key bsr 3, F@_1, F@_2, TrUserData)
             end
     end;
-dg_read_field_def_NotifyUsers(<<>>, 0, 0, _, F@_1, _) -> #{users => F@_1}.
+dg_read_field_def_NotifyUsers(<<>>, 0, 0, _, F@_1, F@_2, _) -> #{users => F@_1, district => F@_2}.
 
-d_field_NotifyUsers_users(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, TrUserData) when N < 57 -> d_field_NotifyUsers_users(Rest, N + 7, X bsl N + Acc, F, F@_1, TrUserData);
-d_field_NotifyUsers_users(<<0:1, X:7, Rest/binary>>, N, Acc, F, _, TrUserData) ->
+d_field_NotifyUsers_users(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, TrUserData) when N < 57 -> d_field_NotifyUsers_users(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, TrUserData);
+d_field_NotifyUsers_users(<<0:1, X:7, Rest/binary>>, N, Acc, F, _, F@_2, TrUserData) ->
     {NewFValue, RestF} = begin Len = X bsl N + Acc, <<Utf8:Len/binary, Rest2/binary>> = Rest, {id(unicode:characters_to_list(Utf8, unicode), TrUserData), Rest2} end,
-    dfp_read_field_def_NotifyUsers(RestF, 0, 0, F, NewFValue, TrUserData).
+    dfp_read_field_def_NotifyUsers(RestF, 0, 0, F, NewFValue, F@_2, TrUserData).
 
-skip_varint_NotifyUsers(<<1:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> skip_varint_NotifyUsers(Rest, Z1, Z2, F, F@_1, TrUserData);
-skip_varint_NotifyUsers(<<0:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> dfp_read_field_def_NotifyUsers(Rest, Z1, Z2, F, F@_1, TrUserData).
+d_field_NotifyUsers_district(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, TrUserData) when N < 57 -> d_field_NotifyUsers_district(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, TrUserData);
+d_field_NotifyUsers_district(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, _, TrUserData) ->
+    {NewFValue, RestF} = begin Len = X bsl N + Acc, <<Utf8:Len/binary, Rest2/binary>> = Rest, {id(unicode:characters_to_list(Utf8, unicode), TrUserData), Rest2} end,
+    dfp_read_field_def_NotifyUsers(RestF, 0, 0, F, F@_1, NewFValue, TrUserData).
 
-skip_length_delimited_NotifyUsers(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, TrUserData) when N < 57 -> skip_length_delimited_NotifyUsers(Rest, N + 7, X bsl N + Acc, F, F@_1, TrUserData);
-skip_length_delimited_NotifyUsers(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, TrUserData) ->
+skip_varint_NotifyUsers(<<1:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> skip_varint_NotifyUsers(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData);
+skip_varint_NotifyUsers(<<0:1, _:7, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> dfp_read_field_def_NotifyUsers(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData).
+
+skip_length_delimited_NotifyUsers(<<1:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, TrUserData) when N < 57 -> skip_length_delimited_NotifyUsers(Rest, N + 7, X bsl N + Acc, F, F@_1, F@_2, TrUserData);
+skip_length_delimited_NotifyUsers(<<0:1, X:7, Rest/binary>>, N, Acc, F, F@_1, F@_2, TrUserData) ->
     Length = X bsl N + Acc,
     <<_:Length/binary, Rest2/binary>> = Rest,
-    dfp_read_field_def_NotifyUsers(Rest2, 0, 0, F, F@_1, TrUserData).
+    dfp_read_field_def_NotifyUsers(Rest2, 0, 0, F, F@_1, F@_2, TrUserData).
 
-skip_group_NotifyUsers(Bin, _, Z2, FNum, F@_1, TrUserData) ->
+skip_group_NotifyUsers(Bin, _, Z2, FNum, F@_1, F@_2, TrUserData) ->
     {_, Rest} = read_group(Bin, FNum),
-    dfp_read_field_def_NotifyUsers(Rest, 0, Z2, FNum, F@_1, TrUserData).
+    dfp_read_field_def_NotifyUsers(Rest, 0, Z2, FNum, F@_1, F@_2, TrUserData).
 
-skip_32_NotifyUsers(<<_:32, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> dfp_read_field_def_NotifyUsers(Rest, Z1, Z2, F, F@_1, TrUserData).
+skip_32_NotifyUsers(<<_:32, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> dfp_read_field_def_NotifyUsers(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData).
 
-skip_64_NotifyUsers(<<_:64, Rest/binary>>, Z1, Z2, F, F@_1, TrUserData) -> dfp_read_field_def_NotifyUsers(Rest, Z1, Z2, F, F@_1, TrUserData).
+skip_64_NotifyUsers(<<_:64, Rest/binary>>, Z1, Z2, F, F@_1, F@_2, TrUserData) -> dfp_read_field_def_NotifyUsers(Rest, Z1, Z2, F, F@_1, F@_2, TrUserData).
 
 decode_msg_Notification(Bin, TrUserData) -> dfp_read_field_def_Notification(Bin, 0, 0, 0, id('$undef', TrUserData), TrUserData).
 
@@ -1377,7 +1387,7 @@ merge_msg_SickPing(#{}, #{username := NFusername}, _) -> #{username => NFusernam
 merge_msg_NrPeopleReply(#{}, #{total := NFtotal}, _) -> #{total => NFtotal}.
 
 -compile({nowarn_unused_function,merge_msg_NotifyUsers/3}).
-merge_msg_NotifyUsers(#{}, #{users := NFusers}, _) -> #{users => NFusers}.
+merge_msg_NotifyUsers(#{}, #{users := NFusers, district := NFdistrict}, _) -> #{users => NFusers, district => NFdistrict}.
 
 -compile({nowarn_unused_function,merge_msg_Notification/3}).
 merge_msg_Notification(#{}, #{notification := NFnotification}, _) -> #{notification => NFnotification}.
@@ -1551,14 +1561,16 @@ v_msg_NrPeopleReply(X, Path, _TrUserData) -> mk_type_error({expected_msg, 'NrPeo
 
 -compile({nowarn_unused_function,v_msg_NotifyUsers/3}).
 -dialyzer({nowarn_function,v_msg_NotifyUsers/3}).
-v_msg_NotifyUsers(#{users := F1} = M, Path, TrUserData) ->
+v_msg_NotifyUsers(#{users := F1, district := F2} = M, Path, TrUserData) ->
     v_type_string(F1, [users | Path], TrUserData),
+    v_type_string(F2, [district | Path], TrUserData),
     lists:foreach(fun (users) -> ok;
+                      (district) -> ok;
                       (OtherKey) -> mk_type_error({extraneous_key, OtherKey}, M, Path)
                   end,
                   maps:keys(M)),
     ok;
-v_msg_NotifyUsers(M, Path, _TrUserData) when is_map(M) -> mk_type_error({missing_fields, [users] -- maps:keys(M), 'NotifyUsers'}, M, Path);
+v_msg_NotifyUsers(M, Path, _TrUserData) when is_map(M) -> mk_type_error({missing_fields, [users, district] -- maps:keys(M), 'NotifyUsers'}, M, Path);
 v_msg_NotifyUsers(X, Path, _TrUserData) -> mk_type_error({expected_msg, 'NotifyUsers'}, X, Path).
 
 -compile({nowarn_unused_function,v_msg_Notification/3}).
@@ -1690,7 +1702,7 @@ get_msg_defs() ->
        #{name => coordy, fnum => 3, rnum => 4, type => int32, occurrence => required, opts => []}]},
      {{msg, 'SickPing'}, [#{name => username, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []}]},
      {{msg, 'NrPeopleReply'}, [#{name => total, fnum => 2, rnum => 2, type => int32, occurrence => required, opts => []}]},
-     {{msg, 'NotifyUsers'}, [#{name => users, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []}]},
+     {{msg, 'NotifyUsers'}, [#{name => users, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []}, #{name => district, fnum => 2, rnum => 3, type => string, occurrence => required, opts => []}]},
      {{msg, 'Notification'}, [#{name => notification, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []}]},
      {{msg, 'PrivateNotificationsPort'}, [#{name => port, fnum => 1, rnum => 2, type => int32, occurrence => required, opts => []}]}].
 
@@ -1744,7 +1756,7 @@ find_msg_def('Location') ->
      #{name => coordy, fnum => 3, rnum => 4, type => int32, occurrence => required, opts => []}];
 find_msg_def('SickPing') -> [#{name => username, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []}];
 find_msg_def('NrPeopleReply') -> [#{name => total, fnum => 2, rnum => 2, type => int32, occurrence => required, opts => []}];
-find_msg_def('NotifyUsers') -> [#{name => users, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []}];
+find_msg_def('NotifyUsers') -> [#{name => users, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []}, #{name => district, fnum => 2, rnum => 3, type => string, occurrence => required, opts => []}];
 find_msg_def('Notification') -> [#{name => notification, fnum => 1, rnum => 2, type => string, occurrence => required, opts => []}];
 find_msg_def('PrivateNotificationsPort') -> [#{name => port, fnum => 1, rnum => 2, type => int32, occurrence => required, opts => []}];
 find_msg_def(_) -> error.
