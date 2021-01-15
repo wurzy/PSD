@@ -1,28 +1,37 @@
 package Client;
 
 import Protos.Messages.*;
+import TestServer.Server;
 
 import java.io.InputStream;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Arrays;
 
 public class ClientPrivateNotifier implements Runnable{
+    private ServerSocket ss;
     private Notifications notifications;
     private InputStream in;
     private Socket s;
     private volatile boolean run;
 
-    public ClientPrivateNotifier(Notifications notifications, Socket s) throws Exception{
+    public ClientPrivateNotifier(Notifications notifications, ServerSocket ss, int port){
         this.notifications = notifications;
-        this.in = s.getInputStream();
-        this.s = s;
+        this.ss = ss;
         this.run = true;
     }
 
     public void run() {
-        while(run) {
-            Message m = recvMsg();
-            notifications.add(m.getNotification().getNotification());
+        try{
+            this.s = ss.accept();
+            this.in = s.getInputStream();
+            while(run) {
+                Message m = recvMsg();
+                notifications.add(m.getNotification().getNotification());
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
         }
     }
 
