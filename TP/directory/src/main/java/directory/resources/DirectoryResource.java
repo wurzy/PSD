@@ -7,6 +7,7 @@ import directory.representations.UsersRepresentation;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.util.*;
 
 @Path("api")
@@ -33,7 +34,7 @@ public class DirectoryResource {
     }
 
     @POST
-    @Path("/districts/{id}")
+    @Path("/districts/{id}/users")
     public Response addUser(@PathParam("id") int id, PostUser user) {
         synchronized (this) {
             try {
@@ -46,9 +47,31 @@ public class DirectoryResource {
         }
     }
 
+    @DELETE
+    @Path("/districts/{id}/users/{user}")
+    public Response deleteUser(@PathParam("id") int id, @PathParam("user") String user) {
+        synchronized (this) {
+            try {
+                this.diretorio.deleteUser(id,user);
+                return Response.ok().build();
+            }
+            catch(IOException e1){
+                return invalidDistrict();
+            }
+            catch(InputMismatchException e2){
+                return invalidUser();
+            }
+        }
+    }
+
     private Response invalidDistrict(){
         return Response.status(404).entity("Não existe o distrito especificado.").build();
     }
+
+    private Response invalidUser(){
+        return Response.status(404).entity("Não existe o utilizador especificado.").build();
+    }
+
     public static class PostUser{
         @JsonProperty("coordx")
         public int coordx;

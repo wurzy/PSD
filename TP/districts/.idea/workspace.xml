@@ -8,12 +8,11 @@
       <change beforePath="$PROJECT_DIR$/../client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../directory/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../directory/src/main/java/directory/business/Directory.java" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/src/main/java/directory/business/Directory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../directory/src/main/java/directory/representations/InfectedRepresentation.java" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/src/main/java/directory/representations/InfectedRepresentation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../directory/src/main/java/directory/representations/UsersRepresentation.java" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/src/main/java/directory/representations/UsersRepresentation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../directory/src/main/java/directory/resources/DirectoryResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/src/main/java/directory/resources/DirectoryResource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/District/District.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/District/District.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/District/Notifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/District/Notifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Protos/MessageBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Protos/MessageBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../directory/target/classes/directory/business/Directory.class" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/target/classes/directory/business/Directory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../directory/target/classes/directory/resources/DirectoryResource$PostUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/target/classes/directory/resources/DirectoryResource$PostUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../directory/target/classes/directory/resources/DirectoryResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/target/classes/directory/resources/DirectoryResource.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -235,7 +234,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1610752367083" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1610755042004" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../directory" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -256,7 +255,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Broker">
+  <component name="RunManager" selected="Application.DistrictServer">
     <configuration name="Broker" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="District.Broker" />
       <module name="districts" />
@@ -346,12 +345,12 @@
       <workItem from="1610123290229" duration="5326000" />
       <workItem from="1610555467800" duration="16436000" />
       <workItem from="1610643106845" duration="6253000" />
-      <workItem from="1610733983715" duration="8664000" />
+      <workItem from="1610733983715" duration="9859000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="56643000" />
+    <option name="totallyTimeSpent" value="57838000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />

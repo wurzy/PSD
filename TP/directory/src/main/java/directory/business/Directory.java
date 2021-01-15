@@ -1,7 +1,9 @@
 package directory.business;
 
 import directory.resources.DirectoryResource.*;
+import jdk.internal.util.xml.impl.Input;
 
+import java.io.IOException;
 import java.util.*;
 
 public class Directory {
@@ -60,9 +62,16 @@ public class Directory {
     public void userUpdate(int district, PostUser user) throws Exception{
         District d = this.districts.get(district);
         if(d==null) throw new Exception();
-        if(d.userExists(user.user)){
+        if(!d.userExists(user.user)){
             d.addUser(user.user);
         }
         d.addCoord(user.user,new Point(user.coordx,user.coordy));
+    }
+
+    public void deleteUser(int district, String user) throws IOException,InputMismatchException {
+        District d = this.districts.get(district);
+        if(d==null) throw new IOException();
+        if(!d.userExists(user)) throw new InputMismatchException();
+        d.removeUser(user);
     }
 }
