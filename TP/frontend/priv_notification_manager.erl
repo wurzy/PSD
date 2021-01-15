@@ -13,7 +13,7 @@ bind(Port) ->
         X ->
             io:format("Unhandled reply for bind ~p \n", [X])
     end,
-    loop(DistSocket).
+    register(?MODULE, spawn(fun() -> loop(DistSocket) end)).
 
 loop(Socket) ->
     {ok, Data} = chumak:recv(Socket),
