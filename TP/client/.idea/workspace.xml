@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="bb5be85e-e654-444e-86a8-2797a42a1463" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Client/ClientPrivateNotifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Client/ClientPrivateNotifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Client/ClientWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Client/ClientWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../districts/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/district_manager.erl" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/district_manager.erl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
