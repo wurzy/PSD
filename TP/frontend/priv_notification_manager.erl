@@ -7,11 +7,11 @@ bind(Port) ->
 
     case chumak:bind(DistSocket, tcp, "localhost", Port) of
         {ok, _BindPid} ->
-            io:format("Binding OK with Pid: ~p\n", [DistSocket]);
+            io:format("Binded districts notification socket to: ~p.\n", [DistSocket]);
         {error, Reason} ->
-            io:format("Connection Failed for this reason: ~p\n", [Reason]);
+            io:format("Failed to bind districts notification socket: ~p.\n", [Reason]);
         X ->
-            io:format("Unhandled reply for bind ~p \n", [X])
+            io:format("Unhandled reply for bind: ~p.\n", [X])
     end,
     register(?MODULE, spawn(fun() -> loop(DistSocket) end)).
 
@@ -21,8 +21,10 @@ loop(Socket) ->
     case maps:get(type, Msg) of
         'NOTIFY_USERS' ->
             MsgBody = maps:get(notifyUsers, Msg),
-            District = maps:get(district, MsgBody),
+            District = erlang:list_to_atom(maps:get(district, MsgBody)),
             Usernames = string:split(maps:get(users, MsgBody), ",", all),
-            district_manager ! {notify_users, District, Usernames}
+            district_manager ! {notify_users, District, Usernames};
+        _ ->
+            io:fwrite("Received unexpected message from district server: ~p.\n", [Msg])
     end,
     loop(Socket).

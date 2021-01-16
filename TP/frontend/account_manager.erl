@@ -24,7 +24,6 @@ sick(Username) ->
 
 % Accounts = Map{Username => {Password, District, logged_flag, sick_flag}}
 loop(Accounts) ->
-    io:fwrite("Client state: ~p.\n", [Accounts]),
     receive
         {{signup,Username,Password,District},From} ->
             case maps:find(Username,Accounts) of 
@@ -41,16 +40,16 @@ loop(Accounts) ->
                     From ! {?MODULE, {ok, District}},
                     loop(maps:update(Username,{Password,District,true,false},Accounts));
                 {ok, {Password,_,false,true}} -> 
-                    From ! {?MODULE, {error, "Can't login while quarantined."}},
+                    From ! {?MODULE, {error, quarantined, "Não pode entrar enquanto estiver em quarentena"}},
                     loop(Accounts);
                 {ok, {Password,_,true,_}} -> 
-                    From ! {?MODULE, {error, "User already logged in."}},
+                    From ! {?MODULE, {error, login_status, "Já está alguém nesta conta"}},
                     loop(Accounts);
                 {ok, _} -> 
-                    From ! {?MODULE, {error, "Wrong password."}},
+                    From ! {?MODULE, {error, wrong_password, "Password errada"}},
                     loop(Accounts);
                 _ -> 
-                    From ! {?MODULE, {error, "Username doesn't exist."}},
+                    From ! {?MODULE, {error, wrong_username, "Username não existe"}},
                     loop(Accounts)
             end;
         {{logout,Username},From} ->
@@ -59,7 +58,7 @@ loop(Accounts) ->
                     From ! {?MODULE, ok},
                     loop(maps:update(Username,{Password,District,false,SickFlag},Accounts));
                 _ -> % à partida nunca acontece
-                    From ! {?MODULE, {error, "Error logging out."}},
+                    From ! {?MODULE, {error, "Erro ao dar logout"}},
                     loop(Accounts)
             end;
         {{sick,Username},From} ->
@@ -68,7 +67,7 @@ loop(Accounts) ->
                     From ! {?MODULE, ok},
                     loop(maps:update(Username,{Password,District,false,true},Accounts));
                 _ -> % à partida nunca acontece
-                    From ! {?MODULE, {error, "Error flagging client as sick."}},
+                    From ! {?MODULE, {error, "Não foi possível sinalizar o utilizador"}},
                     loop(Accounts)
             end
     end.

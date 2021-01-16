@@ -2,7 +2,7 @@
 
 -export([start/0, verifyDistrict/1, countPeopleInLocation/3]).
 
-start() -> 
+start() ->
     Districts = #{
         %aveiro => {element(2,gen_tcp:connect("localhost", 8100, [binary, {packet, 0}])), #{}},
         %beja => {element(2,gen_tcp:connect("localhost", 8101, [binary, {packet, 0}])), #{}},
@@ -23,7 +23,7 @@ start() ->
         %vila_real => {element(2,gen_tcp:connect("localhost", 8116, [binary, {packet, 0}])), #{}},
         %viseu => {element(2,gen_tcp:connect("localhost", 8117, [binary, {packet, 0}])), #{}}
     },
-    io:fwrite("Districts list: ~p\n", [Districts]),
+    io:fwrite("Districts: ~p\n", [Districts]),
     register(?MODULE, spawn(fun() -> loop(Districts) end)).
 
 rpc(Request) ->
@@ -68,20 +68,20 @@ loop(Districts) ->
         {register_user, District, Username, Port} ->
             {ok, NotifSocket} = gen_tcp:connect("localhost", Port, [binary, {packet, 0}, {active, false}, {reuseaddr, true}]),
             {DistSocket,Users} = maps:get(District,Districts),
-            NewUsers = maps:put(Username,Port,Users),
-            io:fwrite("Connected to private notification socket. ~p ~p\n", [Username, NotifSocket]),
+            NewUsers = maps:put(Username,NotifSocket,Users),
+            io:fwrite("Connected to user notification socket: ~p ~p.\n", [Username, NotifSocket]),
             loop(maps:update(District,{DistSocket,NewUsers},Districts));
         
         {location, District, Username, Location} ->
             {DistSocket,_} = maps:get(District,Districts),
-            io:fwrite("Dist ~p User ~p Location ~p\n", [District, Username, Location]),
             response_manager:sendUserLocation(DistSocket,Username,Location),
-            io:fwrite("Sent new location to district server. ~p ~p\n", [Username, District]),
+            io:fwrite("Sent new location to district server: ~p ~p ~p.\n", [Username, District,Location]),
             loop(Districts);
 
         {sick_user, District, Username} ->
             {DistSocket,_} = maps:get(District,Districts),
             response_manager:sendSickPing(DistSocket,Username),
+            io:fwrite("Flagged sick user: ~p ~p\n", [Username, District]),
             loop(Districts);
 
         {{nr_people, District, X, Y}, From} ->
@@ -95,6 +95,7 @@ loop(Districts) ->
 
         {notify_users, District, Usernames} ->
             {_,UserSockets} = maps:get(District,Districts),
+            io:fwrite("Notifying possibly infected users: ~p.\n", [Usernames]),
             notify_loop(Usernames, UserSockets),
             loop(Districts);
 
@@ -102,10 +103,11 @@ loop(Districts) ->
             {DistSocket,Users} = maps:get(District,Districts),
             NotifSocket = maps:get(Username,Users),
             gen_tcp:close(NotifSocket),
+            io:fwrite("Closed user notification socket: ~p ~p.\n", [Username, NotifSocket]),
             loop(maps:update(District,{DistSocket,maps:remove(Username,Users)},Districts))
     end.
 
-notify_loop([], _) -> notified_users;
+notify_loop([], _) -> io:fwrite("Users notified\n");
 notify_loop([Username|T], UserSockets) ->
     Sock = maps:get(Username,UserSockets),
     response_manager:sendInfectionWarning(Sock),

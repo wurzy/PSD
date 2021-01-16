@@ -166,13 +166,14 @@ public class ClientWriter implements Runnable{
 
     private void subscribe(){
         if(notif.canAdd()){
+            notif.printChoices();
             String dist = menu.readString("Insira o distrito que pretende subscrever: ");
             if(notif.maybeAdd(dist)) {
-                System.out.println("Adicionado o distrito " + dist + " às subscrições.");
-                sub.subscribe("[" + dist + "]");
+                System.out.println("Adicionado o distrito " + notif.getDistrictByNumber(dist) + " às subscrições.");
+                sub.subscribe("[" + notif.getDistrictByNumber(dist) + "]");
             }
             else {
-                System.out.println("O distrito " + dist + " já está subscrito.");
+                System.out.println("O distrito " + notif.getDistrictByNumber(dist) + " já está subscrito.");
             }
         }
         else {
@@ -184,15 +185,15 @@ public class ClientWriter implements Runnable{
     }
 
     private void unsubscribe(){
-        System.out.println("Distritos atuais: ");
+        System.out.println("Distritos subscritos: ");
         notif.printSubscribed();
         String dist = menu.readString("Insira o distrito que pretende remover: ");
         if(notif.maybeRemove(dist)){
-            System.out.println("Removido o distrito " + dist + " das subscrições.");
+            System.out.println("Removido o distrito " + notif.getDistrictByNumber(dist) + " das subscrições.");
             sub.unsubscribe("[" + dist + "]");
         }
         else {
-            System.out.println("O distrito " + dist + " não está subscrito.");
+            System.out.println("O distrito " + notif.getDistrictByNumber(dist) + " não está subscrito.");
         }
         softConfirm();
         menu.setState(Menu.State.LOGGED);

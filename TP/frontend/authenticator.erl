@@ -3,7 +3,7 @@
 -export([authentication/1]).
 
 % ÁREA NÃO AUTENTICADA
-% Processa pedidos de registo e login
+% processa pedidos de registo e login
 
 % à espera de pedidos de autenticação do user
 authentication(Socket) ->
@@ -11,15 +11,14 @@ authentication(Socket) ->
         {tcp, Socket, Bin} ->
             inet:setopts(Socket, [{active, once}]),
             Msg = messages:decode_msg(Bin,'Message'),
-            io:fwrite("Message: ~p\n", [Msg]),
             case maps:get(type,Msg) of
                 'REGISTER' -> registerHandler(Socket, maps:get(register,Msg));
                 'LOGIN' -> loginHandler(Socket, maps:get(login,Msg));
                 _ ->
-                    response_manager:sendResponse(Socket,false,"Invalid request, please signup or login first."),
+                    response_manager:sendResponse(Socket,false,"Pedido inválido, registe-se ou entre na sua conta primeiro"),
                     authentication(Socket)
             end;
-        _ -> %{tcp_closed, _} e {tcp_error, _, _} -> fim do processo do cliente antes de estar autenticado
+        _ -> % fim do processo do cliente antes de estar autenticado
             bye
     end.
 
@@ -32,36 +31,41 @@ registerHandler(Socket, Data) ->
     Username = maps:get(username, Data),
     Password = maps:get(password, Data),
     DistrictCode = erlang:list_to_atom(maps:get(district, Data)),
-    io:fwrite("Register request: ~p ~p ~p\n", [Username, Password, DistrictCode]),
+    io:fwrite("\nREGISTER REQ: ~p ~p ~p.\n", [Username, Password, DistrictCode]),
     case district_manager:verifyDistrict(DistrictCode) of
         {ok, District} ->
             case account_manager:signup(Username, Password, District) of
                 ok ->
-                    io:fwrite("Successfully registered: ~p ~p ~p\n", [Username, Password, District]),
-                    response_manager:sendResponse(Socket,true,"Successfully registered."),
+                    io:fwrite("Registered user: ~p ~p ~p.\n", [Username, Password, District]),
+                    response_manager:sendResponse(Socket,true,"Registado com sucesso"),
                     authentication(Socket);
                 _ ->
-                    io:fwrite("Username already taken: ~p\n", [Username]),
-                    response_manager:sendResponse(Socket,false,"Username already taken."),
+                    io:fwrite("Username already taken: ~p.\n", [Username]),
+                    response_manager:sendResponse(Socket,false,"Username não disponível"),
                     authentication(Socket)
             end;
         invalid ->
-            io:fwrite("Invalid district: ~p\n", [Username]),
-            response_manager:sendResponse(Socket,false,"Invalid district."),
+            io:fwrite("Invalid district: ~p\n.", [Username]),
+            response_manager:sendResponse(Socket,false,"Distrito inválido"),
             authentication(Socket)
     end.
 
 loginHandler(Socket, Data) ->
     Username = maps:get(username, Data),
     Password = maps:get(password, Data),
-    io:fwrite("Login request: ~p ~p\n", [Username, Password]),
+    io:fwrite("\nLOGIN REQ: ~p ~p.\n", [Username, Password]),
     case account_manager:login(Username, Password) of
         {ok, District} ->
-            io:fwrite("Successfully logged in. ~p ~p\n", [Username, Password]),
-            response_manager:sendResponse(Socket,true,"Successfully logged in."),
+            io:fwrite("Logged in user: ~p ~p.\n", [Username, Password]),
+            response_manager:sendResponse(Socket,true,"Bem-vindo"),
             client_manager:loop(Socket,Username,District);
-        {error, ErrorMsg} ->
-            io:fwrite("~p ~p\n", [ErrorMsg, Username]),
+        {error, TypeError, ErrorMsg} ->
+            case TypeError of
+                quarantined -> io:fwrite("Can't login while quarantined: ~p.\n", [Username]);
+                login_status -> io:fwrite("User already logged in: ~p.\n", [Username]);
+                wrong_password -> io:fwrite("Wrong password: ~p.\n", [Username]);
+                wrong_username -> io:fwrite("Username doesn't exist: ~p.\n", [Username])
+            end,
             response_manager:sendResponse(Socket,false,ErrorMsg),
             authentication(Socket)
     end.

@@ -38,7 +38,7 @@ public class Menu {
                         "| 2 - Nº Pessoas numa Localização                 |\n" +
                         "| 3 - Ler Notificações                            |\n" +
                         "| 4 - Subscrever Distrito                         |\n" +
-                        "| 5 - Retirar Subscrição                          |\n" +
+                        "| 5 - Anular Subscrição                           |\n" +
                         "| 0 - Logout                                      |\n" +
                         "+ ------------------------------------------------+\n");
                 break;

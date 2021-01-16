@@ -20,6 +20,8 @@ public class Notifications {
                 "Porto","Santarém","Setúbal","Viana do Castelo","Vila Real","Viseu");
     }
 
+    public synchronized String getDistrictByNumber(String s) { return districts.get(Integer.parseInt(s)-1); }
+
     public synchronized void add(String s){
         notifications.add(s);
     }
@@ -41,14 +43,12 @@ public class Notifications {
     }
 
     public synchronized void printSubscribed(){
-        int i = 1;
         for(String s: subscriptions){
-            System.out.println(i++ + " - " + s);
+            System.out.println(s + " - " + districts.get(Integer.parseInt(s)-1));
         }
     }
 
     public synchronized void printChoices(){
-        System.out.println();
         System.out.println("Distritos disponíveis: ");
         int i = 1;
         for(String s: districts){

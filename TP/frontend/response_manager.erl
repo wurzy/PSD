@@ -22,5 +22,5 @@ sendLocationToCountPeople(Socket,X,Y) ->
 
 sendInfectionWarning(Socket) ->
     Warning = "Esteve em contacto com um utilizador que está doente!",
-    Msg = messages:encode_msg(#{type=>' NOTIFICATION', notification => #{notification=>Warning}}, 'Message'),
+    Msg = messages:encode_msg(#{type=>'NOTIFICATION', notification => #{notification=>Warning}}, 'Message'),
     gen_tcp:send(Socket,Msg).

@@ -13,7 +13,7 @@ start(Port1,Port2) ->
 % processo em loop a aceitar novas conexões, cria um processo por cada socket (cliente) que se conecta
 client_acceptor(LSock) ->
     {ok, Sock} = gen_tcp:accept(LSock),
-    io:fwrite("Connected client socket: ~p.\n", [Sock]),
+    io:fwrite("\nConnected client socket: ~p.\n", [Sock]),
     spawn(fun() -> client_acceptor(LSock) end),
     gen_tcp:controlling_process(Sock, self()),
     authenticator:authentication(Sock).

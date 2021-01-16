@@ -6,105 +6,56 @@
   <component name="ChangeListManager">
     <list default="true" id="bb5be85e-e654-444e-86a8-2797a42a1463" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../directory/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../directory/src/main/java/directory/business/Directory.java" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/src/main/java/directory/business/Directory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../directory/src/main/java/directory/resources/DirectoryResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/src/main/java/directory/resources/DirectoryResource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../directory/target/classes/directory/business/Directory.class" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/target/classes/directory/business/Directory.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../directory/target/classes/directory/resources/DirectoryResource$PostUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/target/classes/directory/resources/DirectoryResource$PostUser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../directory/target/classes/directory/resources/DirectoryResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/target/classes/directory/resources/DirectoryResource.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Client/ClientWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Client/ClientWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Client/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Client/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Client/Notifications.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Client/Notifications.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Notification$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Notification$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Notification$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Notification$Builder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Notification.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Notification.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsers$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsers$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsers$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsers$Builder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsers.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsers.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsersOrBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsersOrBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$PrivateNotificationsPort$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$PrivateNotificationsPort$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$PrivateNotificationsPort$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$PrivateNotificationsPort$Builder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$PrivateNotificationsPort.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$PrivateNotificationsPort.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../districts/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/District/District.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/District/District.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/District/Notifier.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/District/Notifier.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/MessageBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/Protos/MessageBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Notification$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Notification$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Notification$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Notification$Builder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Notification.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Notification.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$NotifyUsers$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$NotifyUsers$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$NotifyUsers$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$NotifyUsers$Builder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$NotifyUsers.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$NotifyUsers.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$NotifyUsersOrBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$NotifyUsersOrBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$PrivateNotificationsPort$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$PrivateNotificationsPort$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$PrivateNotificationsPort$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$PrivateNotificationsPort$Builder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$PrivateNotificationsPort.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$PrivateNotificationsPort.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/account_manager.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/account_manager.beam" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/account_manager.erl" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/account_manager.erl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/authenticator.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/authenticator.beam" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/authenticator.erl" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/authenticator.erl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/client_manager.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/client_manager.beam" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/client_manager.erl" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/client_manager.erl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/district_manager.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/district_manager.beam" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/district_manager.erl" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/district_manager.erl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/old/district_manager.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/old/district_manager.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/priv_notification_manager.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/priv_notification_manager.beam" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/priv_notification_manager.erl" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/priv_notification_manager.erl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/response_manager.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/response_manager.beam" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/response_manager.erl" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/response_manager.erl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/server.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/server.beam" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/server.erl" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/server.erl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Client/Client.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="13" column="45" lean-forward="true" selection-start-line="13" selection-start-column="45" selection-end-line="13" selection-end-column="45" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Client/ClientWriter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1863">
-              <caret line="90" column="42" lean-forward="true" selection-start-line="90" selection-start-column="42" selection-end-line="90" selection-end-column="42" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Client/Notifications.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="16" selection-start-line="16" selection-end-line="20" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Client/ClientPrivateNotifier.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Client/Menu.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1518">
-              <caret line="70" column="47" selection-start-line="70" selection-start-column="47" selection-end-line="70" selection-end-column="47" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Protos/MessageBuilder.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="759">
-              <caret line="39" selection-start-line="39" selection-end-line="39" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1148#1149#0" expanded="true" />
-                <element signature="e#1218#1219#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Client/Randomizer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="759">
-              <caret line="39" selection-start-line="39" selection-end-line="39" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -264,23 +215,11 @@
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
   <component name="RunManager" selected="Application.Client">
-    <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Client" />
+    <configuration name="Client" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Client.Client" />
       <module name="client" />
-      <option name="PROGRAM_PARAMETERS" value="12345 12346 8000" />
+      <option name="PROGRAM_PARAMETERS" value="12345 12348 8000" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -368,12 +307,11 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.Server" />
       <item itemvalue="Application.Client" />
+      <item itemvalue="Application.Server" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Client" />
         <item itemvalue="Application.Client" />
         <item itemvalue="Application.Client" />
         <item itemvalue="Application.Client" />
