@@ -20,11 +20,13 @@ class Point {
 
 public class District {
     private HashMap<String,ArrayList<Point>> users;
+    private HashMap<String,Boolean> sick;
     private int total;
     private int infected;
 
     public District(){
         this.users = new HashMap<>();
+        this.sick = new HashMap<>();
         this.total = 0;
         this.infected = 0;
     }
@@ -41,8 +43,14 @@ public class District {
         this.infected++;
     }
 
+    public void sick(String user){
+        this.sick.put(user,true);
+        incrementInfected();
+    }
+
     public void addUser(String user){
         this.total++;
+        this.sick.put(user,false);
         this.users.put(user,new ArrayList<>());
     }
 

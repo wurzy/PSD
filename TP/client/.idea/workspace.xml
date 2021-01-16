@@ -8,6 +8,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../directory/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../directory/src/main/java/directory/business/Directory.java" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/src/main/java/directory/business/Directory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../directory/src/main/java/directory/business/District.java" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/src/main/java/directory/business/District.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../directory/src/main/java/directory/representations/InfectedRepresentation.java" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/src/main/java/directory/representations/InfectedRepresentation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../directory/src/main/java/directory/representations/UsersRepresentation.java" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/src/main/java/directory/representations/UsersRepresentation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../directory/src/main/java/directory/resources/DirectoryResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/src/main/java/directory/resources/DirectoryResource.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../directory/target/classes/directory/business/Directory.class" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/target/classes/directory/business/Directory.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../directory/target/classes/directory/resources/DirectoryResource$PostUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/target/classes/directory/resources/DirectoryResource$PostUser.class" afterDir="false" />
@@ -253,7 +256,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1610755152790" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1610756662867" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />

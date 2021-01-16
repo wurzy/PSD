@@ -11,11 +11,11 @@ Autenticaçao:
 Informar o serviço da localizaçao atual
 
 Diretorio:
-- PUT /$district DATA: user, location
-- DELETE /$district/user
-- GET /$district/users -----> Query 1
-- PUT /$district/infected DATA: user
-- GET /$district/infected ----> Query 2
+- PUT /$district DATA: user, location [DONE]
+- DELETE /$district/user [DONE]
+- GET /$district/users -----> Query 1 [DONE]
+- PUT /$district/infected DATA: user  [DONE]
+- GET /$district/infected ----> Query 2 [DONE]
 - GET /$district/top5infected ----> Query 3
 - GET /$district/top5locations -----> Query 4
 - GET /$district/average -----> Query 5

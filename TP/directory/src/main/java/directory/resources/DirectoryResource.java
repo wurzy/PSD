@@ -1,13 +1,14 @@
 package directory.resources;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sun.media.sound.InvalidDataException;
 import directory.business.*;
+import directory.representations.InfectedRepresentation;
 import directory.representations.UsersRepresentation;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.io.IOException;
 import java.util.*;
 
 @Path("api")
@@ -26,6 +27,21 @@ public class DirectoryResource {
             try{
                 int t = this.diretorio.getNumberOfUsers(dist);
                 return new UsersRepresentation(diretorio.getNameOfDistrict(dist),t);
+            }
+            catch(Exception e){
+                return null;
+            }
+        }
+    }
+
+    @GET
+    @Path("/districts/{id}/infected")
+    @Produces(MediaType.APPLICATION_JSON)
+    public InfectedRepresentation getInfected(@PathParam("id") int dist) {
+        synchronized (this){
+            try{
+                int t = this.diretorio.getNumberOfInfected(dist);
+                return new InfectedRepresentation(diretorio.getNameOfDistrict(dist),t);
             }
             catch(Exception e){
                 return null;
@@ -55,7 +71,24 @@ public class DirectoryResource {
                 this.diretorio.deleteUser(id,user);
                 return Response.ok().build();
             }
-            catch(IOException e1){
+            catch(InvalidDataException e1){
+                return invalidDistrict();
+            }
+            catch(InputMismatchException e2){
+                return invalidUser();
+            }
+        }
+    }
+
+    @PUT
+    @Path("/districts/{id}/infected/{user}")
+    public Response userInfected(@PathParam("id") int id, @PathParam("user") String user) {
+        synchronized (this) {
+            try {
+                this.diretorio.infectedUser(id,user);
+                return Response.ok().build();
+            }
+            catch(InvalidDataException e1){
                 return invalidDistrict();
             }
             catch(InputMismatchException e2){
