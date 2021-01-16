@@ -1,9 +1,8 @@
 package directory.business;
 
+import com.sun.media.sound.InvalidDataException;
 import directory.resources.DirectoryResource.*;
-import jdk.internal.util.xml.impl.Input;
 
-import java.io.IOException;
 import java.util.*;
 
 public class Directory {
@@ -55,6 +54,12 @@ public class Directory {
         return d.getNumberOfUsers();
     }
 
+    public int getNumberOfInfected(int district) throws Exception{
+        District d = this.districts.get(district);
+        if(d==null) throw new Exception();
+        return d.getNumberOfInfected();
+    }
+
     public String getNameOfDistrict(int id){
         return this.distNames.get(id);
     }
@@ -68,10 +73,17 @@ public class Directory {
         d.addCoord(user.user,new Point(user.coordx,user.coordy));
     }
 
-    public void deleteUser(int district, String user) throws IOException,InputMismatchException {
+    public void deleteUser(int district, String user) throws InvalidDataException,InputMismatchException {
         District d = this.districts.get(district);
-        if(d==null) throw new IOException();
+        if(d==null) throw new InvalidDataException();
         if(!d.userExists(user)) throw new InputMismatchException();
         d.removeUser(user);
+    }
+
+    public void infectedUser(int district, String user) throws InvalidDataException,InputMismatchException{
+        District d = this.districts.get(district);
+        if(d==null) throw new InvalidDataException();
+        if(!d.userExists(user)) throw new InputMismatchException();
+        d.sick(user);
     }
 }
