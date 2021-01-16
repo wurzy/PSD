@@ -86,4 +86,10 @@ public class Directory {
         if(!d.userExists(user)) throw new InputMismatchException();
         d.sick(user);
     }
+
+    public double getContactedInfectedAvg(){
+        for(){
+
+        }
+    }
 }
