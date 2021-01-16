@@ -88,8 +88,12 @@ public class Directory {
     }
 
     public double getContactedInfectedAvg(){
-        for(){
-
-        }
+        double avg = 0;
+        //for(Map.Entry<Integer,District> dists: this.districts.entrySet()){
+        //    District d = dists.getValue();
+        //}
+        District d = this.districts.get(3);
+        d.getContactedInfected();
+        return avg;
     }
 }

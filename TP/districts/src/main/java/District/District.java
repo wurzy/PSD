@@ -58,6 +58,11 @@ public class District{
     }
 
     public synchronized void deleteUser(String user){
+        Point p = getCurrentLocation(user);
+        if (p!=null) {
+            int x = this.concentration.get(p.toString());
+            this.concentration.put(p.toString(),--x); 
+        }
         this.userCoords.remove(user);
     }
 
