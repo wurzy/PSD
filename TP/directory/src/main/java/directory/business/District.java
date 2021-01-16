@@ -23,18 +23,23 @@ class Point {
 }
 
 public class District {
+    private String name;
     private HashMap<String,ArrayList<Point>> users;
     private HashMap<String,Boolean> sick;
     private int total;
     private int infected;
 
-    public District(){
+    public District(String name){
+        this.name = name;
         this.users = new HashMap<>();
         this.sick = new HashMap<>();
         this.total = 0;
         this.infected = 0;
     }
 
+    public String getName(){
+        return this.name;
+    }
     public int getNumberOfUsers(){
         return this.users.size();
     }
@@ -75,9 +80,34 @@ public class District {
     }
 
     public int getContactedInfected(){
+        ArrayList<Point> novo = new ArrayList<>(Arrays.asList(new Point(1   ,2), new Point(2,0), new Point(2,2), new Point(0,0)));
+        //ArrayList<Point> novo = new ArrayList<>();
+        ArrayList<Point> novo2 = new ArrayList<>(Arrays.asList(new Point(1,1), new Point(0,0)));
+        //ArrayList<Point> novo2 = new ArrayList<>();
+        ArrayList<Point> novo3 = new ArrayList<>(Arrays.asList(new Point(2,0), new Point(3,2), new Point(1,1)));
+        //ArrayList<Point> novo3 = new ArrayList<>();
 
+        addUser("1");
+        addUser("2");
+        addUser("3");
+
+        this.users.put("1",novo);
+        this.users.put("2",novo2);
+        this.users.put("3",novo3);
+
+        this.sick.put("3",true);
+
+        TreeSet<String> inf = new TreeSet<>();
+        getInfectedUsers().forEach((infected,history) -> {
+            getAllExcept(infected).forEach((key,value) -> {
+                if(anyInCommon(history,value)){
+                    inf.add(key);
+                }
+            });
+        });
+        return inf.size();
     }
-
+/*
     public int getContactedInfected2(){
         ArrayList<Point> novo = new ArrayList<>(Arrays.asList(new Point(1   ,2), new Point(2,0), new Point(2,2), new Point(0,0)));
         //ArrayList<Point> novo = new ArrayList<>();
@@ -129,14 +159,38 @@ public class District {
                         Collectors.toMap(p -> p,p -> 1, (left, right) -> right, HashMap::new)
                 );
     }
-
-    private ArrayList<String> getInfectedUsers(){
+*/
+    private HashMap<String, ArrayList<Point>> getInfectedUsers(){
         return this.sick.entrySet()
                 .stream()
                 .filter(Map.Entry::getValue)
                 .map(Map.Entry::getKey)
                 .collect(
-                        Collectors.toCollection(ArrayList::new)
+                        Collectors.toMap(p -> p, this::getHistory, (left, right) -> right, HashMap::new)
+                );
+    }
+
+    private ArrayList<Point> getHistory(String user){
+        return this.users.get(user);
+    }
+
+    private boolean anyInCommon(ArrayList<Point> l1, ArrayList<Point> l2){
+        for(Point p: l1){
+            for(Point p2: l2){
+                if(p2.equals(p))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    private HashMap<String,ArrayList<Point>> getAllExcept(String user){
+        return this.users
+                .entrySet()
+                .stream()
+                .filter(e -> !e.getKey().equals(user))
+                .collect(
+                        Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (left, right) -> right, HashMap::new)
                 );
     }
 
