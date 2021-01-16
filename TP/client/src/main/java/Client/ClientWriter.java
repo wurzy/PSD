@@ -210,8 +210,9 @@ public class ClientWriter implements Runnable{
 
     private void leave(){
         System.out.println("A sair...");
-        if(!locationPing.isInterrupted()) locationPing.interrupt();
+        if(locationPing!=null && !locationPing.isInterrupted()) locationPing.interrupt();
         try {
+            if(cpn!=null) cpn.stop();
             s.close();
         }
         catch(Exception e){
