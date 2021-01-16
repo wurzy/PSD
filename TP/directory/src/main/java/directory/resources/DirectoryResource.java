@@ -20,6 +20,14 @@ public class DirectoryResource {
     }
 
     @GET
+    @Path("/teste")
+    public void teste() {
+        synchronized (this){
+            diretorio.getContactedInfectedAvg();
+        }
+    }
+
+    @GET
     @Path("/districts/{id}/users")
     @Produces(MediaType.APPLICATION_JSON)
     public UsersRepresentation getUsers(@PathParam("id") int dist) {
