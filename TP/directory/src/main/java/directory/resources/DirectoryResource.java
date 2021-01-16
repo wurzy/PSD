@@ -3,7 +3,9 @@ package directory.resources;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.media.sound.InvalidDataException;
 import directory.business.*;
+import directory.representations.AvgRepresentation;
 import directory.representations.InfectedRepresentation;
+import directory.representations.Top5InfectedRepresentation;
 import directory.representations.UsersRepresentation;
 
 import javax.ws.rs.*;
@@ -55,6 +57,30 @@ public class DirectoryResource {
                 return null;
             }
         }
+    }
+
+    @GET
+    @Path("/districts/avg")
+    @Produces(MediaType.APPLICATION_JSON)
+    public AvgRepresentation getContactedInfectedAvg() {
+        synchronized (this){
+            return new AvgRepresentation(this.diretorio.getContactedInfectedAvg());
+        }
+    }
+
+    @GET
+    @Path("/districts/top5infected")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArrayList<Top5InfectedRepresentation> getTop5Infected() {
+        ArrayList<Top5InfectedRepresentation> al = new ArrayList<>();
+        synchronized (this){
+            LinkedHashMap<String,Double> lhm = this.diretorio.getTop5Infected();
+            System.out.println(lhm);
+            for(Map.Entry<String,Double> entry : lhm.entrySet()){
+                al.add(new Top5InfectedRepresentation(entry.getKey(),entry.getValue()));
+            }
+        }
+        return al;
     }
 
     @POST

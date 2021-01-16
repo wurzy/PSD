@@ -4,6 +4,7 @@ import com.sun.media.sound.InvalidDataException;
 import directory.resources.DirectoryResource.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Directory {
 
@@ -24,10 +25,6 @@ public class Directory {
         this.districts = new HashMap<>();
         this.distNames = new HashMap<>();
 
-        for(int i = 1; i < 19; i++){
-            this.districts.put(i,new District());
-        }
-
         this.distNames.put(1,"Aveiro");
         this.distNames.put(2,"Beja");
         this.distNames.put(3,"Braga");
@@ -46,6 +43,10 @@ public class Directory {
         this.distNames.put(16,"Viana do Castelo");
         this.distNames.put(17,"Vila Real");
         this.distNames.put(18,"Viseu");
+
+        for(int i = 1; i < 19; i++){
+            this.districts.put(i,new District(this.distNames.get(i)));
+        }
     }
 
     public int getNumberOfUsers(int district) throws Exception{
@@ -89,11 +90,41 @@ public class Directory {
 
     public double getContactedInfectedAvg(){
         double avg = 0;
-        //for(Map.Entry<Integer,District> dists: this.districts.entrySet()){
-        //    District d = dists.getValue();
-        //}
-        District d = this.districts.get(3);
-        d.getContactedInfected();
-        return avg;
+        for(Map.Entry<Integer,District> dists: this.districts.entrySet()){
+            District d = dists.getValue();
+            avg +=  d.getContactedInfected();
+        }
+        return avg/this.districts.size();
+    }
+
+    public LinkedHashMap<String,Double> getTop5Infected(){
+        HashMap<String, Double> map = new HashMap<>();
+        for(Map.Entry<Integer,District> dists: this.districts.entrySet()){
+            District d = dists.getValue();
+            testeInit(d);
+            map.put(d.getName(),d.getRatio());
+        }
+        return map.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .limit(5)
+                .collect(
+                        Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new)
+                );
+    }
+
+    private void testeInit(District d){
+        d.addUser("1");
+        d.addUser("2");
+        d.addUser("3");
+        d.addUser("4");
+        d.addUser("5");
+        d.addUser("6");
+        d.addUser("7");
+        Random r = new Random();
+        int x = r.nextInt(7);
+        for(int i = 0; i < x; i++){
+            d.sick(String.valueOf(i+1));
+        }
     }
 }
