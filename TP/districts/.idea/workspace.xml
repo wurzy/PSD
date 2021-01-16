@@ -6,20 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="24c55760-3597-4ce4-a165-e85f5369ad98" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/main/java/Client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/main/java/Client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/main/java/Client/ClientPrivateNotifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/main/java/Client/ClientPrivateNotifier.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../client/src/main/java/Client/ClientWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/main/java/Client/ClientWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/main/java/Client/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/main/java/Client/Menu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/main/java/Client/Notifications.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/main/java/Client/Notifications.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/../client/target/classes/Client/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/ClientPrivateNotifier.class" beforeDir="false" afterPath="$PROJECT_DIR$/../client/target/classes/Client/ClientPrivateNotifier.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/ClientWriter$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../client/target/classes/Client/ClientWriter$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/ClientWriter.class" beforeDir="false" afterPath="$PROJECT_DIR$/../client/target/classes/Client/ClientWriter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/Menu.class" beforeDir="false" afterPath="$PROJECT_DIR$/../client/target/classes/Client/Menu.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/Notifications.class" beforeDir="false" afterPath="$PROJECT_DIR$/../client/target/classes/Client/Notifications.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../directory/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/District/Notifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/District/Notifier.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -113,7 +102,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="width" value="1920" />
     <option name="height" value="1080" />
   </component>
@@ -194,7 +183,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1610819036769" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1610820585197" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -314,7 +303,7 @@
     <option name="totallyTimeSpent" value="61382000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26119402" />

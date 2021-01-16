@@ -140,6 +140,7 @@ public class ClientWriter implements Runnable{
     }
 
     private void sick() throws Exception{
+        locationPing.interrupt();
         MessageBuilder.send(MessageBuilder.sick(),out);
 
         Message rep = getReply();
