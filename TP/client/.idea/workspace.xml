@@ -6,51 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="bb5be85e-e654-444e-86a8-2797a42a1463" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Client/ClientWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Client/ClientWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Client/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Client/Menu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Client/Notifications.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Client/Notifications.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Notification$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Notification$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Notification$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Notification$Builder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Notification.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Notification.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsers$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsers$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsers$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsers$Builder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsers.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsers.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsersOrBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsersOrBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$PrivateNotificationsPort$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$PrivateNotificationsPort$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$PrivateNotificationsPort$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$PrivateNotificationsPort$Builder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$PrivateNotificationsPort.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$PrivateNotificationsPort.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../districts/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/target/classes/District/District.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/District/District.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/target/classes/District/Notifier.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/District/Notifier.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/MessageBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/Protos/MessageBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Notification$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Notification$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Notification$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Notification$Builder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Notification.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Notification.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$NotifyUsers$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$NotifyUsers$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$NotifyUsers$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$NotifyUsers$Builder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$NotifyUsers.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$NotifyUsers.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$NotifyUsersOrBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$NotifyUsersOrBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$PrivateNotificationsPort$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$PrivateNotificationsPort$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$PrivateNotificationsPort$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$PrivateNotificationsPort$Builder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$PrivateNotificationsPort.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$PrivateNotificationsPort.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/account_manager.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/account_manager.beam" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/account_manager.erl" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/account_manager.erl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/authenticator.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/authenticator.beam" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/authenticator.erl" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/authenticator.erl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/client_manager.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/client_manager.beam" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/client_manager.erl" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/client_manager.erl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/district_manager.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/district_manager.beam" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/district_manager.erl" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/district_manager.erl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/old/district_manager.beam" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/old/district_manager.erl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/priv_notification_manager.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/priv_notification_manager.beam" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/priv_notification_manager.erl" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/priv_notification_manager.erl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/response_manager.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/response_manager.beam" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/response_manager.erl" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/response_manager.erl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/server.beam" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/server.beam" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/server.erl" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/server.erl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

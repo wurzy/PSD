@@ -81,7 +81,7 @@ loop(Districts) ->
         {sick_user, District, Username} ->
             {DistSocket,_} = maps:get(District,Districts),
             response_manager:sendSickPing(DistSocket,Username),
-            io:fwrite("Flagged sick user: ~p ~p\n", [Username, District]),
+            io:fwrite("Flagged sick user: ~p ~p.\n", [Username, District]),
             loop(Districts);
 
         {{nr_people, District, X, Y}, From} ->
@@ -95,8 +95,13 @@ loop(Districts) ->
 
         {notify_users, District, Usernames} ->
             {_,UserSockets} = maps:get(District,Districts),
-            io:fwrite("Notifying possibly infected users: ~p.\n", [Usernames]),
-            notify_loop(Usernames, UserSockets),
+            case Usernames of
+                [""] -> 
+                    io:fwrite("No users possibly infected.\n");
+                _ ->
+                    io:fwrite("Notifying possibly infected users: ~p.\n", Usernames), 
+                    notify_loop(Usernames, UserSockets)
+            end,
             loop(Districts);
 
         {remove_user, District, Username} ->
@@ -107,7 +112,7 @@ loop(Districts) ->
             loop(maps:update(District,{DistSocket,maps:remove(Username,Users)},Districts))
     end.
 
-notify_loop([], _) -> io:fwrite("Users notified\n");
+notify_loop([], _) -> io:fwrite("Users notified.\n");
 notify_loop([Username|T], UserSockets) ->
     Sock = maps:get(Username,UserSockets),
     response_manager:sendInfectionWarning(Sock),
