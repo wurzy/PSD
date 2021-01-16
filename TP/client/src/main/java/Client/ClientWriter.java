@@ -52,6 +52,19 @@ public class ClientWriter implements Runnable{
         }
     }
 
+    private void showMenu() {
+        int waitingNotifs = cpn.getWaitingNotifs();
+        while (waitingNotifs > 0) {
+            System.out.print("*****************************************************\n" +
+                    "Esteve em contacto com um utilizador que está doente!" +
+                    "\n*****************************************************\n\n");
+            waitingNotifs--;
+        }
+        cpn.resetWaitingNotifs();
+        menu.show();
+        cpn.updateMenuState(true);
+    }
+
     private void parse(Integer choice) throws Exception {
         switch (menu.getState()) {
             case NOTLOGGED:
@@ -63,6 +76,7 @@ public class ClientWriter implements Runnable{
                     register();
                 break;
             case LOGGED:
+                cpn.updateMenuState(false);
                 if (choice == 0)
                     logout();
                 else if (choice == 1)
@@ -97,11 +111,12 @@ public class ClientWriter implements Runnable{
             this.locationPing = new Thread(new Randomizer(new Point(rand.nextInt(grid),rand.nextInt(grid)),grid,out)); // random start position on a N*N grid
             MessageBuilder.send(MessageBuilder.port(port),out);
             locationPing.start();
+            showMenu();
         }
         else {
             menu.setState(Menu.State.NOTLOGGED);
+            menu.show();
         }
-        menu.show();
     }
 
     private void register() throws Exception{
@@ -160,7 +175,7 @@ public class ClientWriter implements Runnable{
         confirm(rep);
 
         menu.setState(Menu.State.LOGGED);
-        menu.show();
+        showMenu();
     }
 
     private void notifications(){
@@ -168,7 +183,7 @@ public class ClientWriter implements Runnable{
 
         softConfirm();
         menu.setState(Menu.State.LOGGED);
-        menu.show();
+        showMenu();
     }
 
     private void subscribe(){
@@ -189,7 +204,7 @@ public class ClientWriter implements Runnable{
         }
         softConfirm();
         menu.setState(Menu.State.LOGGED);
-        menu.show();
+        showMenu();
     }
 
     private void unsubscribe(){
@@ -205,7 +220,7 @@ public class ClientWriter implements Runnable{
         }
         softConfirm();
         menu.setState(Menu.State.LOGGED);
-        menu.show();
+        showMenu();
     }
 
     private void leave(){

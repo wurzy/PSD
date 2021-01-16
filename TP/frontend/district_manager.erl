@@ -2,6 +2,8 @@
 
 -export([start/0, verifyDistrict/1, countPeopleInLocation/3]).
 
+% inicia o gestor de distritos e liga-se ao socket de cada servidor distrital
+% guarda os sockets num mapa com os nomes dos distritos
 start() ->
     Districts = #{
         %aveiro => {element(2,gen_tcp:connect("localhost", 8100, [binary, {packet, 0}])), #{}},
@@ -26,11 +28,13 @@ start() ->
     io:fwrite("Districts: ~p\n", [Districts]),
     register(?MODULE, spawn(fun() -> loop(Districts) end)).
 
+
 rpc(Request) ->
     ?MODULE ! {Request,self()},
     receive
         {?MODULE, Result} -> Result
     end.
+
 
 verifyDistrict(District) ->
     rpc({verify_district,District}).
@@ -38,10 +42,12 @@ verifyDistrict(District) ->
 countPeopleInLocation(District,X,Y) ->
     rpc({nr_people,District,X,Y}).
 
+
 % Districts -> #{district_name -> {district_socket, #{username -> notif_socket}}}
 loop(Districts) ->
     receive
-        {{verify_district, DistrictCode}, From} ->
+        % retorna o nome do distrito correspondente ao código recebido
+        {{verify_district, DistrictCode}, From} -> 
             case DistrictCode of
                 '1' -> From ! {?MODULE, {ok, aveiro}};
                 '2' -> From ! {?MODULE, {ok, beja}};
@@ -65,6 +71,7 @@ loop(Districts) ->
             end,
             loop(Districts);
 
+        % liga-se ao socket privado do cliente na porta dada e guarda o socket no mapa do respetivo distrito
         {register_user, District, Username, Port} ->
             {ok, NotifSocket} = gen_tcp:connect("localhost", Port, [binary, {packet, 0}, {active, false}, {reuseaddr, true}]),
             {DistSocket,Users} = maps:get(District,Districts),
@@ -72,18 +79,23 @@ loop(Districts) ->
             io:fwrite("Connected to user notification socket: ~p ~p.\n", [Username, NotifSocket]),
             loop(maps:update(District,{DistSocket,NewUsers},Districts));
         
+        % envia a nova localização do cliente para o respetivo servidor distrital
         {location, District, Username, Location} ->
             {DistSocket,_} = maps:get(District,Districts),
             response_manager:sendUserLocation(DistSocket,Username,Location),
             io:fwrite("Sent new location to district server: ~p ~p ~p.\n", [Username, District,Location]),
             loop(Districts);
 
+        % envia mensagem ao servidor distrital a avisar que o cliente está doente
+        % fecha o socket privado do cliente e apaga-o do mapa do distrito
         {sick_user, District, Username} ->
             {DistSocket,_} = maps:get(District,Districts),
             response_manager:sendSickPing(DistSocket,Username),
             io:fwrite("Flagged sick user: ~p ~p.\n", [Username, District]),
-            loop(Districts);
+            close_socket(Username,District,Districts);
 
+        % envia pedido ao servidor distrital para contar o nr de pessoas na localização dada
+        % recebe a contagem e envia-a para o client_manager para responder ao cliente
         {{nr_people, District, X, Y}, From} ->
             {DistSocket,_} = maps:get(District,Districts),
             response_manager:sendLocationToCountPeople(DistSocket,X,Y),
@@ -93,27 +105,35 @@ loop(Districts) ->
             From ! {?MODULE, {ok, Total}},
             loop(Districts);
 
+        % notifica todos os clientes que tenham estado em contacto com o cliente infetado
+        % envia-lhes mensagens pelos sockets privados
         {notify_users, District, Usernames} ->
             {_,UserSockets} = maps:get(District,Districts),
             case Usernames of
                 [""] -> 
-                    io:fwrite("No users possibly infected.\n");
+                    io:fwrite("No other users possibly infected.\n");
                 _ ->
-                    io:fwrite("Notifying possibly infected users: ~p.\n", Usernames), 
                     notify_loop(Usernames, UserSockets)
             end,
             loop(Districts);
 
+        % fecha o socket privado do cliente e apaga-o do mapa do distrito
         {remove_user, District, Username} ->
-            {DistSocket,Users} = maps:get(District,Districts),
-            NotifSocket = maps:get(Username,Users),
-            gen_tcp:close(NotifSocket),
-            io:fwrite("Closed user notification socket: ~p ~p.\n", [Username, NotifSocket]),
-            loop(maps:update(District,{DistSocket,maps:remove(Username,Users)},Districts))
+            close_socket(Username,District,Districts)
     end.
 
+% fecha o socket de notificações privadas do cliente
+close_socket(Username,District,Districts) ->
+    {DistSocket,Users} = maps:get(District,Districts),
+    NotifSocket = maps:get(Username,Users),
+    gen_tcp:close(NotifSocket),
+    io:fwrite("Closed user notification socket: ~p ~p.\n", [Username, NotifSocket]),
+    loop(maps:update(District,{DistSocket,maps:remove(Username,Users)},Districts)).
+
+% envia uma notificação privada a cada cliente potencialmente contagiado
 notify_loop([], _) -> io:fwrite("Users notified.\n");
 notify_loop([Username|T], UserSockets) ->
+    io:fwrite("Notifying possibly infected user: ~p.\n", [Username]), 
     Sock = maps:get(Username,UserSockets),
     response_manager:sendInfectionWarning(Sock),
     notify_loop(T,UserSockets).

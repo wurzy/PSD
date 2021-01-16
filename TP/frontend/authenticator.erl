@@ -5,7 +5,7 @@
 % ÁREA NÃO AUTENTICADA
 % processa pedidos de registo e login
 
-% à espera de pedidos de autenticação do user
+% ciclo à espera de pedidos de autenticação do user
 authentication(Socket) ->
     receive
         {tcp, Socket, Bin} ->
@@ -23,18 +23,15 @@ authentication(Socket) ->
     end.
 
 
-% handlers de registo e login
-% se for bem sucedido, passa o controlo para o módulo client_manager (área autenticada)
-% caso contrário, dá mensagem de erro e continua à espera de pedidos
-
+% handler de registo
 registerHandler(Socket, Data) ->
     Username = maps:get(username, Data),
     Password = maps:get(password, Data),
-    DistrictCode = erlang:list_to_atom(maps:get(district, Data)),
+    DistrictCode = erlang:list_to_atom(maps:get(district, Data)), % converte o código em átomo
     io:fwrite("\nREGISTER REQ: ~p ~p ~p.\n", [Username, Password, DistrictCode]),
-    case district_manager:verifyDistrict(DistrictCode) of
+    case district_manager:verifyDistrict(DistrictCode) of % retorna o nome do distrito correspondente ao código
         {ok, District} ->
-            case account_manager:signup(Username, Password, District) of
+            case account_manager:signup(Username, Password, District) of % adiciona o novo user ao mapa do account_manager
                 ok ->
                     io:fwrite("Registered user: ~p ~p ~p.\n", [Username, Password, District]),
                     response_manager:sendResponse(Socket,true,"Registado com sucesso"),
@@ -44,23 +41,26 @@ registerHandler(Socket, Data) ->
                     response_manager:sendResponse(Socket,false,"Username não disponível"),
                     authentication(Socket)
             end;
-        invalid ->
+        invalid -> % safeguard, à partida nunca acontece
             io:fwrite("Invalid district: ~p\n.", [Username]),
             response_manager:sendResponse(Socket,false,"Distrito inválido"),
             authentication(Socket)
     end.
 
+% handler de login
+% se for bem sucedido, passa o controlo para o módulo client_manager (área autenticada)
+% caso contrário, dá mensagem de erro e continua à espera de pedidos
 loginHandler(Socket, Data) ->
     Username = maps:get(username, Data),
     Password = maps:get(password, Data),
     io:fwrite("\nLOGIN REQ: ~p ~p.\n", [Username, Password]),
-    case account_manager:login(Username, Password) of
+    case account_manager:login(Username, Password) of % muda a flag de login para true no mapa
         {ok, District} ->
             io:fwrite("Logged in user: ~p ~p.\n", [Username, Password]),
             response_manager:sendResponse(Socket,true,"Bem-vindo"),
-            client_manager:loop(Socket,Username,District);
+            client_manager:loop(Socket,Username,District); % redireciona para a área autenticada
         {error, TypeError, ErrorMsg} ->
-            case TypeError of
+            case TypeError of % tipos de erro possíveis de login
                 quarantined -> io:fwrite("Can't login while quarantined: ~p.\n", [Username]);
                 login_status -> io:fwrite("User already logged in: ~p.\n", [Username]);
                 wrong_password -> io:fwrite("Wrong password: ~p.\n", [Username]);
