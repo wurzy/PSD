@@ -7215,6 +7215,23 @@ public final class Messages {
      */
     com.google.protobuf.ByteString
         getUsersBytes();
+
+    /**
+     * <code>required string district = 2;</code>
+     * @return Whether the district field is set.
+     */
+    boolean hasDistrict();
+    /**
+     * <code>required string district = 2;</code>
+     * @return The district.
+     */
+    java.lang.String getDistrict();
+    /**
+     * <code>required string district = 2;</code>
+     * @return The bytes for district.
+     */
+    com.google.protobuf.ByteString
+        getDistrictBytes();
   }
   /**
    * Protobuf type {@code Protos.NotifyUsers}
@@ -7230,6 +7247,7 @@ public final class Messages {
     }
     private NotifyUsers() {
       users_ = "";
+      district_ = "";
     }
 
     @java.lang.Override
@@ -7267,6 +7285,12 @@ public final class Messages {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000001;
               users_ = bs;
+              break;
+            }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
+              district_ = bs;
               break;
             }
             default: {
@@ -7350,6 +7374,54 @@ public final class Messages {
       }
     }
 
+    public static final int DISTRICT_FIELD_NUMBER = 2;
+    private volatile java.lang.Object district_;
+    /**
+     * <code>required string district = 2;</code>
+     * @return Whether the district field is set.
+     */
+    @java.lang.Override
+    public boolean hasDistrict() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>required string district = 2;</code>
+     * @return The district.
+     */
+    @java.lang.Override
+    public java.lang.String getDistrict() {
+      java.lang.Object ref = district_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          district_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string district = 2;</code>
+     * @return The bytes for district.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getDistrictBytes() {
+      java.lang.Object ref = district_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        district_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -7358,6 +7430,10 @@ public final class Messages {
       if (isInitialized == 0) return false;
 
       if (!hasUsers()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasDistrict()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -7371,6 +7447,9 @@ public final class Messages {
       if (((bitField0_ & 0x00000001) != 0)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, users_);
       }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, district_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -7382,6 +7461,9 @@ public final class Messages {
       size = 0;
       if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, users_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, district_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -7403,6 +7485,11 @@ public final class Messages {
         if (!getUsers()
             .equals(other.getUsers())) return false;
       }
+      if (hasDistrict() != other.hasDistrict()) return false;
+      if (hasDistrict()) {
+        if (!getDistrict()
+            .equals(other.getDistrict())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -7417,6 +7504,10 @@ public final class Messages {
       if (hasUsers()) {
         hash = (37 * hash) + USERS_FIELD_NUMBER;
         hash = (53 * hash) + getUsers().hashCode();
+      }
+      if (hasDistrict()) {
+        hash = (37 * hash) + DISTRICT_FIELD_NUMBER;
+        hash = (53 * hash) + getDistrict().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -7553,6 +7644,8 @@ public final class Messages {
         super.clear();
         users_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
+        district_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
@@ -7585,6 +7678,10 @@ public final class Messages {
           to_bitField0_ |= 0x00000001;
         }
         result.users_ = users_;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.district_ = district_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -7639,6 +7736,11 @@ public final class Messages {
           users_ = other.users_;
           onChanged();
         }
+        if (other.hasDistrict()) {
+          bitField0_ |= 0x00000002;
+          district_ = other.district_;
+          onChanged();
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -7647,6 +7749,9 @@ public final class Messages {
       @java.lang.Override
       public final boolean isInitialized() {
         if (!hasUsers()) {
+          return false;
+        }
+        if (!hasDistrict()) {
           return false;
         }
         return true;
@@ -7752,6 +7857,90 @@ public final class Messages {
   }
   bitField0_ |= 0x00000001;
         users_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object district_ = "";
+      /**
+       * <code>required string district = 2;</code>
+       * @return Whether the district field is set.
+       */
+      public boolean hasDistrict() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>required string district = 2;</code>
+       * @return The district.
+       */
+      public java.lang.String getDistrict() {
+        java.lang.Object ref = district_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            district_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string district = 2;</code>
+       * @return The bytes for district.
+       */
+      public com.google.protobuf.ByteString
+          getDistrictBytes() {
+        java.lang.Object ref = district_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          district_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string district = 2;</code>
+       * @param value The district to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDistrict(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        district_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string district = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearDistrict() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        district_ = getDefaultInstance().getDistrict();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string district = 2;</code>
+       * @param value The bytes for district to set.
+       * @return This builder for chaining.
+       */
+      public Builder setDistrictBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        district_ = value;
         onChanged();
         return this;
       }
@@ -9027,14 +9216,15 @@ public final class Messages {
       "\002 \002(\t\"<\n\010Location\022\020\n\010username\030\001 \001(\t\022\016\n\006c" +
       "oordx\030\002 \002(\005\022\016\n\006coordy\030\003 \002(\005\"\034\n\010SickPing\022" +
       "\020\n\010username\030\001 \002(\t\"\036\n\rNrPeopleReply\022\r\n\005to" +
-      "tal\030\002 \002(\005\"\034\n\013NotifyUsers\022\r\n\005users\030\001 \002(\t\"" +
-      "$\n\014Notification\022\024\n\014notification\030\001 \002(\t\"(\n" +
-      "\030PrivateNotificationsPort\022\014\n\004port\030\001 \002(\005*" +
-      "\302\001\n\004Type\022\014\n\010REGISTER\020\000\022\t\n\005LOGIN\020\001\022\n\n\006LOG" +
-      "OUT\020\002\022\t\n\005REPLY\020\003\022\014\n\010LOCATION\020\004\022\010\n\004SICK\020\005" +
-      "\022\r\n\tNR_PEOPLE\020\006\022\021\n\rLOCATION_PING\020\007\022\r\n\tSI" +
-      "CK_PING\020\010\022\023\n\017NR_PEOPLE_REPLY\020\t\022\020\n\014NOTIFY" +
-      "_USERS\020\n\022\020\n\014NOTIFICATION\020\013\022\010\n\004PORT\020\014"
+      "tal\030\002 \002(\005\".\n\013NotifyUsers\022\r\n\005users\030\001 \002(\t\022" +
+      "\020\n\010district\030\002 \002(\t\"$\n\014Notification\022\024\n\014not" +
+      "ification\030\001 \002(\t\"(\n\030PrivateNotificationsP" +
+      "ort\022\014\n\004port\030\001 \002(\005*\302\001\n\004Type\022\014\n\010REGISTER\020\000" +
+      "\022\t\n\005LOGIN\020\001\022\n\n\006LOGOUT\020\002\022\t\n\005REPLY\020\003\022\014\n\010LO" +
+      "CATION\020\004\022\010\n\004SICK\020\005\022\r\n\tNR_PEOPLE\020\006\022\021\n\rLOC" +
+      "ATION_PING\020\007\022\r\n\tSICK_PING\020\010\022\023\n\017NR_PEOPLE" +
+      "_REPLY\020\t\022\020\n\014NOTIFY_USERS\020\n\022\020\n\014NOTIFICATI" +
+      "ON\020\013\022\010\n\004PORT\020\014"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -9087,7 +9277,7 @@ public final class Messages {
     internal_static_Protos_NotifyUsers_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Protos_NotifyUsers_descriptor,
-        new java.lang.String[] { "Users", });
+        new java.lang.String[] { "Users", "District", });
     internal_static_Protos_Notification_descriptor =
       getDescriptor().getMessageTypes().get(8);
     internal_static_Protos_Notification_fieldAccessorTable = new
