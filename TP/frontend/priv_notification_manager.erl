@@ -1,6 +1,7 @@
 -module(priv_notification_manager).
 -export([bind/1]).
 
+% dá bind a um socket pull para receber notificações de contágio dos servidores distritais
 bind(Port) ->
     application:start(chumak),
     {ok, DistSocket} = chumak:socket(pull),
@@ -15,6 +16,7 @@ bind(Port) ->
     end,
     register(?MODULE, spawn(fun() -> loop(DistSocket) end)).
 
+% ciclo à espera de mensagens dos servidores distritais
 loop(Socket) ->
     {ok, Bin} = chumak:recv(Socket),
     Msg = messages:decode_msg(Bin,'Message'),
@@ -23,6 +25,7 @@ loop(Socket) ->
             MsgBody = maps:get(notifyUsers, Msg),
             District = erlang:list_to_atom(maps:get(district, MsgBody)),
             Usernames = string:split(maps:get(users, MsgBody), ",", all),
+            % passa o controlo ao district_manager que tem o mapa dos sockets privados dos clientes
             district_manager ! {notify_users, District, Usernames};
         _ ->
             io:fwrite("Received unexpected message from district server: ~p.\n", [Msg])

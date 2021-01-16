@@ -2,9 +2,11 @@ package Client;
 
 import Protos.Messages.*;
 
+import javax.sound.midi.Soundbank;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLOutput;
 import java.util.Arrays;
 
 public class ClientPrivateNotifier implements Runnable{
@@ -13,11 +15,26 @@ public class ClientPrivateNotifier implements Runnable{
     private InputStream in;
     private Socket s;
     private volatile boolean run;
+    private boolean menuState;
+    private int waitingNotifs;
 
     public ClientPrivateNotifier(Notifications notifications, ServerSocket ss){
         this.notifications = notifications;
         this.ss = ss;
         this.run = true;
+        this.waitingNotifs = 0;
+    }
+
+    public void updateMenuState(boolean state) {
+        this.menuState = state;
+    }
+
+    public int getWaitingNotifs() {
+        return this.waitingNotifs;
+    }
+
+    public void resetWaitingNotifs() {
+        this.waitingNotifs = 0;
     }
 
     public void run() {
@@ -27,6 +44,16 @@ public class ClientPrivateNotifier implements Runnable{
             while(run){
                 Message m = recvMsg();
                 notifications.add(m.getNotification().getNotification());
+
+                if (menuState){
+                    System.out.print("\n\n*****************************************************\n" +
+                            m.getNotification().getNotification() +
+                            "\n*****************************************************");
+                    System.out.print("\n\nOpção: ");
+                }
+                else{
+                    this.waitingNotifs += 1;
+                }
             }
         }
         catch(Exception ignore){}

@@ -1,8 +1,10 @@
 -module(account_manager).
 -export([start/0, signup/3, login/2, logout/1, sick/1]).
 
+% inicia o gestor de contas e regista o processo como account_manager
 start() -> 
     register(?MODULE, spawn(fun() -> loop(#{}) end)). 
+
 
 rpc(Request) -> 
     ?MODULE ! {Request,self()},
@@ -21,6 +23,7 @@ logout(Username) ->
 
 sick(Username) ->
     rpc({sick,Username}).
+
 
 % Accounts = Map{Username => {Password, District, logged_flag, sick_flag}}
 loop(Accounts) ->
