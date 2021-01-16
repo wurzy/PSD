@@ -1,10 +1,12 @@
 package Client;
 import Protos.MessageBuilder;
 import Protos.Messages.*;
+import TestServer.Server;
 import org.zeromq.ZMQ;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Arrays;
 import java.util.Random;
@@ -20,20 +22,21 @@ public class ClientWriter implements Runnable{
     private int port; // for the private notifications
     private ClientPrivateNotifier cpn;
 
+    private ServerSocket ss;
     private Socket s;
     private OutputStream out;
     private InputStream in;
 
-    public ClientWriter(Socket s, ZMQ.Socket sub, Notifications notif, Menu menu, int grid, int port, ClientPrivateNotifier cpn) throws Exception{
+    public ClientWriter(Socket s, ServerSocket ss, ZMQ.Socket sub, Notifications notif, Menu menu, int grid, int port) throws Exception{
         this.menu = menu;
         this.s = s;
+        this.ss = ss;
         this.sub = sub;
         this.notif = notif;
         this.out = s.getOutputStream();
         this.in = s.getInputStream();
         this.grid = grid;
         this.port = port;
-        this.cpn = cpn;
         this.rand = new Random();
     }
 
@@ -88,6 +91,8 @@ public class ClientWriter implements Runnable{
         confirm(rep);
 
         if(rep.getReply().getResult()){
+            this.cpn = new ClientPrivateNotifier(notif,ss);
+            new Thread(this.cpn).start();
             menu.setState(Menu.State.LOGGED);
             this.locationPing = new Thread(new Randomizer(new Point(rand.nextInt(grid),rand.nextInt(grid)),grid,out)); // random start position on a N*N grid
             MessageBuilder.send(MessageBuilder.port(port),out);
@@ -100,8 +105,8 @@ public class ClientWriter implements Runnable{
     }
 
     private void register() throws Exception{
-        String user = menu.readString("Nome de Utilizador: ");
-        String password = menu.readString("Palavra-passe: ");
+        String user = menu.readNotEmptyString("Nome de Utilizador: ");
+        String password = menu.readNotEmptyString("Palavra-passe: ");
         notif.printChoices();
         String district = registerForceValid();
 
@@ -123,6 +128,7 @@ public class ClientWriter implements Runnable{
     }
 
     private void logout() throws Exception{
+        cpn.stop();
         locationPing.interrupt();
         MessageBuilder.send(MessageBuilder.logout(),out);
 
@@ -134,6 +140,7 @@ public class ClientWriter implements Runnable{
     }
 
     private void sick() throws Exception{
+        locationPing.interrupt();
         MessageBuilder.send(MessageBuilder.sick(),out);
 
         Message rep = getReply();
@@ -170,7 +177,8 @@ public class ClientWriter implements Runnable{
             String dist = menu.readString("Insira o distrito que pretende subscrever: ");
             if(notif.maybeAdd(dist)) {
                 System.out.println("Adicionado o distrito " + notif.getDistrictByNumber(dist) + " às subscrições.");
-                sub.subscribe("[" + notif.getDistrictByNumber(dist) + "]");
+
+                sub.subscribe("[" + atomify(notif.getDistrictByNumber(dist)) + "]");
             }
             else {
                 System.out.println("O distrito " + notif.getDistrictByNumber(dist) + " já está subscrito.");
@@ -190,7 +198,7 @@ public class ClientWriter implements Runnable{
         String dist = menu.readString("Insira o distrito que pretende remover: ");
         if(notif.maybeRemove(dist)){
             System.out.println("Removido o distrito " + notif.getDistrictByNumber(dist) + " das subscrições.");
-            sub.unsubscribe("[" + dist + "]");
+            sub.unsubscribe("[" + atomify(notif.getDistrictByNumber(dist)) + "]");
         }
         else {
             System.out.println("O distrito " + notif.getDistrictByNumber(dist) + " não está subscrito.");
@@ -205,7 +213,6 @@ public class ClientWriter implements Runnable{
         if(!locationPing.isInterrupted()) locationPing.interrupt();
         try {
             s.close();
-            cpn.stop();
         }
         catch(Exception e){
             e.printStackTrace();
@@ -235,5 +242,9 @@ public class ClientWriter implements Runnable{
             e.printStackTrace();
         }
         return m;
+    }
+
+    private String atomify(String district){
+        return district.toLowerCase().replace(" ","_");
     }
 }

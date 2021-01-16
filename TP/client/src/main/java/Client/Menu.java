@@ -89,6 +89,15 @@ public class Menu {
         return input.nextLine();
     }
 
+    public String readNotEmptyString(String req){
+        System.out.println(req);
+        String s;
+        while((s = input.nextLine()).equals("")){
+            System.out.println(req);
+        }
+        return s;
+    }
+
     public int readInt(String req){
         System.out.println(req);
         int choice;

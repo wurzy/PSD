@@ -1,10 +1,7 @@
 package Client;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Notifications {
     private ArrayList<String> notifications;

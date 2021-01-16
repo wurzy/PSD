@@ -1,7 +1,6 @@
 package Client;
 
 import Protos.Messages.*;
-import TestServer.Server;
 
 import java.io.InputStream;
 import java.net.ServerSocket;
@@ -15,7 +14,7 @@ public class ClientPrivateNotifier implements Runnable{
     private Socket s;
     private volatile boolean run;
 
-    public ClientPrivateNotifier(Notifications notifications, ServerSocket ss, int port){
+    public ClientPrivateNotifier(Notifications notifications, ServerSocket ss){
         this.notifications = notifications;
         this.ss = ss;
         this.run = true;
@@ -25,18 +24,17 @@ public class ClientPrivateNotifier implements Runnable{
         try{
             this.s = ss.accept();
             this.in = s.getInputStream();
-            while(run) {
+            while(run){
                 Message m = recvMsg();
                 notifications.add(m.getNotification().getNotification());
             }
         }
-        catch(Exception e){
-            e.printStackTrace();
-        }
+        catch(Exception ignore){}
     }
 
     public void stop() throws Exception{
         run = false;
+        in.close();
         s.close();
     }
 
@@ -49,8 +47,7 @@ public class ClientPrivateNotifier implements Runnable{
             norm = Arrays.copyOf(buf,n);
             m = Message.parseFrom(norm);
         }
-        catch(Exception e){
-            e.printStackTrace();
+        catch(Exception ignore){
         }
         return m;
     }

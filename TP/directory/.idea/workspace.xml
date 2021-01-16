@@ -6,17 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="2df4d400-ec10-4b5c-964f-8af0693ec3ab" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/main/java/Client/ClientWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/main/java/Client/ClientWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/directory/business/Directory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/directory/business/Directory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/directory/business/District.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/directory/business/District.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/directory/representations/InfectedRepresentation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/directory/representations/InfectedRepresentation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/directory/representations/UsersRepresentation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/directory/representations/UsersRepresentation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/directory/resources/DirectoryResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/directory/resources/DirectoryResource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/directory/business/Directory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/directory/business/Directory.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/directory/resources/DirectoryResource$PostUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/directory/resources/DirectoryResource$PostUser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/directory/resources/DirectoryResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/directory/resources/DirectoryResource.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../districts/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/.idea/workspace.xml" afterDir="false" />
     </list>
+    <ignored path="$PROJECT_DIR$/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,12 +22,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/directory/business/Directory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="395">
-              <caret line="89" lean-forward="true" selection-start-line="89" selection-end-line="89" />
+            <state relative-caret-position="1932">
+              <caret line="89" selection-start-line="89" selection-end-line="89" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1631#1632#0" expanded="true" />
-                <element signature="e#1676#1677#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -41,8 +34,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/directory/DirectoryApp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="11" column="5" lean-forward="true" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
+            <state relative-caret-position="161">
+              <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -53,8 +46,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/directory/DirectoryConfiguration.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="19" column="1" lean-forward="true" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+            <state relative-caret-position="299">
+              <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -65,21 +58,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/directory/business/District.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="470">
+            <state relative-caret-position="851">
               <caret line="47" column="28" selection-start-line="47" selection-start-column="28" selection-end-line="47" selection-end-column="28" />
               <folding>
-                <element signature="e#171#172#0" expanded="true" />
-                <element signature="e#214#215#0" expanded="true" />
-                <element signature="e#598#599#0" expanded="true" />
-                <element signature="e#624#625#0" expanded="true" />
                 <element signature="e#673#674#0" expanded="true" />
-                <element signature="e#700#701#0" expanded="true" />
-                <element signature="e#747#748#0" expanded="true" />
-                <element signature="e#767#768#0" expanded="true" />
-                <element signature="e#935#936#0" expanded="true" />
-                <element signature="e#967#968#0" expanded="true" />
-                <element signature="e#1009#1010#0" expanded="true" />
-                <element signature="e#1039#1040#0" expanded="true" />
+                <element signature="e#713#714#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -88,8 +71,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/directory/resources/DirectoryResource.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="92" column="13" lean-forward="true" selection-start-line="92" selection-start-column="13" selection-end-line="92" selection-end-column="13" />
+            <state relative-caret-position="368">
+              <caret line="90" column="43" lean-forward="true" selection-start-line="90" selection-start-column="43" selection-end-line="90" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -150,7 +133,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -215,14 +198,14 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1610756716016" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1610756740458" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../districts" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -283,24 +266,25 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="61592aa2-c02b-4b59-adb5-b42e0f882fd7" name="Default Changelist" comment="" />
+      <changelist id="2df4d400-ec10-4b5c-964f-8af0693ec3ab" name="Default Changelist" comment="" />
       <created>1610043558999</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1610734094764</updated>
       <workItem from="1610734098819" duration="1643000" />
       <workItem from="1610738047151" duration="46000" />
+      <workItem from="1610806296133" duration="2178000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17218000" />
+    <option name="totallyTimeSpent" value="19992000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25266525" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2553305" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -309,7 +293,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49946696" visible="true" weight="0.30546266" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946696" weight="0.30546266" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -337,16 +321,7 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/directory/health/DirectoryHealthCheck.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="16" column="38" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/directory/health/DirectoryHealthCheck.java" />
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="598">
@@ -354,48 +329,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/directory/representations/LeilaoRepresentation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/directory/representations/EmprestimoRepresentation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/directory/representations/EmpresaRepresentation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/directory/representations/OfertaRepresentation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="9" selection-start-line="9" selection-end-line="13" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/directory/representations/LeilaoRepresentation.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/directory/representations/EmprestimoRepresentation.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/directory/representations/EmpresaRepresentation.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/directory/representations/OfertaRepresentation.java" />
     <entry file="file://$PROJECT_DIR$/config.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
           <caret line="5" column="14" lean-forward="true" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/directory/DirectoryConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="19" column="1" lean-forward="true" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -413,53 +354,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/directory/business/District.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="470">
-          <caret line="47" column="28" selection-start-line="47" selection-start-column="28" selection-end-line="47" selection-end-column="28" />
-          <folding>
-            <element signature="e#171#172#0" expanded="true" />
-            <element signature="e#214#215#0" expanded="true" />
-            <element signature="e#598#599#0" expanded="true" />
-            <element signature="e#624#625#0" expanded="true" />
-            <element signature="e#673#674#0" expanded="true" />
-            <element signature="e#700#701#0" expanded="true" />
-            <element signature="e#747#748#0" expanded="true" />
-            <element signature="e#767#768#0" expanded="true" />
-            <element signature="e#935#936#0" expanded="true" />
-            <element signature="e#967#968#0" expanded="true" />
-            <element signature="e#1009#1010#0" expanded="true" />
-            <element signature="e#1039#1040#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/directory/business/Directory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="89" lean-forward="true" selection-start-line="89" selection-end-line="89" />
+        <state relative-caret-position="1932">
+          <caret line="89" selection-start-line="89" selection-end-line="89" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1631#1632#0" expanded="true" />
-            <element signature="e#1676#1677#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/directory/DirectoryApp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="11" column="5" lean-forward="true" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
+        <state relative-caret-position="161">
+          <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/directory/DirectoryConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/directory/business/District.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="851">
+          <caret line="47" column="28" selection-start-line="47" selection-start-column="28" selection-end-line="47" selection-end-column="28" />
+          <folding>
+            <element signature="e#673#674#0" expanded="true" />
+            <element signature="e#713#714#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/directory/resources/DirectoryResource.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="92" column="13" lean-forward="true" selection-start-line="92" selection-start-column="13" selection-end-line="92" selection-end-column="13" />
+        <state relative-caret-position="368">
+          <caret line="90" column="43" lean-forward="true" selection-start-line="90" selection-start-column="43" selection-end-line="90" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
