@@ -70,7 +70,7 @@ public class Notifier implements Runnable{
             district.addUser(user);
         }
         else {
-            System.out.println("---------------------------------------------------------------------------------");
+            System.out.println("-----------------------------------------------------------------------------------------");
             Point last = district.getCurrentLocation(user);
             previous = district.decrementConcentration(last);
             publish(previous > 0
@@ -82,11 +82,14 @@ public class Notifier implements Runnable{
     }
 
     private void warnSick(String user){
+        System.out.println("******************************************************************************************");
         String mega = district.getUsersToNotify(user);
+        System.out.println("Enviado pedido de notificação para os utilizadores: " + mega);
         String name = district.getName();
         priv.send(MessageBuilder.notifyUsers(mega,name).toByteArray());
         publish("Alerta, foi detetado um utilizador infetado [TOTAL: " + district.getTotal() +"]");
         this.district.deleteUser(user);
+        System.out.println("******************************************************************************************");
     }
 
     private void nrPeople(Point p) throws Exception{
