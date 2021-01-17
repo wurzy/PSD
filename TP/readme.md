@@ -36,7 +36,7 @@ Logger prints to terminal during run time.
 
 ```
 erl -pa frontend/ebin
-server:start(12345,12346).
+> server:start(12345,12346).
 ```
 
 
