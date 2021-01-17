@@ -11,7 +11,7 @@ make build
 
 ### **First terminal:**
 
-Spawn broker process and districts' processes, all running in background.
+Spawn broker and districts' processes, all running in background.
 Districts' loggers print to terminal during run time.
 
 ```
