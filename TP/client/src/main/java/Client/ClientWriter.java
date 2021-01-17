@@ -261,6 +261,6 @@ public class ClientWriter implements Runnable{
     }
 
     private String atomify(String district){
-        return district.toLowerCase().replace(" ","_");
+        return district.toLowerCase().replace(" ","_").replace("ç","c");
     }
 }

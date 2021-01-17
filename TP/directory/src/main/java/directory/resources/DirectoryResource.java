@@ -3,10 +3,7 @@ package directory.resources;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.media.sound.InvalidDataException;
 import directory.business.*;
-import directory.representations.AvgRepresentation;
-import directory.representations.InfectedRepresentation;
-import directory.representations.Top5InfectedRepresentation;
-import directory.representations.UsersRepresentation;
+import directory.representations.*;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -75,10 +72,24 @@ public class DirectoryResource {
         ArrayList<Top5InfectedRepresentation> al = new ArrayList<>();
         synchronized (this){
             LinkedHashMap<String,Double> lhm = this.diretorio.getTop5Infected();
-            System.out.println(lhm);
             for(Map.Entry<String,Double> entry : lhm.entrySet()){
                 al.add(new Top5InfectedRepresentation(entry.getKey(),entry.getValue()));
             }
+        }
+        return al;
+    }
+
+    @GET
+    @Path("/districts/top5locations")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArrayList<Top5LocationsRepresentation> getTop5Locations() {
+        ArrayList<Top5LocationsRepresentation> al = new ArrayList<>();
+        synchronized (this){
+            LinkedHashMap<String,Integer> lhm = this.diretorio.getTop5Concentration();
+            lhm.forEach((key,value) -> {
+                String[] parts = key.split("~");
+                al.add(new Top5LocationsRepresentation(parts[1],parts[0],value));
+            });
         }
         return al;
     }
@@ -89,6 +100,20 @@ public class DirectoryResource {
         synchronized (this) {
             try {
                 this.diretorio.userUpdate(id,user);
+                return Response.ok().build();
+            }
+            catch(Exception e){
+                return invalidDistrict();
+            }
+        }
+    }
+
+    @POST
+    @Path("/districts/{id}/concentration")
+    public Response addConcentration(@PathParam("id") int id, PostConcentration conc) {
+        synchronized (this) {
+            try {
+                this.diretorio.addConcentration(id,conc);
                 return Response.ok().build();
             }
             catch(Exception e){
@@ -139,13 +164,22 @@ public class DirectoryResource {
         return Response.status(404).entity("Não existe o utilizador especificado.").build();
     }
 
-    public static class PostUser{
+    public static class PostUser {
         @JsonProperty("coordx")
         public int coordx;
         @JsonProperty("coordy")
         public int coordy;
         @JsonProperty("user")
         public String user;
+    }
+
+    public static class PostConcentration {
+        @JsonProperty("coordx")
+        public int coordx;
+        @JsonProperty("coordy")
+        public int coordy;
+        @JsonProperty("concentration")
+        public int concentration;
     }
 }
 

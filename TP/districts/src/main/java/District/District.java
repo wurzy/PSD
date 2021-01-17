@@ -3,6 +3,7 @@ package District;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeSet;
 
 class Point {
     int x;
@@ -24,15 +25,23 @@ class Point {
 
 public class District{
     private final String name;
+    private int id;
     private HashMap<String, ArrayList<Point>> userCoords;
     private HashMap<String, Integer> concentration;
+    private TreeSet<String> sick;
     private int total;
 
-    public District(String name){
+    public District(String name, int id){
         this.name = name;
         this.userCoords = new HashMap<>();
         this.concentration = new HashMap<>();
+        this.sick = new TreeSet<>();
         this.total = 0;
+        this.id = id;
+    }
+
+    public int getId(){
+        return id;
     }
 
     public String getName(){
@@ -57,13 +66,14 @@ public class District{
         return ps.get(ps.size()-1);
     }
 
-    public synchronized void deleteUser(String user){
+    public synchronized void sickUser(String user){
         Point p = getCurrentLocation(user);
         if (p!=null) {
             int x = this.concentration.get(p.toString());
             this.concentration.put(p.toString(),--x); 
         }
-        this.userCoords.remove(user);
+        //this.userCoords.remove(user);
+        this.sick.add(user);
     }
 
     // basta saber que incrementou
@@ -113,6 +123,7 @@ public class District{
     public synchronized String getUsersToNotify(String user){
         ArrayList<String> users = usersNear(user);
         if (users == null) return null;
+        users.removeIf(sick::contains);
         return String.join(",", users);
     }
 
