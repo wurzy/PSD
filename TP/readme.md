@@ -3,7 +3,7 @@
 Build message protocols, Java .class files and Erlang .beam files:
 * make build
 
-*First terminal*
+#First terminal#
 Spawn broker process and districts' processes, all running in background.
 Districts' loggers print to terminal during run time:
 * make run-broker
