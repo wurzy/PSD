@@ -1,7 +1,10 @@
 # How to run:
 
 Build message protocols, Java .class files and Erlang .beam files:
-```make build```
+
+```
+make build
+```
 
 
 **First terminal**
@@ -37,4 +40,6 @@ server:start(12345,12346).
 
 Starts client process, connecting to frontend and district servers:
 
-```make run-client PORT=<PRIVATE_SOCKET_PORT>```
+```
+make run-client PORT=<PRIVATE_SOCKET_PORT>
+```
