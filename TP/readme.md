@@ -24,7 +24,9 @@ make run-districts
 
 Spawn directory process, running in background.
 
-```make run-directory```
+```
+make run-directory
+```
 
 
 **Third terminal:**
