@@ -9,8 +9,9 @@ Build message protocols, Java .class files and Erlang .beam files:
 Spawn broker process and districts' processes, all running in background.
 Districts' loggers print to terminal during run time:
 
-```make run-broker```
-```make run-districts```
+```make run-broker
+make run-districts
+```
 
 
 **Second terminal**
@@ -25,8 +26,9 @@ Spawn directory process, running in background:
 Starts frontend server, which connects to all district servers.
 Logger prints to terminal during run time:
 
-```erl -pa frontend/ebin```
-```server:start(12345,12346).```
+```erl -pa frontend/ebin
+server:start(12345,12346).
+```
 
 
 **Fourth terminal**
