@@ -1,12 +1,187 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="directory:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2df4d400-ec10-4b5c-964f-8af0693ec3ab" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/directory_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/directory.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Apontamentos.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/../Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Untitled.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backuppsd.drawio" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/.idea/artifacts/client_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/artifacts/client_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/main/java/Client/ClientWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/main/java/Client/ClientWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/main/java/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/main/java/TestServer/Handler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/main/java/TestServer/Server.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/Client.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/ClientNotifier.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/ClientPrivateNotifier.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/ClientWriter$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/ClientWriter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/Menu$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/Menu$State.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/Menu.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/Notifications.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/Point.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/Randomizer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/MessageBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Location$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Location$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Location.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$LocationOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Login$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Login$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Login.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$LoginOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Message$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Message$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Message.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$MessageOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Notification$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Notification$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Notification.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$NotificationOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$NotifyUsers$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$NotifyUsers$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$NotifyUsers.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$NotifyUsersOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$NrPeopleReply$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$NrPeopleReply$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$NrPeopleReply.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$NrPeopleReplyOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$PrivateNotificationsPort$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$PrivateNotificationsPort$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$PrivateNotificationsPort.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$PrivateNotificationsPortOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Register$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Register$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Register.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$RegisterOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Reply$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Reply$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Reply.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$ReplyOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$SickPing$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$SickPing$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$SickPing.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$SickPingOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Type$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Type.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/TestServer/Handler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/TestServer/Server.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/jar/broker.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/jar/broker.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/jar/client.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/jar/client.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/jar/districtServer.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/jar/districtServer.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/directory.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/directory/DirectoryApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Directory/DirectoryApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/directory/DirectoryConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Directory/DirectoryConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/directory/business/Directory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Directory/business/Directory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/directory/business/District.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Directory/business/District.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/directory/representations/AvgRepresentation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Directory/representations/AvgRepresentation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/directory/representations/InfectedRepresentation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Directory/representations/InfectedRepresentation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/directory/representations/Top5InfectedRepresentation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Directory/representations/Top5InfectedRepresentation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/directory/representations/Top5LocationsRepresentation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Directory/representations/Top5LocationsRepresentation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/directory/representations/UsersRepresentation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Directory/representations/UsersRepresentation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/directory/resources/DirectoryResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Directory/resources/DirectoryResource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/directory/DirectoryApp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/directory/DirectoryConfiguration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/directory/business/Directory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/directory/business/District.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/directory/business/Point.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/directory/representations/AvgRepresentation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/directory/representations/InfectedRepresentation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/directory/representations/Top5InfectedRepresentation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/directory/representations/Top5LocationsRepresentation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/directory/representations/UsersRepresentation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/directory/resources/DirectoryResource$PostConcentration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/directory/resources/DirectoryResource$PostUser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/directory/resources/DirectoryResource.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/.idea/artifacts/districts_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/.idea/artifacts/districts_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/.idea/artifacts/districts_jar2.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../districts/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/Broker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/src/main/java/District/Broker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/src/main/java/Protos/Messages.java" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/src/main/java/Protos/Messages.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/src/main/java/TestServer/FrontendSimulator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/src/main/java/TestServer/PushSimulator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/src/main/java/TestServer/Test.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Directory/DirectoryUpdater.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Directory/PostConcentration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Directory/PostUser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/District/Broker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/District/District.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/District/DistrictServer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/District/Notifier.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/District/Point.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/MessageBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Location$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Location$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Location.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$LocationOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Login$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Login$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Login.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$LoginOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Message$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Message$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Message.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$MessageOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Notification$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Notification$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Notification.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$NotificationOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$NotifyUsers$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$NotifyUsers$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$NotifyUsers.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$NotifyUsersOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$NrPeopleReply$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$NrPeopleReply$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$NrPeopleReply.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$NrPeopleReplyOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$PrivateNotificationsPort$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$PrivateNotificationsPort$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$PrivateNotificationsPort.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$PrivateNotificationsPortOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Register$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Register$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Register.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$RegisterOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Reply$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Reply$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Reply.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$ReplyOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$SickPing$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$SickPing$Builder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$SickPing.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$SickPingOrBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Type$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages$Type.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/Protos/Messages.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/TestServer/FrontendSimulator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/TestServer/PushSimulator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/TestServer/Test.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../doodling.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/District/Broker.class" beforeDir="false" afterPath="$PROJECT_DIR$/../exec/District/Broker.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../exec/District/DistrictServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../exec/District/DistrictServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../messages.proto" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,21 +306,25 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1610756740458" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../districts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RunManager" selected="Application.DirectoryApp">
     <configuration name="DirectoryApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="directory.DirectoryApp" />
+      <option name="MAIN_CLASS_NAME" value="Directory.DirectoryApp" />
       <module name="directory" />
       <option name="PROGRAM_PARAMETERS" value="server config.yml" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="directory.*" />
+          <option name="PATTERN" value="Directory.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>

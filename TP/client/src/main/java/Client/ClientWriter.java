@@ -1,7 +1,6 @@
 package Client;
 import Protos.MessageBuilder;
 import Protos.Messages.*;
-import TestServer.Server;
 import org.zeromq.ZMQ;
 
 import java.io.InputStream;
