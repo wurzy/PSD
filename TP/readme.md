@@ -47,3 +47,8 @@ Starts client process, connecting to frontend and district servers.
 ```
 make run-client PORT=<PRIVATE_SOCKET_PORT>
 ```
+
+
+**Notes:**
+* unexpected closing of a district server will crash all connected clients.
+* unexpected closing of frontend server will crash all district servers.
