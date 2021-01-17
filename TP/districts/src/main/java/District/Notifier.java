@@ -1,5 +1,6 @@
 package District;
 
+import Directory.DirectoryUpdater;
 import Protos.MessageBuilder;
 import Protos.Messages.*;
 import org.zeromq.ZMQ;
@@ -20,12 +21,15 @@ public class Notifier implements Runnable{
 
     private ZMQ.Socket priv;
 
-    public Notifier(ZMQ.Socket pub, ZMQ.Socket priv, Socket info, District district) throws Exception {
+    private DirectoryUpdater updater;
+
+    public Notifier(ZMQ.Socket pub, ZMQ.Socket priv, Socket info, District district, int updaterPort) throws Exception {
         this.pub = pub;
         this.district = district;
         this.in = info.getInputStream();
         this.out = info.getOutputStream();
         this.priv = priv;
+        this.updater = new DirectoryUpdater(updaterPort);
     }
 
     public void run(){
@@ -65,6 +69,7 @@ public class Notifier implements Runnable{
 
     private void locationPing(String user, Point p){
         int current = district.incrementConcentration(p);
+        updater.addUser(user,p.x,p.y,district.getId());
         int previous;
         if(!district.userExists(user)){
             district.addUser(user);
@@ -72,6 +77,8 @@ public class Notifier implements Runnable{
         else {
             System.out.println("-----------------------------------------------------------------------------------------");
             Point last = district.getCurrentLocation(user);
+            if(last.equals(p)) return;
+            updater.updateConcentration(p.x,p.y,current,district.getId());
             previous = district.decrementConcentration(last);
             publish(previous > 0
                     ? "Diminuição de concentração na localização " + p.toString() + " [TOTAL: " + previous + "]"
@@ -88,7 +95,8 @@ public class Notifier implements Runnable{
         String name = district.getName();
         priv.send(MessageBuilder.notifyUsers(mega,name).toByteArray());
         publish("Alerta, foi detetado um utilizador infetado [TOTAL: " + district.getTotal() +"]");
-        this.district.deleteUser(user);
+        this.district.sickUser(user);
+        updater.sickUser(user,district.getId());
         System.out.println("******************************************************************************************");
     }
 

@@ -80,23 +80,6 @@ public class District {
     }
 
     public int getContactedInfected(){
-        ArrayList<Point> novo = new ArrayList<>(Arrays.asList(new Point(1   ,2), new Point(2,0), new Point(2,2), new Point(0,0)));
-        //ArrayList<Point> novo = new ArrayList<>();
-        ArrayList<Point> novo2 = new ArrayList<>(Arrays.asList(new Point(1,1), new Point(0,0)));
-        //ArrayList<Point> novo2 = new ArrayList<>();
-        ArrayList<Point> novo3 = new ArrayList<>(Arrays.asList(new Point(2,0), new Point(3,2), new Point(1,1)));
-        //ArrayList<Point> novo3 = new ArrayList<>();
-
-        addUser("1");
-        addUser("2");
-        addUser("3");
-
-        this.users.put("1",novo);
-        this.users.put("2",novo2);
-        this.users.put("3",novo3);
-
-        this.sick.put("3",true);
-
         TreeSet<String> inf = new TreeSet<>();
         getInfectedUsers().forEach((infected,history) -> {
             getAllExcept(infected).forEach((key,value) -> {
@@ -107,59 +90,7 @@ public class District {
         });
         return inf.size();
     }
-/*
-    public int getContactedInfected2(){
-        ArrayList<Point> novo = new ArrayList<>(Arrays.asList(new Point(1   ,2), new Point(2,0), new Point(2,2), new Point(0,0)));
-        //ArrayList<Point> novo = new ArrayList<>();
-        ArrayList<Point> novo2 = new ArrayList<>(Arrays.asList(new Point(1,1), new Point(0,0)));
-        //ArrayList<Point> novo2 = new ArrayList<>();
-        ArrayList<Point> novo3 = new ArrayList<>(Arrays.asList(new Point(2,0), new Point(3,2), new Point(1,2)));
-        //ArrayList<Point> novo3 = new ArrayList<>();
 
-        this.users.put("1",novo);
-        this.users.put("2",novo2);
-        this.users.put("3",novo3);
-
-        this.sick.put("3",true);
-
-        AtomicInteger total = new AtomicInteger();
-        HashMap<String,Integer> coordsTotal = new HashMap<>();
-        for(String s : this.users.keySet()){
-            getUserLocationsByMap(s)
-                    .forEach((key, value) -> {
-                        if (coordsTotal.containsKey(key)){
-                            int x = coordsTotal.get(key);
-                            coordsTotal.put(key, ++x);
-                        }
-                        else {
-                            coordsTotal.put(key, value);
-                        }
-                    });
-        }
-        getInfectedUsers().forEach(user -> {
-            coordsTotal.forEach((key,value) -> {
-                if(wasInLocation(user,key)){
-                    total.getAndAdd(value - 1);
-                }
-            });
-        });
-        System.out.println(getInfectedUsers());
-        System.out.println(coordsTotal);
-        System.out.println(total.get());
-        return total.get();
-    }
-
-    private HashMap<String,Integer> getUserLocationsByMap(String user){
-        return this.users
-                .get(user)
-                .stream()
-                .map(Point::toString)
-                .distinct()
-                .collect(
-                        Collectors.toMap(p -> p,p -> 1, (left, right) -> right, HashMap::new)
-                );
-    }
-*/
     private HashMap<String, ArrayList<Point>> getInfectedUsers(){
         return this.sick.entrySet()
                 .stream()

@@ -5,10 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2df4d400-ec10-4b5c-964f-8af0693ec3ab" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/src/main/java/Client/ClientWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/main/java/Client/ClientWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/ClientWriter.class" beforeDir="false" afterPath="$PROJECT_DIR$/../client/target/classes/Client/ClientWriter.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/directory/business/Directory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/directory/business/Directory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/directory/business/District.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/directory/business/District.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/directory/resources/DirectoryResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/directory/resources/DirectoryResource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/directory/business/Directory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/directory/business/Directory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/directory/business/District.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/directory/business/District.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/src/main/java/District/District.java" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/src/main/java/District/District.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/src/main/java/District/DistrictServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/src/main/java/District/DistrictServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/src/main/java/District/Notifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/src/main/java/District/Notifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/District/District.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/District/District.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/District/DistrictServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/District/DistrictServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/District/Notifier.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/District/Notifier.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../districts/target/classes/District/Point.class" beforeDir="false" afterPath="$PROJECT_DIR$/../districts/target/classes/District/Point.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,14 +35,15 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/directory/business/District.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="422">
-              <caret line="198" column="19" lean-forward="true" selection-start-line="198" selection-start-column="19" selection-end-line="198" selection-end-column="19" />
+            <state relative-caret-position="494">
+              <caret line="91" column="5" selection-start-line="91" selection-start-column="5" selection-end-line="91" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#848#849#0" expanded="true" />
                 <element signature="e#880#881#0" expanded="true" />
-                <element signature="e#6690#6691#0" expanded="true" />
-                <element signature="e#6729#6730#0" expanded="true" />
+                <element signature="e#5118#5119#0" expanded="true" />
+                <element signature="e#5161#5162#0" expanded="true" />
+                <element signature="e#3534#3535#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -38,8 +52,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/directory/resources/DirectoryResource.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1277">
-              <caret line="92" column="9" lean-forward="true" selection-start-line="92" selection-start-column="9" selection-end-line="92" selection-end-column="9" />
+            <state relative-caret-position="277">
+              <caret line="76" column="13" lean-forward="true" selection-start-line="76" selection-start-column="13" selection-end-line="76" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -50,8 +64,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/directory/business/Directory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="422">
-              <caret line="129" column="35" selection-start-line="129" selection-start-column="35" selection-end-line="129" selection-end-column="35" />
+            <state relative-caret-position="-1240">
+              <caret line="74" column="5" lean-forward="true" selection-start-line="74" selection-start-column="5" selection-end-line="74" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -72,6 +86,12 @@
     <findStrings>
       <find>getEmpresas()</find>
       <find>getInstance</find>
+      <find>total =</find>
+      <find>testeInit</find>
+      <find>sick</find>
+      <find>removeUser</find>
+      <find>total</find>
+      <find>userUpdate</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -91,8 +111,8 @@
         <option value="$PROJECT_DIR$/src/main/java/directory/representations/UsersRepresentation.java" />
         <option value="$PROJECT_DIR$/src/main/java/directory/representations/Top5LocationsRepresentation.java" />
         <option value="$PROJECT_DIR$/src/main/java/directory/business/District.java" />
-        <option value="$PROJECT_DIR$/src/main/java/directory/business/Directory.java" />
         <option value="$PROJECT_DIR$/src/main/java/directory/resources/DirectoryResource.java" />
+        <option value="$PROJECT_DIR$/src/main/java/directory/business/Directory.java" />
       </list>
     </option>
   </component>
@@ -184,8 +204,8 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1610906328952" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../districts" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1610914794693" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../client" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -254,16 +274,15 @@
       <workItem from="1610734098819" duration="1643000" />
       <workItem from="1610738047151" duration="46000" />
       <workItem from="1610806296133" duration="2533000" />
-      <workItem from="1610891780949" duration="6846000" />
+      <workItem from="1610891780949" duration="14085000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27244000" />
+    <option name="totallyTimeSpent" value="34483000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25799572" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -274,7 +293,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4989339" weight="0.28093645" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4989339" weight="0.36008918" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -314,27 +333,10 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/directory/representations/EmprestimoRepresentation.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/directory/representations/EmpresaRepresentation.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/directory/representations/OfertaRepresentation.java" />
-    <entry file="file://$PROJECT_DIR$/config.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="5" column="14" lean-forward="true" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/directory/representations/UsersRepresentation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
           <caret line="9" column="67" selection-start-line="9" selection-start-column="67" selection-end-line="10" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/directory/DirectoryConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -375,24 +377,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/directory/DirectoryConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="14" lean-forward="true" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/directory/business/District.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="198" column="19" lean-forward="true" selection-start-line="198" selection-start-column="19" selection-end-line="198" selection-end-column="19" />
+        <state relative-caret-position="494">
+          <caret line="91" column="5" selection-start-line="91" selection-start-column="5" selection-end-line="91" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#848#849#0" expanded="true" />
             <element signature="e#880#881#0" expanded="true" />
-            <element signature="e#6690#6691#0" expanded="true" />
-            <element signature="e#6729#6730#0" expanded="true" />
+            <element signature="e#5118#5119#0" expanded="true" />
+            <element signature="e#5161#5162#0" expanded="true" />
+            <element signature="e#3534#3535#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/directory/resources/DirectoryResource.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1277">
-          <caret line="92" column="9" lean-forward="true" selection-start-line="92" selection-start-column="9" selection-end-line="92" selection-end-column="9" />
+        <state relative-caret-position="277">
+          <caret line="76" column="13" lean-forward="true" selection-start-line="76" selection-start-column="13" selection-end-line="76" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -401,8 +421,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/directory/business/Directory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="129" column="35" selection-start-line="129" selection-start-column="35" selection-end-line="129" selection-end-column="35" />
+        <state relative-caret-position="-1240">
+          <caret line="74" column="5" lean-forward="true" selection-start-line="74" selection-start-column="5" selection-end-line="74" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

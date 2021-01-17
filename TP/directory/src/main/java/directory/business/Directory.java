@@ -107,11 +107,11 @@ public class Directory {
         HashMap<String, Double> map = new HashMap<>();
         for(Map.Entry<Integer,District> dists: this.districts.entrySet()){
             District d = dists.getValue();
-            testeInit(d);
             map.put(d.getName(),d.getRatio());
         }
         return map.entrySet()
                 .stream()
+                .filter(e -> !Double.isNaN(e.getValue()))
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .limit(5)
                 .collect(
