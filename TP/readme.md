@@ -7,10 +7,10 @@ make build
 ```
 
 
-**First terminal**
+**First terminal:**
 
 Spawn broker process and districts' processes, all running in background.
-Districts' loggers print to terminal during run time:
+Districts' loggers print to terminal during run time.
 
 ```
 make run-broker
@@ -18,17 +18,17 @@ make run-districts
 ```
 
 
-**Second terminal**
+**Second terminal:**
 
-Spawn directory process, running in background:
+Spawn directory process, running in background.
 
 ```make run-directory```
 
 
-**Third terminal**
+**Third terminal:**
 
 Starts frontend server, which connects to all district servers.
-Logger prints to terminal during run time:
+Logger prints to terminal during run time.
 
 ```
 erl -pa frontend/ebin\
@@ -36,9 +36,9 @@ server:start(12345,12346).
 ```
 
 
-**Fourth terminal**
+**Fourth terminal:**
 
-Starts client process, connecting to frontend and district servers:
+Starts client process, connecting to frontend and district servers.
 
 ```
 make run-client PORT=<PRIVATE_SOCKET_PORT>
