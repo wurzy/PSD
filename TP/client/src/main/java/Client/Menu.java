@@ -26,7 +26,7 @@ public class Menu {
     public void show() {
         switch (state) {
             case NOTLOGGED:
-                System.out.println("+----------------- MENU INICIAL -----------------+\n" +
+                System.out.println("\n+----------------- MENU INICIAL -----------------+\n" +
                         "| 1 - Log-in                                     |\n" +
                         "| 2 - Registar                                   |\n" +
                         "| 0 - Sair                                       |\n" +

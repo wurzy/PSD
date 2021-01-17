@@ -1,15 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="districts:jar2" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="24c55760-3597-4ce4-a165-e85f5369ad98" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/main/java/Client/ClientPrivateNotifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/main/java/Client/ClientPrivateNotifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/main/java/Client/ClientWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/main/java/Client/ClientWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../directory/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/district_manager.erl" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/district_manager.erl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/District/DistrictServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/District/DistrictServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/District/District.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/District/District.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/District/DistrictServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/District/DistrictServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/District/Notifier.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/District/Notifier.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Location$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Location$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Location$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Location$Builder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Location.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Location.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Login$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Login$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Login$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Login$Builder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Login.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Message$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Message$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Message$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Message$Builder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Message.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Message.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Notification$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Notification$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Notification$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Notification$Builder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Notification.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Notification.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsers$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsers$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsers$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsers$Builder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsers.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsers.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$NrPeopleReply$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$NrPeopleReply$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$NrPeopleReply$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$NrPeopleReply$Builder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$NrPeopleReply.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$NrPeopleReply.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$PrivateNotificationsPort$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$PrivateNotificationsPort$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$PrivateNotificationsPort$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$PrivateNotificationsPort$Builder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$PrivateNotificationsPort.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$PrivateNotificationsPort.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Register$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Register$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Register$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Register$Builder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Register.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Register.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Reply$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Reply$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Reply$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Reply$Builder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Reply.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Reply.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$SickPing$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$SickPing$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$SickPing$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$SickPing$Builder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$SickPing.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$SickPing.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Type$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Type$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Type.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Protos/Messages$Type.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/TestServer/FrontendSimulator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/TestServer/FrontendSimulator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/account_manager.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/account_manager.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/authenticator.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/authenticator.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_bind.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_cert.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_command.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_curve.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_curve_if.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_dealer.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_lb.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_lbs.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_pair.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_pattern.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_peer.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_protocol.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_pub.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_pull.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_push.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_rep.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_req.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_resource.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_router.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_socket.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_sub.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_subscriptions.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_sup.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_xpub.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_xsub.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/ebin/chumak_z85.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak.hrl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_bind.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_cert.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_command.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_curve.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_curve_if.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_dealer.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_lb.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_lbs.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_pair.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_pattern.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_peer.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_protocol.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_pub.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_pull.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_push.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_rep.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_req.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_resource.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_router.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_socket.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_sub.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_subscriptions.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_sup.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_xpub.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_xsub.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/chumak/src/chumak_z85.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/client_manager.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/client_manager.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/district_manager.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/district_manager.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/messages.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/messages.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/messages.hrl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/priv_notification_manager.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/priv_notification_manager.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/response_manager.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/response_manager.erl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/server.beam" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/server.erl" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,15 +256,15 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1610820947133" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../client" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
-  <component name="RunManager" selected="Application.DistrictServer">
+  <component name="RunManager" selected="Application.Broker">
     <configuration name="Broker" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="District.Broker" />
       <module name="districts" />

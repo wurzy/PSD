@@ -19,6 +19,7 @@ public class DistrictServer {
         pubPublic.connect("tcp://localhost:" + args[1]); // connect to broker
         pubPriv.connect("tcp://localhost:" + args[0]); // connect to private notif socket on frontend
         ServerSocket ss = new ServerSocket(Integer.parseInt(args[2]));
+        System.out.println("*** O servidor distrital de " + args[3] + " está ativo ***");
         Socket frontEndInfo = ss.accept();
         District d = new District(args[3]);
         Notifier notif = new Notifier(pubPublic,pubPriv,frontEndInfo,d);

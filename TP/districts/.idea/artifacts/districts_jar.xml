@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="districts:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/districts_jar</output-path>
+    <root id="archive" name="districts.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="districts" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/eu/neilalexander/jnacl/1.0.0/jnacl-1.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/zeromq/jeromq/0.5.2/jeromq-0.5.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/protobuf/protobuf-java/3.14.0/protobuf-java-3.14.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
