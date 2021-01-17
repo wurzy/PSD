@@ -7,6 +7,7 @@ make build
 ```
 \
 
+
 **First terminal:**
 
 Spawn broker process and districts' processes, all running in background.
