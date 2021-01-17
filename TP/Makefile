@@ -56,7 +56,10 @@ kill-broker:
 	kill -9 $$(lsof -t -i:8000)
 
 kill-districts:
-	for p in {8100..8117}; do kill -9 $(lsof -t -i:$p); done
+	for p in {8100..8117}; do kill -9 $$(lsof -t -i:$p); done
+
+kill-directory:
+	kill -9 $$(lsof -t -i:8080)
 
 
 clean:
