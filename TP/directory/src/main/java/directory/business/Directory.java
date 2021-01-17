@@ -97,12 +97,39 @@ public class Directory {
         return avg/this.districts.size();
     }
 
+    public void addConcentration(int id, PostConcentration pc) throws Exception{
+        District d = this.districts.get(id);
+        if (d==null) throw new Exception();
+        d.setConcentrationMax(new Point(pc.coordx,pc.coordy),pc.concentration);
+    }
+
     public LinkedHashMap<String,Double> getTop5Infected(){
         HashMap<String, Double> map = new HashMap<>();
         for(Map.Entry<Integer,District> dists: this.districts.entrySet()){
             District d = dists.getValue();
             testeInit(d);
             map.put(d.getName(),d.getRatio());
+        }
+        return map.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .limit(5)
+                .collect(
+                        Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new)
+                );
+    }
+
+    public LinkedHashMap<String,Integer> getTop5Concentration(){
+        HashMap<String,Integer> map = new HashMap<>();
+        HashMap<String,Integer> dist;
+        for(Map.Entry<Integer,District> dists: this.districts.entrySet()){
+            District d = dists.getValue();
+            dist = d.getConcentrationMax();
+            dist.forEach((key,value) -> {
+                if(!map.containsKey(key) || value > map.get(key)){
+                    map.put(key + "~" + d.getName(),value);
+                }
+            });
         }
         return map.entrySet()
                 .stream()

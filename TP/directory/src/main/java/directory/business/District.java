@@ -1,7 +1,5 @@
 package directory.business;
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 class Point {
@@ -26,6 +24,7 @@ public class District {
     private String name;
     private HashMap<String,ArrayList<Point>> users;
     private HashMap<String,Boolean> sick;
+    private HashMap<String,Integer> concentrationMax;
     private int total;
     private int infected;
 
@@ -33,6 +32,7 @@ public class District {
         this.name = name;
         this.users = new HashMap<>();
         this.sick = new HashMap<>();
+        this.concentrationMax = new HashMap<>();
         this.total = 0;
         this.infected = 0;
     }
@@ -194,15 +194,14 @@ public class District {
                 );
     }
 
-    private boolean wasInLocation(String user, String p){
-        return this.users.get(user)
-                .stream()
-                .anyMatch(p1 -> p1.toString().equals(p));
+    public void setConcentrationMax(Point p, int x){
+        if(this.concentrationMax.containsKey(p.toString()) && this.concentrationMax.get(p.toString()) > x){
+            return;
+        }
+        this.concentrationMax.put(p.toString(),x);
     }
 
-    public Point getCurrentLocation(String user){
-        ArrayList<Point> ps = this.users.get(user);
-        if(ps.isEmpty()) return null;
-        return ps.get(ps.size()-1);
+    public HashMap<String, Integer> getConcentrationMax() {
+        return concentrationMax;
     }
 }
