@@ -35,7 +35,7 @@ Starts frontend server, which connects to all district servers.
 Logger prints to terminal during run time.
 
 ```
-erl -pa frontend/ebin\
+erl -pa frontend/ebin
 server:start(12345,12346).
 ```
 
