@@ -2,8 +2,7 @@
 
 Build message protocols, Java .class files and Erlang .beam files:
 ```make build```
-
-
+\
 **First terminal**
 
 Spawn broker process and districts' processes, all running in background.
