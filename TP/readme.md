@@ -50,5 +50,6 @@ make run-client PORT=<PRIVATE_SOCKET_PORT>
 
 
 **Notes:**
+* run ```make kill``` to kill all background processes after execution.
 * unexpected closing of a district server will crash all connected clients.
 * unexpected closing of frontend server will crash all district servers.
