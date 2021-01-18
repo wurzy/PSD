@@ -19,7 +19,7 @@ build-frontend:
 	erlc -o frontend/ebin frontend/src/*.erl
 
 build-directory:
-	javac -cp dependencies/jar/directory.jar directory/src/main/java/Directory/DirectoryApp.java -d exec/
+	javac -cp dependencies/jar/directory.jar directory/src/main/java/Directory/Directory.java -d exec/
 
 
 run-broker:
@@ -49,14 +49,16 @@ run-client:
 	java -cp .:dependencies/jar/client.jar Client/Client 12345 $(PORT) 8000
 
 run-directory:
-	java -cp .:dependencies/jar/directory.jar Directory/DirectoryApp server directory/config.yml &
+	java -cp .:dependencies/jar/directory.jar Directory/Directory server directory/config.yml &
 
+
+kill: kill-directory kill-districts kill-broker
 
 kill-broker:
 	kill -9 $$(lsof -t -i:8000)
 
 kill-districts:
-	for p in {8100..8117}; do kill -9 $$(lsof -t -i:$p); done
+	./kill_districts
 
 kill-directory:
 	kill -9 $$(lsof -t -i:8080)

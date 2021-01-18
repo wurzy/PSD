@@ -10,167 +10,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="24c55760-3597-4ce4-a165-e85f5369ad98" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../directory/.idea/artifacts/directory_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../directory/.idea/directory.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Apontamentos.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/../Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Untitled.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backuppsd.drawio" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/.idea/artifacts/client_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/artifacts/client_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/main/java/Client/ClientWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/src/main/java/Client/ClientWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/main/java/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/main/java/TestServer/Handler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/src/main/java/TestServer/Server.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/Client.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/ClientNotifier.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/ClientPrivateNotifier.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/ClientWriter$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/ClientWriter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/Menu$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/Menu$State.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/Menu.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/Notifications.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/Point.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Client/Randomizer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/MessageBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Location$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Location$Builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Location.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$LocationOrBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Login$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Login$Builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Login.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$LoginOrBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Message$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Message$Builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Message.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$MessageOrBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Notification$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Notification$Builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Notification.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$NotificationOrBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$NotifyUsers$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$NotifyUsers$Builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$NotifyUsers.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$NotifyUsersOrBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$NrPeopleReply$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$NrPeopleReply$Builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$NrPeopleReply.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$NrPeopleReplyOrBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$PrivateNotificationsPort$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$PrivateNotificationsPort$Builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$PrivateNotificationsPort.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$PrivateNotificationsPortOrBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Register$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Register$Builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Register.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$RegisterOrBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Reply$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Reply$Builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Reply.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$ReplyOrBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$SickPing$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$SickPing$Builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$SickPing.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$SickPingOrBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Type$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages$Type.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/Protos/Messages.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/TestServer/Handler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/classes/TestServer/Server.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../client/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dependencies/jar/broker.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/jar/broker.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dependencies/jar/client.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/jar/client.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dependencies/jar/districtServer.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/jar/districtServer.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/chumak/CONTRIBUTING.md" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/chumak/CONTRIBUTING.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/chumak/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/chumak/LICENSE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/chumak/_build/default/lib/chumak/.rebar3/rebar_compiler_erl/source.dag" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/chumak/_build/default/lib/chumak/.rebar3/rebar_compiler_erl/source.dag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/chumak/docs/architecture.md" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/chumak/docs/architecture.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/chumak/python-test/client.key" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/chumak/python-test/client.key" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/chumak/python-test/iron_house_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/chumak/python-test/iron_house_client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/chumak/python-test/iron_house_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/chumak/python-test/iron_house_server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/chumak/python-test/server.key" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/chumak/python-test/server.key" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/chumak/python-test/stone_house_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/chumak/python-test/stone_house_client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/chumak/python-test/stone_house_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/chumak/python-test/stone_house_server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/chumak/rebar.config.script" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/chumak/rebar.config.script" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/chumak/rebar3" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/chumak/rebar3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/gpb/benchmarks/proto-bench" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/gpb/benchmarks/proto-bench" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/gpb/bin/protoc-erl" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/gpb/bin/protoc-erl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/gpb/build/compile_descriptor" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/gpb/build/compile_descriptor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/gpb/build/mk_version_hrl" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/gpb/build/mk_version_hrl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/gpb/build/prepend_edoc_autogenerated" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/gpb/build/prepend_edoc_autogenerated" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/gpb/helpers/export-from-git" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/gpb/helpers/export-from-git" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/gpb/helpers/git-hooks/pre-push" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/gpb/helpers/git-hooks/pre-push" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/gpb/helpers/import-protobuf-protos" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/gpb/helpers/import-protobuf-protos" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/gpb/helpers/install-git-hooks" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/gpb/helpers/install-git-hooks" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/gpb/helpers/package-for-hex.pm" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/gpb/helpers/package-for-hex.pm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/gpb/helpers/send-pr-to-rebar3-gpb-plugin" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/gpb/helpers/send-pr-to-rebar3-gpb-plugin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/gpb/helpers/tag-next-minor-vsn" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/gpb/helpers/tag-next-minor-vsn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/gpb/helpers/upload-hexdoc" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/gpb/helpers/upload-hexdoc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dependencies/gpb/helpers/xsillyed" beforeDir="false" afterPath="$PROJECT_DIR$/../dependencies/gpb/helpers/xsillyed" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../directory/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../directory/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../directory/target/classes/directory/DirectoryApp.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../directory/target/classes/directory/DirectoryConfiguration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../directory/target/classes/directory/business/Directory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../directory/target/classes/directory/business/District.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../directory/target/classes/directory/business/Point.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../directory/target/classes/directory/representations/AvgRepresentation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../directory/target/classes/directory/representations/InfectedRepresentation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../directory/target/classes/directory/representations/Top5InfectedRepresentation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../directory/target/classes/directory/representations/Top5LocationsRepresentation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../directory/target/classes/directory/representations/UsersRepresentation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../directory/target/classes/directory/resources/DirectoryResource$PostConcentration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../directory/target/classes/directory/resources/DirectoryResource$PostUser.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../directory/target/classes/directory/resources/DirectoryResource.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/districts_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/districts_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/districts_jar2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Broker.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/District/Broker.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Protos/Messages.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Protos/Messages.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/TestServer/FrontendSimulator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/TestServer/PushSimulator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/TestServer/Test.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Directory/DirectoryUpdater.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Directory/PostConcentration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Directory/PostUser.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/District/Broker.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/District/District.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/District/DistrictServer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/District/Notifier.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/District/Point.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/MessageBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Location$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Location$Builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Location.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$LocationOrBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Login$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Login$Builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Login.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$LoginOrBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Message$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Message$Builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Message.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$MessageOrBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Notification$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Notification$Builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Notification.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$NotificationOrBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsers$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsers$Builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsers.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$NotifyUsersOrBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$NrPeopleReply$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$NrPeopleReply$Builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$NrPeopleReply.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$NrPeopleReplyOrBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$PrivateNotificationsPort$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$PrivateNotificationsPort$Builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$PrivateNotificationsPort.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$PrivateNotificationsPortOrBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Register$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Register$Builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Register.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$RegisterOrBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Reply$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Reply$Builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Reply.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$ReplyOrBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$SickPing$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$SickPing$Builder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$SickPing.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$SickPingOrBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Type$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages$Type.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Protos/Messages.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/TestServer/FrontendSimulator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/TestServer/PushSimulator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/TestServer/Test.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../doodling.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../exec/District/Broker.class" beforeDir="false" afterPath="$PROJECT_DIR$/../exec/District/Broker.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../exec/District/DistrictServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../exec/District/DistrictServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../messages.proto" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -12,18 +12,10 @@ import java.util.*;
 
 @Path("api")
 public class DirectoryResource {
-    private Directory diretorio;
+    private DirectoryClass diretorio;
 
-    public DirectoryResource(Directory diretorio){
+    public DirectoryResource(DirectoryClass diretorio){
         this.diretorio = diretorio;
-    }
-
-    @GET
-    @Path("/teste")
-    public void teste() {
-        synchronized (this){
-            diretorio.getContactedInfectedAvg();
-        }
     }
 
     @GET
