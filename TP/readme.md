@@ -50,7 +50,7 @@ make run-client PORT=<PRIVATE_SOCKET_PORT>
 
 
 **Notes:**
-* need to give permissions to kill_districts bash script to run it: ```chmod +x kill_districts```
+* need to give permissions to kill_districts bash script to run it: ```chmod +x kill_districts```.
 * run ```make kill``` to kill all background processes after execution.
 * ```make run-directory``` is not working, run directory directly from IntelliJ (or similar program) instead.
 * unexpected closing of a district server will crash all connected clients.
