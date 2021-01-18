@@ -19,6 +19,8 @@ public class Notifications {
 
     public synchronized String getDistrictByNumber(String s) { return districts.get(Integer.parseInt(s)-1); }
 
+    public synchronized boolean isEmptySubscriptions() { return this.subscriptions.size() == 0; }
+
     public synchronized void add(String s){
         notifications.add(s);
     }
@@ -36,7 +38,7 @@ public class Notifications {
     }
 
     public synchronized boolean canAdd(){
-        return this.subscriptions.size() <= 3;
+        return this.subscriptions.size() < 3;
     }
 
     public synchronized void printSubscribed(){

@@ -18,7 +18,7 @@ public class Client {
         Menu m = new Menu();
         Notifications notifications = new Notifications();
 
-        ClientWriter cw = new ClientWriter(s,ss,sub,notifications,m,1,privatePort);
+        ClientWriter cw = new ClientWriter(s,ss,sub,notifications,m,3,privatePort);
         ClientNotifier cr = new ClientNotifier(notifications,sub);
 
         new Thread(cw).start();

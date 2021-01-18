@@ -135,7 +135,7 @@ public class ClientWriter implements Runnable{
 
     private String registerForceValid(){
         int district = -1;
-        while(district > 18 || district < 0){
+        while(district > 18 || district < 1){
             district = menu.readInt("Distrito: ");
         }
         return String.valueOf(district);
@@ -188,7 +188,7 @@ public class ClientWriter implements Runnable{
     private void subscribe(){
         if(notif.canAdd()){
             notif.printChoices();
-            String dist = menu.readString("Insira o distrito que pretende subscrever: ");
+            String dist = registerForceValid();
             if(notif.maybeAdd(dist)) {
                 System.out.println("Adicionado o distrito " + notif.getDistrictByNumber(dist) + " às subscrições.");
 
@@ -207,17 +207,22 @@ public class ClientWriter implements Runnable{
     }
 
     private void unsubscribe(){
-        System.out.println("Distritos subscritos: ");
-        notif.printSubscribed();
-        String dist = menu.readString("Insira o distrito que pretende remover: ");
-        if(notif.maybeRemove(dist)){
-            System.out.println("Removido o distrito " + notif.getDistrictByNumber(dist) + " das subscrições.");
-            sub.unsubscribe("[" + atomify(notif.getDistrictByNumber(dist)) + "]");
+        if (notif.isEmptySubscriptions()) {
+            System.out.println("Não está subscrito a nenhum distrito!");
+            softConfirm();
         }
         else {
-            System.out.println("O distrito " + notif.getDistrictByNumber(dist) + " não está subscrito.");
+            System.out.println("Distritos subscritos: ");
+            notif.printSubscribed();
+            String dist = registerForceValid();
+            if (notif.maybeRemove(dist)) {
+                System.out.println("Removido o distrito " + notif.getDistrictByNumber(dist) + " das subscrições.");
+                sub.unsubscribe("[" + atomify(notif.getDistrictByNumber(dist)) + "]");
+            } else {
+                System.out.println("O distrito " + notif.getDistrictByNumber(dist) + " não está subscrito.");
+            }
+            softConfirm();
         }
-        softConfirm();
         menu.setState(Menu.State.LOGGED);
         showMenu();
     }
